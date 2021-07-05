@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    app:behavior_hideable="true"
+    app:layout_behavior="@string/view_pager_bottom_sheet_behavior">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="-30dp"
+            android:layout_marginTop="30dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="60dp"
+                    android:layout_height="5dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="12dp"
+                    android:background="@drawable/slide_indicator" />
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:nestedScrollingEnabled="false">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="60dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="30dp"
+                            android:fontFamily="@font/mitr_regular"
+                            android:text="Tambah Akun"
+                            android:textColor="#030112"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="65dp"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="60dp">
+                            <EditText
+                                android:id="@+id/email"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="12dp"
+                                android:background="@drawable/layouting"
+                                android:fontFamily="@font/mitr_regular"
+                                android:hint="contoh@mail.com/088828xxxxxx"
+                                android:inputType="textCapWords"
+                                android:textSize="16sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:background="@drawable/background_label"
+                                android:fontFamily="@font/mitr_regular"
+                                android:text="Email/Nomor Hp"
+                                android:textColor="#1b1b1b"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="65dp"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="24dp">
+                            <EditText
+                                android:id="@+id/username"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="12dp"
+                                android:background="@drawable/layouting"
+                                android:fontFamily="@font/mitr_regular"
+                                android:hint="Nama Pengguna"
+                                android:inputType="textCapWords"
+                                android:textSize="16sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:background="@drawable/background_label"
+                                android:fontFamily="@font/mitr_regular"
+                                android:text="Username"
+                                android:textColor="#1b1b1b"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="65dp"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="24dp">
+                            <EditText
+                                android:id="@+id/nama"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="12dp"
+                                android:background="@drawable/layouting"
+                                android:fontFamily="@font/mitr_regular"
+                                android:hint="*********"
+                                android:inputType="textCapWords"
+                                android:textSize="16sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:background="@drawable/background_label"
+                                android:fontFamily="@font/mitr_regular"
+                                android:text="Password"
+                                android:textColor="#1b1b1b"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+                        <RadioGroup
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="24dp"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/aa_t"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/radio_background"
+                                android:button="@android:color/transparent"
+                                android:fontFamily="@font/mitr_regular"
+                                android:padding="12dp"
+                                android:text="Petugas"
+                                android:gravity="center"
+                                android:textColor="@drawable/radio_text"
+                                android:textSize="14sp" />
+
+                            <RadioButton
+                                android:id="@+id/aa_f"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/radio_background"
+                                android:button="@android:color/transparent"
+                                android:fontFamily="@font/mitr_regular"
+                                android:padding="12dp"
+                                android:text="Orang Tua"
+                                android:gravity="center"
+                                android:textColor="@drawable/radio_text"
+                                android:textSize="14sp"/>
+                        </RadioGroup>
+                        <Button
+                            android:id="@+id/btn_login"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginHorizontal="30dp"
+                            android:background="@drawable/button_background"
+                            android:text="Tambah Pengguna"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            android:fontFamily="@font/mitr_regular"
+                            android:textSize="18sp"/>
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
