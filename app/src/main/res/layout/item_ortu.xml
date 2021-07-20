@@ -17,7 +17,7 @@
             <LinearLayout
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
-                android:background="#E68A4C"/>
+                android:background="#7676D5"/>
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,10 +27,10 @@
             android:orientation="vertical"
             android:gravity="center">
             <TextView
-                android:id="@+id/email"
+                android:id="@+id/userid"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="faaadeveloper@gmail.com"
+                android:text="082269212156"
                 android:textColor="#A1A1A1"
                 android:textSize="14sp"
                 android:fontFamily="@font/mitr_regular"
@@ -46,10 +46,10 @@
                 android:textSize="16sp"
                 android:fontFamily="@font/mitr_regular"/>
             <TextView
-                android:id="@+id/role"
+                android:id="@+id/posyandu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Orang Tua"
+                android:text="Posyandu 02 RT 03"
                 android:textColor="#A1A1A1"
                 android:textSize="14sp"
                 android:fontFamily="@font/mitr_regular"

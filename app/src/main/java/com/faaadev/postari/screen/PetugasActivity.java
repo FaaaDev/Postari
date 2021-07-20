@@ -9,13 +9,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import com.faaadev.postari.DataPosyanduActivity;
 import com.faaadev.postari.R;
-import com.faaadev.postari.UserAccountActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class PetugasActivity extends AppCompatActivity {
 
-    private CardView menu1;
+    private CardView menu1, menu2, menu3, menu4, menu5, menu6;
     private FloatingActionButton fab_live_chat;
 
     @Override
@@ -40,24 +40,22 @@ public class PetugasActivity extends AppCompatActivity {
 
     private void _init(){
         menu1 = findViewById(R.id.menu1);
+        menu2 = findViewById(R.id.menu2);
+        menu6 = findViewById(R.id.menu6);
         fab_live_chat = findViewById(R.id.fab_live_chat);
 
         _implement();
     }
 
     private void _implement(){
-        menu1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(PetugasActivity.this, UserAccountActivity.class));
-            }
-        });
+        menu1.setOnClickListener(v -> startActivity(new Intent(PetugasActivity.this, UserAccountActivity.class)));
 
-        fab_live_chat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        menu2.setOnClickListener(v -> startActivity(new Intent(PetugasActivity.this, DataOrtuActivity.class)));
 
-            }
+        menu6.setOnClickListener(v -> startActivity(new Intent(PetugasActivity.this, DataPosyanduActivity.class)));
+
+        fab_live_chat.setOnClickListener(v -> {
+
         });
     }
 }

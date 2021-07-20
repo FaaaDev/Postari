@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.DataOrtuActivity"
+    tools:context=".DataPosyanduActivity"
     android:id="@+id/container"
     android:background="#ffffff">
-
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -22,7 +21,7 @@
             android:layout_centerInParent="true"
             android:layout_marginHorizontal="30dp"
             android:fontFamily="@font/mitr_regular"
-            android:text="Data Orang Tua"
+            android:text="Data Posyandu"
             android:textColor="#030112"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -91,17 +90,48 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="30dp"
+                android:fontFamily="@font/mitr_regular"
+                android:text="Jadwal Posyandu"
+                android:textColor="#030112"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                tools:itemCount="2"
+                tools:listitem="@layout/item_ortu" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginHorizontal="30dp"
+                android:fontFamily="@font/mitr_regular"
+                android:text="Lokasi Posyandu"
+                android:textColor="#030112"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 android:layout_marginTop="30dp"
-                tools:itemCount="10"
+                android:layout_marginBottom="20dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:itemCount="5"
                 tools:listitem="@layout/item_ortu" />
         </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_ortu"
+        android:id="@+id/fab_add_data"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -113,6 +143,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:targetApi="lollipop" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#417E88">
+            android:background="#03A9F4">
             <androidx.cardview.widget.CardView
                 android:layout_width="500dp"
                 android:layout_height="500dp"
@@ -30,20 +30,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#55909A"/>
+                    android:background="#39C0FD"/>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_marginLeft="-150dp"
                 android:layout_marginTop="200dp"
-                app:cardCornerRadius="250dp"
+                app:cardCornerRadius="150dp"
                 app:cardElevation="0dp"
                 android:layout_alignParentLeft="true">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#2A7685"/>
+                    android:background="#0995D5"/>
             </androidx.cardview.widget.CardView>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,8 +69,8 @@
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/edit_text_auth_background"
                     android:hint="Email/Nomor HP"
-                    android:textColorHint="#B5B5B5"
-                    android:textColor="#ffffff"
+                    android:textColorHint="#6E6E6E"
+                    android:textColor="#000000"
                     android:inputType="textEmailAddress"
                     android:paddingHorizontal="20dp"
                     android:fontFamily="@font/mitr_regular"/>
@@ -81,8 +81,8 @@
                     android:layout_marginBottom="42dp"
                     android:background="@drawable/edit_text_auth_background"
                     android:hint="Password"
-                    android:textColorHint="#B5B5B5"
-                    android:textColor="#ffffff"
+                    android:textColorHint="#6E6E6E"
+                    android:textColor="#000000"
                     android:inputType="textPassword"
                     android:paddingHorizontal="20dp"
                     android:fontFamily="@font/mitr_regular"/>

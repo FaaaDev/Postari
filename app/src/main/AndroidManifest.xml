@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Postari">
-        <activity android:name=".UserAccountActivity"></activity>
+        <activity android:name=".DataPosyanduActivity"></activity>
+        <activity android:name=".screen.UserAccountActivity" />
         <activity android:name=".screen.DataOrtuActivity" />
         <activity android:name=".screen.PetugasActivity" />
         <activity android:name=".screen.LoginActivity" />

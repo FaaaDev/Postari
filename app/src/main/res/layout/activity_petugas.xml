@@ -309,6 +309,7 @@
                     tools:targetApi="lollipop" />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/menu3"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="25dp"
@@ -387,6 +388,7 @@
                     tools:targetApi="lollipop" />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/menu4"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="25dp"
@@ -465,6 +467,7 @@
                     tools:targetApi="lollipop" />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/menu5"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="25dp"
@@ -545,6 +548,7 @@
                     tools:targetApi="lollipop" />
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:id="@+id/menu6"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 app:cardCornerRadius="25dp"

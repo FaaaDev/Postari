@@ -7,16 +7,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import com.faaadev.postari.screen.DismisListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class UserAccountActivity extends AppCompatActivity {
+public class DataPosyanduActivity extends AppCompatActivity implements DismisListener {
 
-    private FloatingActionButton fab_add_user;
+    private FloatingActionButton add_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_account);
+        setContentView(R.layout.activity_data_posyandu);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View main = findViewById(R.id.container);
@@ -34,17 +35,19 @@ public class UserAccountActivity extends AppCompatActivity {
     }
 
     private void _init(){
-        fab_add_user = findViewById(R.id.fab_add_user);
+        add_data = findViewById(R.id.fab_add_data);
         _implement();
     }
 
     private void _implement(){
-        fab_add_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddUserFragment addUserFragment = new AddUserFragment();
-                addUserFragment.show(getSupportFragmentManager(), addUserFragment.getTag());
-            }
+        add_data.setOnClickListener(v->{
+            AddPosyanduFragment addPosyanduFragment = new AddPosyanduFragment();
+            addPosyanduFragment.show(getSupportFragmentManager(), addPosyanduFragment.getTag());
         });
+    }
+
+    @Override
+    public void onDismisSheet() {
+        System.out.println("Dismis");
     }
 }
