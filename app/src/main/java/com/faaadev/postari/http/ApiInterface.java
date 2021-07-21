@@ -35,4 +35,13 @@ public interface ApiInterface {
 
     @GET("get-lokasi-list.php")
     Call<LokasiList> getLokasiList();
+
+    @FormUrlEncoded
+    @POST("add-ortu.php")
+    Call<BasicResponse> addOrtu(@Field("user_id") String user_id,
+                                @Field("nama_ibu") String mom_name,
+                                @Field("nama_suami") String dad_name,
+                                @Field("alamat") String alamat,
+                                @Field("posyandu") String posyandu,
+                                @Field("layanan") String layanan);
 }

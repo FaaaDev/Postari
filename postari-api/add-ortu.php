@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             mysqli_close($conn);
         }
     } else {
-        $result["success"] = false;
+        $result["status"] = false;
         $result["message"] = "Gagal Menambah Data";
 
         echo json_encode($result);
