@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import com.faaadev.postari.DataPosyanduActivity;
 import com.faaadev.postari.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

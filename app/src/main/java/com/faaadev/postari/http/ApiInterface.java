@@ -2,6 +2,7 @@ package com.faaadev.postari.http;
 
 import com.faaadev.postari.service.Auth;
 import com.faaadev.postari.service.BasicResponse;
+import com.faaadev.postari.service.LokasiList;
 import com.faaadev.postari.service.UserList;
 
 import retrofit2.Call;
@@ -28,7 +29,10 @@ public interface ApiInterface {
                                 @Field("image") String image);
 
     @FormUrlEncoded
-    @POST("auth.php")
+    @POST("add-lokasi.php")
     Call<BasicResponse> addLoc(@Field("nama_posyandu") String name,
                       @Field("alamat") String alamat);
+
+    @GET("get-lokasi-list.php")
+    Call<LokasiList> getLokasiList();
 }

@@ -1,14 +1,14 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.faaadev.postari.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 

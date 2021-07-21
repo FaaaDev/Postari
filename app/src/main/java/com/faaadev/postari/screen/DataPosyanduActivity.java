@@ -10,11 +10,11 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
-import com.faaadev.postari.adapter.UserAdapter;
+import com.faaadev.postari.adapter.LokasiAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
-import com.faaadev.postari.model.User;
-import com.faaadev.postari.service.UserList;
+import com.faaadev.postari.model.Lokasi;
+import com.faaadev.postari.service.LokasiList;
 import com.faaadev.postari.widget.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -25,19 +25,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserAccountActivity extends AppCompatActivity implements AddUserFragment.DismisListener {
+public class DataPosyanduActivity extends AppCompatActivity implements DismisListener {
 
-    private FloatingActionButton fab_add_user;
+    private FloatingActionButton add_data;
+    private RecyclerView rv_lokasi;
     private ApiInterface apiInterface;
-    private RecyclerView rv_user;
-    private List<User> list;
-    private UserAdapter userAdapter;
-
+    private List<Lokasi> lokasi;
+    private LokasiAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_account);
+        setContentView(R.layout.activity_data_posyandu);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View main = findViewById(R.id.container);
@@ -55,56 +54,50 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
     }
 
     private void _init(){
-        fab_add_user = findViewById(R.id.fab_add_user);
-        rv_user = findViewById(R.id.rv_user);
-
+        add_data = findViewById(R.id.fab_add_data);
+        rv_lokasi = findViewById(R.id.rv_lokasi);
         _implement();
     }
 
     private void _implement(){
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        fab_add_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddUserFragment addUserFragment = new AddUserFragment();
-                addUserFragment.show(getSupportFragmentManager(), addUserFragment.getTag());
-
-            }
+        add_data.setOnClickListener(v->{
+            AddPosyanduFragment addPosyanduFragment = new AddPosyanduFragment();
+            addPosyanduFragment.show(getSupportFragmentManager(), addPosyanduFragment.getTag());
         });
 
-        getUserList();
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        getLokasiList();
     }
 
-    private void getUserList(){
-        System.out.println("REFRESHED");
+    private void getLokasiList(){
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.startLoading();
-        list = new ArrayList<>();
-        Call<UserList> userListCall = apiInterface.getUserList();
-        userListCall.enqueue(new Callback<UserList>() {
+        lokasi = new ArrayList<>();
+
+        Call<LokasiList> getLokasi = apiInterface.getLokasiList();
+        getLokasi.enqueue(new Callback<LokasiList>() {
             @Override
-            public void onResponse(Call<UserList> call, Response<UserList> response) {
+            public void onResponse(Call<LokasiList> call, Response<LokasiList> response) {
                 loadingDialog.dismis();
                 if (response.body().getStatus().equals("true")){
-                    list = response.body().getUser();
+                    lokasi = response.body().getLokasi();
 
-                    userAdapter = new UserAdapter(getApplicationContext(), list);
-                    rv_user.setAdapter(userAdapter);
+                    adapter = new LokasiAdapter(getApplicationContext(), lokasi);
+                    rv_lokasi.setAdapter(adapter);
                 }
             }
 
             @Override
-            public void onFailure(Call<UserList> call, Throwable t) {
+            public void onFailure(Call<LokasiList> call, Throwable t) {
                 loadingDialog.dismis();
                 Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
     }
 
-
     @Override
     public void onDismisSheet() {
-        getUserList();
+        getLokasiList();
     }
 }

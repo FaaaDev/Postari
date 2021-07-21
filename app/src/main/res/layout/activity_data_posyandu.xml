@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DataPosyanduActivity"
+    tools:context=".screen.DataPosyanduActivity"
     android:id="@+id/container"
     android:background="#ffffff">
 
@@ -103,11 +103,18 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="20dp"/>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:itemCount="2"
-                tools:listitem="@layout/item_ortu" />
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_lokasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="2"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:nestedScrollingEnabled="false"
+                    tools:listitem="@layout/item_lokasi" />
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
