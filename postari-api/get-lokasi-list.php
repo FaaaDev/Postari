@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
     } else {
         $data['status'] = false;
-        $data['data'] = "Data not Found";
+        $data['data'][] = "";
     }
 
     print_r(json_encode($data));

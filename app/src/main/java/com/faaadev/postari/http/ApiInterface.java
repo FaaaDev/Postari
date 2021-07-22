@@ -3,6 +3,7 @@ package com.faaadev.postari.http;
 import com.faaadev.postari.service.Auth;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.service.LokasiList;
+import com.faaadev.postari.service.OrtuList;
 import com.faaadev.postari.service.UserList;
 
 import retrofit2.Call;
@@ -44,4 +45,7 @@ public interface ApiInterface {
                                 @Field("alamat") String alamat,
                                 @Field("posyandu") String posyandu,
                                 @Field("layanan") String layanan);
+
+    @GET("get-ortu-list.php")
+    Call<OrtuList> getOrtuList();
 }

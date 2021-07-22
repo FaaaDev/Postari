@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 
     require_once('connection.php');
 
-    $sql = "SELECT * FROM orang_tua";
+    $sql = "SELECT a.`user_id`,a.`nama_ibu`,a.`nama_suami`,a.`alamat`,b.`nama_posyandu` FROM orang_tua a INNER JOIN lokasi_posyandu b ON a.`posyandu` = b.`id`";
 
     $query = mysqli_query($conn,$sql);
 
@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
         }
     } else {
         $data['status'] = false;
-        $data['data'] = "Data not Found";
+        $data['data'][] = "";
     }
 
     print_r(json_encode($data));

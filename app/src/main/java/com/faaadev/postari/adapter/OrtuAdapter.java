@@ -10,15 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.model.Ortu;
 import com.faaadev.postari.model.User;
 
 import java.util.List;
 
 public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> {
     private Context mContext;
-    private List<User> mData;
+    private List<Ortu> mData;
 
-    public OrtuAdapter(Context mContext, List<User> mData) {
+    public OrtuAdapter(Context mContext, List<Ortu> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
@@ -36,9 +37,10 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        User data = mData.get(position);
+        Ortu data = mData.get(position);
         holder.userid.setText(data.getUser_id());
-        holder.username.setText(data.getUsername());
+        holder.username.setText("Bp. "+data.getDad_name()+" & Ibu "+data.getMom_name());
+        holder.posyandu.setText(data.getPosyandu());
     }
 
     @Override

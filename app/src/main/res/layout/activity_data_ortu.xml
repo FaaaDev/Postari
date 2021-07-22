@@ -91,12 +91,20 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="30dp"
-                tools:itemCount="10"
-                tools:listitem="@layout/item_ortu" />
+                android:layout_height="wrap_content">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_ortu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    tools:itemCount="10"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_ortu"
+                    android:overScrollMode="never"/>
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 

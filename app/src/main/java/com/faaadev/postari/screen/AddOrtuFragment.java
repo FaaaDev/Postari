@@ -1,8 +1,11 @@
 package com.faaadev.postari.screen;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
@@ -47,6 +50,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
     private EditText no_hp, mom_name, dad_name, alamat;
     private String layanan;
     private CheckBox cb1, cb2, cb3;
+    DismisListener listener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -206,5 +210,22 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
                 Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (DismisListener) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString()+"Must implement this");
+        }
+
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        listener.onDismisSheet();
     }
 }
