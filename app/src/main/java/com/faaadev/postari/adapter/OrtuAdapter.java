@@ -1,14 +1,17 @@
 package com.faaadev.postari.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DetailOrtuActivity;
 import com.faaadev.postari.R;
 import com.faaadev.postari.model.Ortu;
 import com.faaadev.postari.model.User;
@@ -41,6 +44,9 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
         holder.userid.setText(data.getUser_id());
         holder.username.setText("Bp. "+data.getDad_name()+" & Ibu "+data.getMom_name());
         holder.posyandu.setText(data.getPosyandu());
+        holder.card.setOnClickListener(v -> {
+            mContext.startActivity(new Intent(mContext, DetailOrtuActivity.class));
+        });
     }
 
     @Override
@@ -50,6 +56,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView userid, username, posyandu;
+        CardView card;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +64,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
             userid = itemView.findViewById(R.id.userid);
             username = itemView.findViewById(R.id.username);
             posyandu = itemView.findViewById(R.id.posyandu);
+            card = itemView.findViewById(R.id.card);
         }
     }
 }
