@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailOrtuActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginHorizontal="30dp"
+            android:fontFamily="@font/mitr_regular"
+            android:text="Data Orang Tua"
+            android:textColor="#030112"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="40dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Suami"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textStyle="bold"
+                    android:textColor="#030112"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Suami"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textColor="#606060"
+                    android:textSize="16sp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#A5A5A5"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Istri"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textStyle="bold"
+                    android:textColor="#030112"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Istri"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textColor="#606060"
+                    android:textSize="16sp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#A5A5A5"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi Posyandu"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textStyle="bold"
+                    android:textColor="#030112"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lokasi Posyandu"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textColor="#606060"
+                    android:textSize="16sp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#A5A5A5"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Rumah"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textStyle="bold"
+                    android:textColor="#030112"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat Rumah"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textColor="#606060"
+                    android:textSize="16sp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#A5A5A5"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Layanan Posyandu"
+                    android:fontFamily="@font/mitr_regular"
+                    android:textStyle="bold"
+                    android:textColor="#030112"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="20dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#A5A5A5"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginHorizontal="10dp"/>
+            </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_ortu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="30dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:backgroundTint="#ED7878"
+        android:src="@drawable/ic_round_post_add_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:targetApi="lollipop" />
+</androidx.constraintlayout.widget.ConstraintLayout>
