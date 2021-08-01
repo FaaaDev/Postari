@@ -2,7 +2,9 @@ package com.faaadev.postari.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Ortu {
+import java.io.Serializable;
+
+public class Ortu implements Serializable {
     @SerializedName("user_id")
     private String user_id;
     @SerializedName("nama_ibu")

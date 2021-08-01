@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Postari">
-        <activity android:name=".DetailOrtuActivity"></activity>
+        <activity android:name=".screen.DetailOrtuActivity"></activity>
         <activity android:name=".screen.DataPosyanduActivity" />
         <activity android:name=".screen.UserAccountActivity" />
         <activity android:name=".screen.DataOrtuActivity" />

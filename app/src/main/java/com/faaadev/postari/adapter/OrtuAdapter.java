@@ -11,10 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.faaadev.postari.DetailOrtuActivity;
+import com.faaadev.postari.screen.DetailOrtuActivity;
 import com.faaadev.postari.R;
 import com.faaadev.postari.model.Ortu;
-import com.faaadev.postari.model.User;
 
 import java.util.List;
 
@@ -45,7 +44,9 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
         holder.username.setText("Bp. "+data.getDad_name()+" & Ibu "+data.getMom_name());
         holder.posyandu.setText(data.getPosyandu());
         holder.card.setOnClickListener(v -> {
-            mContext.startActivity(new Intent(mContext, DetailOrtuActivity.class));
+            Intent i = new Intent(mContext, DetailOrtuActivity.class);
+            i.putExtra("ortu", data);
+            mContext.startActivity(i);
         });
     }
 
