@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#7676D5"
+            android:paddingHorizontal="30dp"
+            android:paddingVertical="10dp">
+            <TextView
+                android:id="@+id/layanan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Layanan"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/mitr_regular"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

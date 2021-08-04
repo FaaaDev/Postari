@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.DetailOrtuActivity">
+    tools:context=".screen.DetailOrtuActivity"
+    android:id="@+id/container"
+    android:background="#ffffff">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -164,39 +166,80 @@
                     android:layout_marginHorizontal="10dp"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/detail_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Layanan Posyandu"
-                    android:fontFamily="@font/mitr_regular"
-                    android:textStyle="bold"
-                    android:textColor="#030112"
-                    android:textSize="16sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="20dp"/>
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"/>
+                android:orientation="vertical"
+                android:visibility="visible">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#A5A5A5"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="10dp"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/layanan_container">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Layanan Posyandu"
+                        android:fontFamily="@font/mitr_regular"
+                        android:textStyle="bold"
+                        android:textColor="#030112"
+                        android:textSize="16sp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginHorizontal="20dp"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_layanan"
+                        android:overScrollMode="never"
+                        android:scrollbars="none"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="10dp"
+                        android:clipToPadding="false"
+                        tools:listitem="@layout/item_layanan"
+                        tools:itemCount="3"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#A5A5A5"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginHorizontal="10dp"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_anak_ortu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingHorizontal="10dp"
+                        android:paddingBottom="40dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_anak_ortu" />
+                </RelativeLayout>
             </LinearLayout>
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"/>
         </LinearLayout>
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_ortu"
+        android:id="@+id/fab_edit_ortu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="10dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:backgroundTint="#ED7878"
+        android:src="@drawable/ic_round_post_add_24"
+        app:layout_constraintBottom_toTopOf="@id/fab_add_anak"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:targetApi="lollipop" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_add_anak"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"

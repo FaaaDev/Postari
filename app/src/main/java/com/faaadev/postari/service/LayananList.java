@@ -1,17 +1,15 @@
 package com.faaadev.postari.service;
 
-import com.faaadev.postari.model.Ortu;
-import com.faaadev.postari.model.User;
-import com.google.gson.JsonArray;
+import com.faaadev.postari.model.Layanan;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class OrtuList {
+public class LayananList {
     @SerializedName("status")
     boolean success;
     @SerializedName("data")
-    List<Ortu> ortu;
+    List<Layanan> layanan;
 
     public boolean isSuccess() {
         return success;
@@ -21,11 +19,11 @@ public class OrtuList {
         this.success = success;
     }
 
-    public List<Ortu> getOrtu() {
-        return ortu;
+    public List<Layanan> getLayanan() {
+        return layanan;
     }
 
-    public void setOrtu(List<Ortu> ortu) {
-        this.ortu = ortu;
+    public void setLayanan(List<Layanan> layanan) {
+        this.layanan = layanan;
     }
 }

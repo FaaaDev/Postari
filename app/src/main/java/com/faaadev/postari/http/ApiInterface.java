@@ -2,6 +2,7 @@ package com.faaadev.postari.http;
 
 import com.faaadev.postari.service.Auth;
 import com.faaadev.postari.service.BasicResponse;
+import com.faaadev.postari.service.LayananList;
 import com.faaadev.postari.service.LokasiList;
 import com.faaadev.postari.service.OrtuList;
 import com.faaadev.postari.service.UserList;
@@ -48,4 +49,8 @@ public interface ApiInterface {
 
     @GET("get-ortu-list.php")
     Call<OrtuList> getOrtuList();
+
+    @FormUrlEncoded
+    @POST("get-layanan-list.php")
+    Call<LayananList> getLayananList(@Field("user_id") String user_id);
 }

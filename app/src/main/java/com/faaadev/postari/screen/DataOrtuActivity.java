@@ -83,7 +83,7 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
             @Override
             public void onResponse(Call<OrtuList> call, Response<OrtuList> response) {
                 loadingDialog.dismis();
-                if (response.body().getStatus().equals("true")){
+                if (response.body().isSuccess()){
                     ortu = response.body().getOrtu();
 
                     ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu);

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/mitr_regular"
+        android:text="Data Anak"
+        android:textColor="#030112"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama : Nama Anaknya"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tanggal Lahir : 31/03/2016"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Jenis Kelamin : Perempuan"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#A5A5A5"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

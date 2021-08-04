@@ -16,10 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#CCFBF9">
+
             <LinearLayout
                 android:layout_width="10dp"
                 android:layout_height="match_parent"
-                android:background="#7676D5"/>
+                android:background="#7676D5" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
