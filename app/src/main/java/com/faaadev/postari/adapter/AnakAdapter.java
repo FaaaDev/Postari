@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.faaadev.postari.DetailAnakActivity;
+import com.faaadev.postari.screen.DetailAnakActivity;
 import com.faaadev.postari.R;
 import com.faaadev.postari.model.Anak;
 

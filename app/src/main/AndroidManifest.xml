@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Postari">
         <activity
-            android:name=".DetailAnakActivity"
+            android:name=".screen.DetailAnakActivity"
             android:exported="true" />
         <activity
             android:name=".screen.DataAnakActivity"

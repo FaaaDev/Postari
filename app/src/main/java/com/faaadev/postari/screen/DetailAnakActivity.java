@@ -1,4 +1,4 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.faaadev.postari.adapter.AnakOrtuAdapter;
+import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.ImunisasiAdapter;
 import com.faaadev.postari.adapter.PenimbanganAdapter;
 import com.faaadev.postari.http.ApiClient;
@@ -20,7 +20,6 @@ import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.model.Imunisasi;
 import com.faaadev.postari.model.Penimbangan;
-import com.faaadev.postari.screen.DismisListener;
 import com.faaadev.postari.service.ImunisasiList;
 import com.faaadev.postari.service.PenimbanganList;
 import com.faaadev.postari.widget.LoadingDialog;

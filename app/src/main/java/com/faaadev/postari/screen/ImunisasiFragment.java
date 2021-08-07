@@ -1,4 +1,4 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.faaadev.postari.R;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.screen.DismisListener;
