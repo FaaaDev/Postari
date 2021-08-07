@@ -139,7 +139,7 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
 
     private void getAnakList(){
         loadingDialog.startLoading();
-        layananList = new ArrayList<>();
+        anakList = new ArrayList<>();
 
         Call<AnakList> getAnak = apiInterface.getAnakOrtuList(ortu.getUser_id());
         getAnak.enqueue(new Callback<AnakList>() {

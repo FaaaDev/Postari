@@ -47,25 +47,63 @@
                             android:layout_marginHorizontal="30dp"
                             android:layout_marginTop="30dp"
                             android:fontFamily="@font/mitr_regular"
-                            android:text="Tambah Data Anak"
+                            android:text="Tambah Data"
                             android:textColor="#030112"
                             android:textSize="24sp"
                             android:textStyle="bold" />
+                        <RadioGroup
+                            android:id="@+id/rgrole"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="60dp"
+                            android:orientation="horizontal">
+
+                            <RadioButton
+                                android:id="@+id/rimunisasi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:background="@drawable/radio_background"
+                                android:button="@android:color/transparent"
+                                android:fontFamily="@font/mitr_regular"
+                                android:padding="12dp"
+                                android:text="Imunisasi"
+                                android:gravity="center"
+                                android:textColor="@drawable/radio_text"
+                                android:textSize="14sp" />
+
+                            <RadioButton
+                                android:id="@+id/rvit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_weight="1"
+                                android:background="@drawable/radio_background"
+                                android:button="@android:color/transparent"
+                                android:fontFamily="@font/mitr_regular"
+                                android:padding="12dp"
+                                android:text="Vitamin"
+                                android:gravity="center"
+                                android:textColor="@drawable/radio_text"
+                                android:textSize="14sp"/>
+                        </RadioGroup>
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="65dp"
                             android:layout_marginHorizontal="30dp"
-                            android:layout_marginTop="60dp">
+                            android:layout_marginTop="24dp">
 
                             <EditText
-                                android:id="@+id/name"
+                                android:id="@+id/date"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="12dp"
                                 android:background="@drawable/layouting"
+                                android:editable="false"
                                 android:fontFamily="@font/mitr_regular"
-                                android:hint="Nama Anak"
-                                android:inputType="textCapWords"
+                                android:hint="dd/MM/yyyy"
                                 android:textSize="16sp" />
 
                             <TextView
@@ -74,7 +112,7 @@
                                 android:layout_marginLeft="12dp"
                                 android:background="@drawable/background_label"
                                 android:fontFamily="@font/mitr_regular"
-                                android:text="Nama"
+                                android:text="Tanggal"
                                 android:textColor="#1b1b1b"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
@@ -86,14 +124,14 @@
                             android:layout_marginTop="24dp">
 
                             <EditText
-                                android:id="@+id/birthdate"
+                                android:id="@+id/ket"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="12dp"
                                 android:background="@drawable/layouting"
-                                android:editable="false"
                                 android:fontFamily="@font/mitr_regular"
-                                android:hint="dd/MM/yyyy"
+                                android:hint="Imunisasi Campak/Vitamin A"
+                                android:inputType="textCapWords"
                                 android:textSize="16sp" />
                             <TextView
                                 android:layout_width="wrap_content"
@@ -101,49 +139,12 @@
                                 android:layout_marginLeft="12dp"
                                 android:background="@drawable/background_label"
                                 android:fontFamily="@font/mitr_regular"
-                                android:text="Tanggal Lahir"
+                                android:text="Jenis Imunisasi/Vitamin"
                                 android:textColor="#1b1b1b"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
                         </RelativeLayout>
-                        <RadioGroup
-                            android:id="@+id/rggender"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="30dp"
-                            android:layout_marginTop="24dp"
-                            android:orientation="horizontal">
 
-                            <RadioButton
-                                android:id="@+id/rl"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:background="@drawable/radio_background"
-                                android:button="@android:color/transparent"
-                                android:fontFamily="@font/mitr_regular"
-                                android:padding="12dp"
-                                android:text="Laki-Laki"
-                                android:gravity="center"
-                                android:textColor="@drawable/radio_text"
-                                android:textSize="14sp" />
-
-                            <RadioButton
-                                android:id="@+id/rp"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_weight="1"
-                                android:background="@drawable/radio_background"
-                                android:button="@android:color/transparent"
-                                android:fontFamily="@font/mitr_regular"
-                                android:padding="12dp"
-                                android:text="Perempuan"
-                                android:gravity="center"
-                                android:textColor="@drawable/radio_text"
-                                android:textSize="14sp"/>
-                        </RadioGroup>
                         <Button
                             android:id="@+id/btn_add"
                             android:layout_width="match_parent"
@@ -152,7 +153,7 @@
                             android:layout_marginBottom="10dp"
                             android:layout_marginHorizontal="30dp"
                             android:background="@drawable/button_background"
-                            android:text="Tambah Anak"
+                            android:text="Tambah Data"
                             android:textAllCaps="false"
                             android:textColor="#ffffff"
                             android:fontFamily="@font/mitr_regular"

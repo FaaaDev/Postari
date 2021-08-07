@@ -3,9 +3,11 @@ package com.faaadev.postari.http;
 import com.faaadev.postari.service.AnakList;
 import com.faaadev.postari.service.Auth;
 import com.faaadev.postari.service.BasicResponse;
+import com.faaadev.postari.service.ImunisasiList;
 import com.faaadev.postari.service.LayananList;
 import com.faaadev.postari.service.LokasiList;
 import com.faaadev.postari.service.OrtuList;
+import com.faaadev.postari.service.PenimbanganList;
 import com.faaadev.postari.service.UserList;
 
 import retrofit2.Call;
@@ -34,7 +36,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("add-lokasi.php")
     Call<BasicResponse> addLoc(@Field("nama_posyandu") String name,
-                      @Field("alamat") String alamat);
+                               @Field("alamat") String alamat);
 
     @GET("get-lokasi-list.php")
     Call<LokasiList> getLokasiList();
@@ -65,4 +67,29 @@ public interface ApiInterface {
                                 @Field("nama") String nama,
                                 @Field("birthdate") String birthdate,
                                 @Field("gender") String gender);
+
+    @GET("get-anak-list.php")
+    Call<AnakList> getAnakList();
+
+    @FormUrlEncoded
+    @POST("add-penimbangan.php")
+    Call<BasicResponse> addPenimbangan(@Field("id_anak") String id_anak,
+                                       @Field("bb_anak") String bb_anak,
+                                       @Field("tb_anak") int tb_anak,
+                                       @Field("tanggal") String tanggal);
+
+    @FormUrlEncoded
+    @POST("add-imunisasi.php")
+    Call<BasicResponse> addImunisasi(@Field("id_anak") String id_anak,
+                                     @Field("type") String type,
+                                     @Field("keterangan") String keterangan,
+                                     @Field("tanggal") String tanggal);
+
+    @FormUrlEncoded
+    @POST("get-penimbangan-list.php")
+    Call<PenimbanganList> getPenimbanganList(@Field("id_anak") String id_anak);
+
+    @FormUrlEncoded
+    @POST("get-imunisasi-list.php")
+    Call<ImunisasiList> getImunisasiList(@Field("id_anak") String id_anak);
 }

@@ -6,20 +6,29 @@
         <entry key="app/src/main/res/drawable/button_add_background.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/button_edit_background.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/drawable/layouting.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/layout/activity_data_anak.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_data_ortu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_data_penimbangan.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_data_posyandu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_detail_anak.xml" value="0.16" />
         <entry key="app/src/main/res/layout/activity_detail_ortu.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_petugas.xml" value="0.13893653516295026" />
         <entry key="app/src/main/res/layout/activity_user_account.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_anak.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_add_jadwal_posyandu.xml" value="0.23988853552664932" />
+        <entry key="app/src/main/res/layout/fragment_add_location_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_ortu.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_add_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_user.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_imunisasi.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_penimbangan.xml" value="0.26644736842105265" />
+        <entry key="app/src/main/res/layout/item_anak.xml" value="0.2862190812720848" />
         <entry key="app/src/main/res/layout/item_anak_ortu.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/item_imunisasi.xml" value="0.22752808988764045" />
         <entry key="app/src/main/res/layout/item_layanan.xml" value="0.67" />
         <entry key="app/src/main/res/layout/item_ortu.xml" value="0.29012135551406654" />
+        <entry key="app/src/main/res/layout/item_penimbangan.xml" value="0.22" />
       </map>
     </option>
   </component>

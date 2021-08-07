@@ -2,7 +2,9 @@ package com.faaadev.postari.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Anak {
+import java.io.Serializable;
+
+public class Anak implements Serializable {
     @SerializedName("id")
     private String id;
     @SerializedName("user_id")
@@ -14,13 +16,6 @@ public class Anak {
     @SerializedName("gender")
     private String gender;
 
-    public Anak(String id, String user_id, String nama, String birthdate, String gender) {
-        this.id = id;
-        this.user_id = user_id;
-        this.nama = nama;
-        this.birthdate = birthdate;
-        this.gender = gender;
-    }
 
     public String getId() {
         return id;
