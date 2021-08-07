@@ -1,5 +1,6 @@
 package com.faaadev.postari.http;
 
+import com.faaadev.postari.service.AnakList;
 import com.faaadev.postari.service.Auth;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.service.LayananList;
@@ -53,4 +54,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("get-layanan-list.php")
     Call<LayananList> getLayananList(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("get-anak-list.php")
+    Call<AnakList> getAnakOrtuList(@Field("user_id") String user_id);
 }

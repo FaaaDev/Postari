@@ -29,187 +29,213 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="80dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="40dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nama Suami"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/mitr_regular"
-                    android:textStyle="bold"
+                    android:text="Nama Suami"
                     android:textColor="#030112"
                     android:textSize="16sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_dadname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nama Suami"
-                    android:fontFamily="@font/mitr_regular"
-                    android:textColor="#606060"
-                    android:textSize="16sp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="Nama Suami"
+                    android:textColor="#606060"
+                    android:textSize="16sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#A5A5A5"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="10dp"/>
+                    android:background="#A5A5A5" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nama Istri"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/mitr_regular"
-                    android:textStyle="bold"
+                    android:text="Nama Istri"
                     android:textColor="#030112"
                     android:textSize="16sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_momname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nama Istri"
-                    android:fontFamily="@font/mitr_regular"
-                    android:textColor="#606060"
-                    android:textSize="16sp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="Nama Istri"
+                    android:textColor="#606060"
+                    android:textSize="16sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#A5A5A5"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="10dp"/>
+                    android:background="#A5A5A5" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lokasi Posyandu"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/mitr_regular"
-                    android:textStyle="bold"
+                    android:text="Lokasi Posyandu"
                     android:textColor="#030112"
                     android:textSize="16sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Lokasi Posyandu"
-                    android:fontFamily="@font/mitr_regular"
-                    android:textColor="#606060"
-                    android:textSize="16sp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="Lokasi Posyandu"
+                    android:textColor="#606060"
+                    android:textSize="16sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#A5A5A5"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="10dp"/>
+                    android:background="#A5A5A5" />
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Alamat Rumah"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/mitr_regular"
-                    android:textStyle="bold"
+                    android:text="Alamat Rumah"
                     android:textColor="#030112"
                     android:textSize="16sp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:textStyle="bold" />
+
                 <TextView
                     android:id="@+id/tv_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Alamat Rumah"
-                    android:fontFamily="@font/mitr_regular"
-                    android:textColor="#606060"
-                    android:textSize="16sp"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="14dp"
-                    android:layout_marginHorizontal="20dp"/>
+                    android:fontFamily="@font/mitr_regular"
+                    android:text="Alamat Rumah"
+                    android:textColor="#606060"
+                    android:textSize="16sp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="#A5A5A5"
+                    android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="20dp"
-                    android:layout_marginHorizontal="10dp"/>
+                    android:background="#A5A5A5" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/detail_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="visible">
+
                 <LinearLayout
+                    android:id="@+id/layanan_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:id="@+id/layanan_container">
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Layanan Posyandu"
+                        android:layout_marginHorizontal="20dp"
+                        android:layout_marginTop="20dp"
                         android:fontFamily="@font/mitr_regular"
-                        android:textStyle="bold"
+                        android:text="Layanan Posyandu"
                         android:textColor="#030112"
                         android:textSize="16sp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginHorizontal="20dp"/>
+                        android:textStyle="bold" />
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_layanan"
-                        android:overScrollMode="never"
-                        android:scrollbars="none"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
+                        android:clipToPadding="false"
                         android:orientation="horizontal"
+                        android:overScrollMode="never"
                         android:paddingLeft="20dp"
                         android:paddingRight="10dp"
-                        android:clipToPadding="false"
-                        tools:listitem="@layout/item_layanan"
+                        android:scrollbars="none"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="3"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                        tools:listitem="@layout/item_layanan" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="#A5A5A5"
+                        android:layout_marginHorizontal="10dp"
                         android:layout_marginTop="20dp"
-                        android:layout_marginHorizontal="10dp"/>
+                        android:background="#A5A5A5" />
                 </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_anak_ortu"
                         android:layout_width="match_parent"
@@ -218,37 +244,48 @@
                         android:paddingBottom="40dp"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="5"
-                        tools:listitem="@layout/item_anak_ortu" />
+                        tools:listitem="@layout/item_anak_ortu"
+                        android:nestedScrollingEnabled="false"
+                        tools:targetApi="lollipop" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_edit_ortu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="10dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:backgroundTint="#ED7878"
-        android:src="@drawable/ic_round_post_add_24"
-        app:layout_constraintBottom_toTopOf="@id/fab_add_anak"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:targetApi="lollipop" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_anak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:backgroundTint="#ED7878"
-        android:src="@drawable/ic_round_post_add_24"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:targetApi="lollipop" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/button_edit_background"
+            android:fontFamily="@font/mitr_regular"
+            android:text="Edit Data"
+            android:textAllCaps="false"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:stateListAnimator="@null"/>
+
+        <ImageButton
+            android:id="@+id/btn_add"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/button_add_background"
+            android:fontFamily="@font/mitr_regular"
+            android:src="@drawable/ic_round_add_24"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

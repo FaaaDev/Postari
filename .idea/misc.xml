@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_detail_ortu.xml" value="0.22" />
+        <entry key="app/src/main/res/drawable/button_add_background.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/drawable/button_background.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/drawable/button_edit_background.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/layout/activity_data_ortu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_detail_ortu.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/fragment_add_anak.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_add_jadwal_posyandu.xml" value="0.23988853552664932" />
+        <entry key="app/src/main/res/layout/fragment_add_ortu.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_add_user.xml" value="0.15" />
         <entry key="app/src/main/res/layout/item_anak_ortu.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_layanan.xml" value="0.67" />
         <entry key="app/src/main/res/layout/item_ortu.xml" value="0.29012135551406654" />

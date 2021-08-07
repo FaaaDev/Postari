@@ -32,6 +32,7 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
     private ApiInterface apiInterface;
     private List<Lokasi> lokasi;
     private LokasiAdapter adapter;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,12 +67,12 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
         });
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        loadingDialog = new LoadingDialog(this);
 
         getLokasiList();
     }
 
     private void getLokasiList(){
-        LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.startLoading();
         lokasi = new ArrayList<>();
 
@@ -100,4 +101,6 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
     public void onDismisSheet() {
         getLokasiList();
     }
+
+
 }

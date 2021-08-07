@@ -8,16 +8,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.faaadev.postari.AddAnakFragment;
 import com.faaadev.postari.R;
+import com.faaadev.postari.adapter.AnakOrtuAdapter;
 import com.faaadev.postari.adapter.LayananAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.model.Layanan;
 import com.faaadev.postari.model.Ortu;
+import com.faaadev.postari.service.AnakList;
 import com.faaadev.postari.service.LayananList;
 import com.faaadev.postari.widget.LoadingDialog;
 
@@ -35,8 +40,12 @@ public class DetailOrtuActivity extends AppCompatActivity {
     private LinearLayout layanan_container;
     private RecyclerView rv_layanan, rv_anak_ortu;
     private List<Layanan> layananList;
+    private List<Anak> anakList;
     private LayananAdapter layananAdapter;
+    private AnakOrtuAdapter anakAdapter;
     private ApiInterface apiInterface;
+    private LoadingDialog loadingDialog;
+    private ImageButton btn_add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +77,7 @@ public class DetailOrtuActivity extends AppCompatActivity {
         layanan_container = findViewById(R.id.layanan_container);
         rv_anak_ortu = findViewById(R.id.rv_anak_ortu);
         rv_layanan = findViewById(R.id.rv_layanan);
+        btn_add = findViewById(R.id.btn_add);
 
         _implement();
     }
@@ -78,14 +88,22 @@ public class DetailOrtuActivity extends AppCompatActivity {
         tv_location.setText(ortu.getPosyandu());
         tv_address.setText(ortu.getAlamat());
         layananList = new ArrayList<>();
+        anakList = new ArrayList<>();
+
+        layanan_container.setVisibility(View.GONE);
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        loadingDialog = new LoadingDialog(this);
 
         getLayananList();
+
+        btn_add.setOnClickListener(v->{
+            AddAnakFragment addAnakFragment = new AddAnakFragment();
+            addAnakFragment.show(getSupportFragmentManager(), addAnakFragment.getTag());
+        });
     }
 
     private void getLayananList(){
-        LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.startLoading();
         layananList = new ArrayList<>();
 
@@ -93,24 +111,52 @@ public class DetailOrtuActivity extends AppCompatActivity {
         getLayanan.enqueue(new Callback<LayananList>() {
             @Override
             public void onResponse(Call<LayananList> call, Response<LayananList> response) {
-                loadingDialog.dismis();
+                getAnakList();
                 if (response.body().isSuccess()){
                     layananList = response.body().getLayanan();
 
                     if (layananList.size() == 0){
                         layanan_container.setVisibility(View.GONE);
+                    } else {
+                        layananAdapter = new LayananAdapter(getApplicationContext(), layananList);
+                        rv_layanan.setAdapter(layananAdapter);
+                        layanan_container.setVisibility(View.VISIBLE);
                     }
-
-                    layananAdapter = new LayananAdapter(getApplicationContext(), layananList);
-                    rv_layanan.setAdapter(layananAdapter);
                 }
             }
 
             @Override
             public void onFailure(Call<LayananList> call, Throwable t) {
-                loadingDialog.dismis();
+                getAnakList();
+                layanan_container.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    private void getAnakList(){
+        layananList = new ArrayList<>();
+
+        Call<AnakList> getAnak = apiInterface.getAnakOrtuList(ortu.getUser_id());
+        getAnak.enqueue(new Callback<AnakList>() {
+            @Override
+            public void onResponse(Call<AnakList> call, Response<AnakList> response) {
+                loadingDialog.dismis();
+                if(response.body().isSuccess()){
+                    anakList = response.body().getAnak();
+                    anakAdapter = new AnakOrtuAdapter(getApplicationContext(), anakList);
+                    rv_anak_ortu.setAdapter(anakAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnakList> call, Throwable t) {
+                loadingDialog.dismis();
+                anakAdapter = new AnakOrtuAdapter(getApplicationContext(), anakList);
+                rv_anak_ortu.setAdapter(anakAdapter);
+                Toast.makeText(getApplicationContext(), "Data Anak Kosong", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }
