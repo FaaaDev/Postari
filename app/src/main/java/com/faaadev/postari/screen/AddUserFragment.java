@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
@@ -32,11 +33,12 @@ import retrofit2.Response;
 public class AddUserFragment extends BottomSheetDialogFragment {
 
     private EditText userid, username, password;
-    private RadioButton rpetugas, rortu;
+    private RadioButton rpetugas, rortu, rposyandu, rkesehatan;
     private Button btn_add;
     private ApiInterface apiInterface;
-    private RadioGroup rgrole;
     private String role;
+    private String jenis_petugas = "nodata";
+    private RelativeLayout jenis;
     DismisListener listener;
 
     @Override
@@ -61,8 +63,10 @@ public class AddUserFragment extends BottomSheetDialogFragment {
         password = root.findViewById(R.id.password);
         rortu = root.findViewById(R.id.rortu);
         rpetugas = root.findViewById(R.id.rpetugas);
+        rposyandu = root.findViewById(R.id.rposyandu);
+        rkesehatan = root.findViewById(R.id.rkesehatan);
         btn_add = root.findViewById(R.id.btn_add);
-        rgrole = root.findViewById(R.id.rgrole);
+        jenis = root.findViewById(R.id.jenis_petugas);
 
         _implement();
     }
@@ -73,6 +77,16 @@ public class AddUserFragment extends BottomSheetDialogFragment {
         btn_add.setOnClickListener(v -> {
             _validation();
         });
+
+        rpetugas.setOnClickListener(v -> {
+            jenis_petugas = "";
+            jenis.setVisibility(View.VISIBLE);
+        });
+
+        rortu.setOnClickListener(v -> {
+            jenis_petugas = "nodata";
+            jenis.setVisibility(View.GONE);
+        });
     }
 
     private void _validation() {
@@ -80,12 +94,20 @@ public class AddUserFragment extends BottomSheetDialogFragment {
             role = "ortu";
         } else if (rpetugas.isChecked()){
             role = "petugas";
+            if (rposyandu.isChecked()){
+                jenis_petugas = "_posyandu";
+                role = "petugas_posyandu";
+            } else if (rkesehatan.isChecked()){
+                jenis_petugas = "_kesehatan";
+                role = "petugas_kesehatan";
+            }
         } else {
             role = "";
         }
 
         if (TextUtils.isEmpty(userid.getText()) || TextUtils.isEmpty(username.getText())
-                || TextUtils.isEmpty(password.getText()) || TextUtils.isEmpty(role)) {
+                || TextUtils.isEmpty(password.getText()) || TextUtils.isEmpty(role)
+                || TextUtils.isEmpty(jenis_petugas)) {
             if (TextUtils.isEmpty(userid.getText())) {
                 userid.setError("Bagian ini wajib diisi");
             }
@@ -97,6 +119,9 @@ public class AddUserFragment extends BottomSheetDialogFragment {
             }
             if (TextUtils.isEmpty(role)) {
                 Toast.makeText(getContext(), "Silahkan pilih Petugas/Orang Tua", Toast.LENGTH_LONG).show();
+            }
+            if (TextUtils.isEmpty(jenis_petugas)) {
+                Toast.makeText(getContext(), "Silahkan pilih Jenis Petugas", Toast.LENGTH_LONG).show();
             }
         } else {
             addAccount();

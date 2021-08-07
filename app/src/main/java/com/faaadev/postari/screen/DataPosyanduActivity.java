@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class DataPosyanduActivity extends AppCompatActivity implements DismisListener {
 
     private FloatingActionButton add_data;
-    private RecyclerView rv_lokasi;
+    private RecyclerView rv_jadwal;
     private ApiInterface apiInterface;
     private List<Lokasi> lokasi;
     private LokasiAdapter adapter;
@@ -56,7 +56,7 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
 
     private void _init(){
         add_data = findViewById(R.id.fab_add_data);
-        rv_lokasi = findViewById(R.id.rv_lokasi);
+        rv_jadwal = findViewById(R.id.rv_jadwal);
         _implement();
     }
 
@@ -85,7 +85,7 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
                     lokasi = response.body().getLokasi();
 
                     adapter = new LokasiAdapter(getApplicationContext(), lokasi);
-                    rv_lokasi.setAdapter(adapter);
+                    rv_jadwal.setAdapter(adapter);
                 }
             }
 
@@ -98,9 +98,8 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
     }
 
     @Override
-    public void onDismisSheet() {
+    public void onDismisSheet(String from) {
         getLokasiList();
     }
-
 
 }

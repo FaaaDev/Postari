@@ -58,4 +58,11 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("get-anak-list.php")
     Call<AnakList> getAnakOrtuList(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("add-anak.php")
+    Call<BasicResponse> addAnak(@Field("user_id") String user_id,
+                                @Field("nama") String nama,
+                                @Field("birthdate") String birthdate,
+                                @Field("gender") String gender);
 }

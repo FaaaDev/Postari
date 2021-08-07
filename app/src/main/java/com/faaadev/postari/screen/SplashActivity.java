@@ -53,7 +53,9 @@ public class SplashActivity extends AppCompatActivity {
                         if (Preferences.getRole(getApplicationContext()).equals("ortu")){
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         } else {
-                            startActivity(new Intent(SplashActivity.this, PetugasActivity.class));
+                            Intent i = new Intent(SplashActivity.this, PetugasActivity.class);
+                            i.putExtra("type", Preferences.getRole(getApplicationContext()));
+                            startActivity(i);
                         }
                     }
                     finish();

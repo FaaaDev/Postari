@@ -226,6 +226,6 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
-        listener.onDismisSheet();
+        listener.onDismisSheet("");
     }
 }

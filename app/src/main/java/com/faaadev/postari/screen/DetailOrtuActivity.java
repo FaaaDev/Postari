@@ -6,14 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.faaadev.postari.AddAnakFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.AnakOrtuAdapter;
 import com.faaadev.postari.adapter.LayananAdapter;
@@ -33,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailOrtuActivity extends AppCompatActivity {
+public class DetailOrtuActivity extends AppCompatActivity implements DismisListener{
 
     private Ortu ortu = new Ortu();
     private TextView tv_dadname, tv_momname, tv_location, tv_address;
@@ -98,7 +96,10 @@ public class DetailOrtuActivity extends AppCompatActivity {
         getLayananList();
 
         btn_add.setOnClickListener(v->{
+            Bundle bundle = new Bundle();
+            bundle.putString("user_id", ortu.getUser_id());
             AddAnakFragment addAnakFragment = new AddAnakFragment();
+            addAnakFragment.setArguments(bundle);
             addAnakFragment.show(getSupportFragmentManager(), addAnakFragment.getTag());
         });
     }
@@ -111,6 +112,7 @@ public class DetailOrtuActivity extends AppCompatActivity {
         getLayanan.enqueue(new Callback<LayananList>() {
             @Override
             public void onResponse(Call<LayananList> call, Response<LayananList> response) {
+                loadingDialog.dismis();
                 getAnakList();
                 if (response.body().isSuccess()){
                     layananList = response.body().getLayanan();
@@ -127,6 +129,7 @@ public class DetailOrtuActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LayananList> call, Throwable t) {
+                loadingDialog.dismis();
                 getAnakList();
                 layanan_container.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
@@ -135,6 +138,7 @@ public class DetailOrtuActivity extends AppCompatActivity {
     }
 
     private void getAnakList(){
+        loadingDialog.startLoading();
         layananList = new ArrayList<>();
 
         Call<AnakList> getAnak = apiInterface.getAnakOrtuList(ortu.getUser_id());
@@ -146,17 +150,24 @@ public class DetailOrtuActivity extends AppCompatActivity {
                     anakList = response.body().getAnak();
                     anakAdapter = new AnakOrtuAdapter(getApplicationContext(), anakList);
                     rv_anak_ortu.setAdapter(anakAdapter);
+                } else {
+                    Toast.makeText(getApplicationContext(), "Data Anak Kosong", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<AnakList> call, Throwable t) {
                 loadingDialog.dismis();
-                anakAdapter = new AnakOrtuAdapter(getApplicationContext(), anakList);
-                rv_anak_ortu.setAdapter(anakAdapter);
-                Toast.makeText(getApplicationContext(), "Data Anak Kosong", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    @Override
+    public void onDismisSheet(String from) {
+        if (from.equals("add_anak")){
+            getAnakList();
+        }
     }
 }

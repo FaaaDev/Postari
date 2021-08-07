@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
     } else {
         $data['status'] = false;
-        $data['data'][] = "";
+        $data['data'] = [];
     }
 
     print_r(json_encode($data));
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
     } else {
         $data['status'] = false;
-        $data['data'][] = "";
+        $data['data'] = [];
     }
 
     print_r(json_encode($data));

@@ -41,6 +41,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         holder.username.setText(data.getUsername());
         if (data.getRole().equals("ortu")){
             holder.role.setText("Orang Tua");
+        } else if (data.getRole().equals("petugas_posyandu")){
+            holder.role.setText("Petugas Posyandu");
+        } else if (data.getRole().equals("petugas_kesehatan")){
+            holder.role.setText("Petugas Kesehatan");
         } else {
             holder.role.setText("Petugas");
         }

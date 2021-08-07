@@ -100,7 +100,7 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
     }
 
     @Override
-    public void onDismisSheet() {
+    public void onDismisSheet(String from) {
         getortuList();
     }
 }

@@ -167,6 +167,69 @@
                                 android:textColor="@drawable/radio_text"
                                 android:textSize="14sp"/>
                         </RadioGroup>
+                        <RelativeLayout
+                            android:id="@+id/jenis_petugas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="24dp"
+                            android:visibility="gone">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="12dp"
+                                android:background="@drawable/layouting"
+                                android:orientation="horizontal"
+                                android:paddingVertical="30dp">
+                                <RadioGroup
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+                                    <RadioButton
+                                        android:id="@+id/rposyandu"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/radio_background"
+                                        android:button="@android:color/transparent"
+                                        android:fontFamily="@font/mitr_regular"
+                                        android:padding="12dp"
+                                        android:text="Petugas Posyandu"
+                                        android:gravity="center"
+                                        android:textColor="@drawable/radio_text"
+                                        android:textSize="14sp"
+                                        android:maxLines="1"/>
+
+                                    <RadioButton
+                                        android:id="@+id/rkesehatan"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/radio_background"
+                                        android:button="@android:color/transparent"
+                                        android:fontFamily="@font/mitr_regular"
+                                        android:padding="12dp"
+                                        android:text="Petugas Kesehatan"
+                                        android:gravity="center"
+                                        android:textColor="@drawable/radio_text"
+                                        android:textSize="14sp"
+                                        android:maxLines="1"/>
+                                </RadioGroup>
+                            </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="12dp"
+                                android:background="@drawable/background_label"
+                                android:fontFamily="@font/mitr_regular"
+                                android:text="Jenis Petugas"
+                                android:textColor="#1b1b1b"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
                         <Button
                             android:id="@+id/btn_add"
                             android:layout_width="match_parent"

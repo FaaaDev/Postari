@@ -112,7 +112,9 @@ public class LoginActivity extends AppCompatActivity {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
                             } else {
-                                startActivity(new Intent(LoginActivity.this, PetugasActivity.class));
+                                Intent i = new Intent(LoginActivity.this, PetugasActivity.class);
+                                i.putExtra("type", Preferences.getRole(getApplicationContext()));
+                                startActivity(i);
                                 finish();
                             }
                         }

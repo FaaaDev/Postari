@@ -1,5 +1,5 @@
 package com.faaadev.postari.screen;
 
 public interface DismisListener {
-    void onDismisSheet();
+    void onDismisSheet(String from);
 }

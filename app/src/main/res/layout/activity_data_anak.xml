@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screen.DataPosyanduActivity"
+    tools:context=".screen.DataAnakActivity"
     android:id="@+id/container"
     android:background="#ffffff">
 
@@ -16,12 +16,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginHorizontal="30dp"
             android:fontFamily="@font/mitr_regular"
-            android:text="Data Posyandu"
+            android:text="Data Penimbangan"
             android:textColor="#030112"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -90,72 +91,21 @@
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginHorizontal="30dp"
-                android:fontFamily="@font/mitr_regular"
-                android:text="Jadwal Posyandu"
-                android:textColor="#030112"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"/>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/item_lokasi" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginHorizontal="30dp"
-                android:fontFamily="@font/mitr_regular"
-                android:text="Lokasi Posyandu"
-                android:textColor="#030112"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_jadwal"
+                    android:id="@+id/rv_anak"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    tools:itemCount="10"
                     android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="2"
-                    tools:listitem="@layout/item_lokasi" />
+                    tools:listitem="@layout/item_ortu"
+                    android:overScrollMode="never"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_data"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginBottom="30dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:backgroundTint="#ED7878"
-        android:src="@drawable/ic_round_post_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:targetApi="lollipop" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
