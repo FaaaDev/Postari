@@ -3,10 +3,15 @@
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     $user_id = $_POST['user_id'];
+    $layanan = $_POST['layanan'];
 
     require_once('connection.php');
 
-    $sql = "SELECT * FROM anak WHERE user_id = '$user_id'";
+    if (empty($layanan)) {
+        $sql = "SELECT * FROM anak WHERE user_id = '$user_id'";
+    } else {
+        $sql = "SELECT a.id, a.user_id, a.nama, a.birthdate, a.gender FROM anak a INNER JOIN layanan b ON a.user_id = b.user_id WHERE b.nama = '$layanan'";
+    }
 
     $query = mysqli_query($conn,$sql);
 

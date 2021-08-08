@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
@@ -34,6 +35,8 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
     private List<Ortu> ortu;
     private OrtuAdapter ortuAdapter;
     private ApiInterface apiInterface;
+    private Boolean pemeriksaan = false;
+    private TextView title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,18 +62,28 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
     private void _init(){
         fab_add_ortu = findViewById(R.id.fab_add_ortu);
         rv_ortu = findViewById(R.id.rv_ortu);
+        title = findViewById(R.id.title);
+
+        pemeriksaan = getIntent().getBooleanExtra("pemeriksaan", false);
+
         _implement();
     }
 
     private void _implement(){
+        apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        if (pemeriksaan){
+            fab_add_ortu.setVisibility(View.GONE);
+            title.setText("Data Ibu Hamil");
+            getortuListWithParam();
+        } else {
+            getortuList();
+        }
+
         fab_add_ortu.setOnClickListener(v -> {
             AddOrtuFragment addOrtuFragment = new AddOrtuFragment();
             addOrtuFragment.show(getSupportFragmentManager(), addOrtuFragment.getTag());
         });
-
-        apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        getortuList();
     }
 
     private void getortuList(){
@@ -87,6 +100,32 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
                     ortu = response.body().getOrtu();
 
                     ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu);
+                    rv_ortu.setAdapter(ortuAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrtuList> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getortuListWithParam(){
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.startLoading();
+        ortu = new ArrayList<>();
+
+        Call<OrtuList> getOrtu = apiInterface.getOrtuListWithParam("pemeriksaan");
+        getOrtu.enqueue(new Callback<OrtuList>() {
+            @Override
+            public void onResponse(Call<OrtuList> call, Response<OrtuList> response) {
+                loadingDialog.dismis();
+                if (response.body().isSuccess()){
+                    ortu = response.body().getOrtu();
+
+                    ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu, pemeriksaan);
                     rv_ortu.setAdapter(ortuAdapter);
                 }
             }

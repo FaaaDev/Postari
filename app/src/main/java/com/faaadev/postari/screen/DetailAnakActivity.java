@@ -19,6 +19,7 @@ import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.model.Imunisasi;
+import com.faaadev.postari.model.Ortu;
 import com.faaadev.postari.model.Penimbangan;
 import com.faaadev.postari.service.ImunisasiList;
 import com.faaadev.postari.service.PenimbanganList;
@@ -34,11 +35,12 @@ import retrofit2.Response;
 
 public class DetailAnakActivity extends AppCompatActivity implements DismisListener {
     private Anak anak = new Anak();
+    private Ortu ortu = new Ortu();
     private String type;
     private TextView title;
     private LinearLayout is_empty;
     private ScrollView has_data;
-    private RecyclerView rv_imunisasi, rv_penimbangan;
+    private RecyclerView rv_imunisasi, rv_penimbangan, rv_pemeriksaan;
     private FloatingActionButton fab_add_anak;
     private List<Penimbangan> penimbanganList;
     private List<Imunisasi> imunisasiList;
@@ -64,6 +66,7 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
         }
 
         anak = (Anak) getIntent().getSerializableExtra("anak");
+        ortu = (Ortu) getIntent().getSerializableExtra("ortu");
         type = getIntent().getStringExtra("type");
 
         _init();
@@ -75,13 +78,18 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
         is_empty = findViewById(R.id.is_empty);
         rv_imunisasi = findViewById(R.id.rv_imunisasi);
         rv_penimbangan = findViewById(R.id.rv_penimbangan);
+        rv_pemeriksaan = findViewById(R.id.rv_pemeriksaan);
         fab_add_anak = findViewById(R.id.fab_add_anak);
 
         _implement();
     }
 
     private void _implement(){
-        title.setText(anak.getNama());
+        if (type.equals("pemeriksaan")){
+            title.setText("Ibu "+ortu.getMom_name());
+        } else {
+            title.setText(anak.getNama());
+        }
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -89,6 +97,7 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
 
         if (type.equals("penimbangan")){
             rv_imunisasi.setVisibility(View.GONE);
+            rv_pemeriksaan.setVisibility(View.GONE);
             fab_add_anak.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", anak.getId());
@@ -97,8 +106,16 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
                 penimbanganFragment.show(getSupportFragmentManager(), penimbanganFragment.getTag());
             });
             getPenimbanganList();
+        } else if (type.equals("pemeriksaan")){
+            rv_penimbangan.setVisibility(View.GONE);
+            rv_imunisasi.setVisibility(View.GONE);
+            fab_add_anak.setOnClickListener(v -> {
+
+            });
+            getPemeriksaanList();
         } else {
             rv_penimbangan.setVisibility(View.GONE);
+            rv_pemeriksaan.setVisibility(View.GONE);
             fab_add_anak.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", anak.getId());
@@ -158,6 +175,38 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
                     imunisasiList = response.body().getImunisasi();
                     imunisasiAdapter = new ImunisasiAdapter(getApplicationContext(), imunisasiList);
                     rv_imunisasi.setAdapter(imunisasiAdapter);
+                } else {
+                    is_empty.setVisibility(View.VISIBLE);
+                    has_data.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ImunisasiList> call, Throwable t) {
+                is_empty.setVisibility(View.VISIBLE);
+                has_data.setVisibility(View.GONE);
+                loadingDialog.dismis();
+                Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getPemeriksaanList(){
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.startLoading();
+        imunisasiList = new ArrayList<>();
+
+        Call<ImunisasiList> imunisasiListCall = apiInterface.getImunisasiList("1");
+        imunisasiListCall.enqueue(new Callback<ImunisasiList>() {
+            @Override
+            public void onResponse(Call<ImunisasiList> call, Response<ImunisasiList> response) {
+                loadingDialog.dismis();
+                if(response.body().isSuccess()){
+                    is_empty.setVisibility(View.GONE);
+                    has_data.setVisibility(View.VISIBLE);
+                    imunisasiList = response.body().getImunisasi();
+                    imunisasiAdapter = new ImunisasiAdapter(getApplicationContext(), imunisasiList);
+                    rv_pemeriksaan.setAdapter(imunisasiAdapter);
                 } else {
                     is_empty.setVisibility(View.VISIBLE);
                     has_data.setVisibility(View.GONE);

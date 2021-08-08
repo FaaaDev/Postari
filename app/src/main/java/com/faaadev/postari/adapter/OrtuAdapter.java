@@ -2,15 +2,18 @@ package com.faaadev.postari.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.screen.DetailAnakActivity;
 import com.faaadev.postari.screen.DetailOrtuActivity;
 import com.faaadev.postari.R;
 import com.faaadev.postari.model.Ortu;
@@ -20,10 +23,17 @@ import java.util.List;
 public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> {
     private Context mContext;
     private List<Ortu> mData;
+    private Boolean pemeriksaan = false;
 
     public OrtuAdapter(Context mContext, List<Ortu> mData) {
         this.mContext = mContext;
         this.mData = mData;
+    }
+
+    public OrtuAdapter(Context mContext, List<Ortu> mData, Boolean pemeriksaan) {
+        this.mContext = mContext;
+        this.mData = mData;
+        this.pemeriksaan = pemeriksaan;
     }
 
     @NonNull
@@ -41,13 +51,24 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Ortu data = mData.get(position);
         holder.userid.setText(data.getUser_id());
-        holder.username.setText("Bp. "+data.getDad_name()+" & Ibu "+data.getMom_name());
         holder.posyandu.setText(data.getPosyandu());
-        holder.card.setOnClickListener(v -> {
-            Intent i = new Intent(mContext, DetailOrtuActivity.class);
-            i.putExtra("ortu", data);
-            mContext.startActivity(i);
-        });
+        if (pemeriksaan){
+            holder.username.setText("Ibu "+data.getMom_name());
+            holder.tag_color.setBackgroundColor(Color.argb(255,202,126,61));
+            holder.card.setOnClickListener(v -> {
+                Intent i = new Intent(mContext, DetailAnakActivity.class);
+                i.putExtra("type", "pemeriksaan");
+                i.putExtra("ortu", data);
+                mContext.startActivity(i);
+            });
+        } else {
+            holder.username.setText("Bp. "+data.getDad_name()+" & Ibu "+data.getMom_name());
+            holder.card.setOnClickListener(v -> {
+                Intent i = new Intent(mContext, DetailOrtuActivity.class);
+                i.putExtra("ortu", data);
+                mContext.startActivity(i);
+            });
+        }
     }
 
     @Override
@@ -58,6 +79,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView userid, username, posyandu;
         CardView card;
+        LinearLayout tag_color;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +88,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
             username = itemView.findViewById(R.id.username);
             posyandu = itemView.findViewById(R.id.posyandu);
             card = itemView.findViewById(R.id.card);
+            tag_color = itemView.findViewById(R.id.tag_color);
         }
     }
 }

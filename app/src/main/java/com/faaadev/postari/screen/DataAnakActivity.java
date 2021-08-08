@@ -79,7 +79,7 @@ public class DataAnakActivity extends AppCompatActivity {
         loadingDialog.startLoading();
         listAnak = new ArrayList<>();
 
-        Call<AnakList> anakList = apiInterface.getAnakList();
+        Call<AnakList> anakList = apiInterface.getAnakWithParam("", type);
         anakList.enqueue(new Callback<AnakList>() {
             @Override
             public void onResponse(Call<AnakList> call, Response<AnakList> response) {

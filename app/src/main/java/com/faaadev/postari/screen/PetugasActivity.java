@@ -46,6 +46,7 @@ public class PetugasActivity extends AppCompatActivity {
         menu2 = findViewById(R.id.menu2);
         menu3 = findViewById(R.id.menu3);
         menu4 = findViewById(R.id.menu4);
+        menu5 = findViewById(R.id.menu5);
         menu6 = findViewById(R.id.menu6);
         username = findViewById(R.id.username);
         fab_live_chat = findViewById(R.id.fab_live_chat);
@@ -78,6 +79,12 @@ public class PetugasActivity extends AppCompatActivity {
         menu4.setOnClickListener(v ->{
             Intent intent = new Intent(PetugasActivity.this, DataAnakActivity.class);
             intent.putExtra("type", "imunisasi");
+            startActivity(intent);
+        });
+
+        menu5.setOnClickListener(v -> {
+            Intent intent = new Intent(PetugasActivity.this, DataOrtuActivity.class);
+            intent.putExtra("pemeriksaan", true);
             startActivity(intent);
         });
 

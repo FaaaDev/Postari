@@ -54,12 +54,17 @@ public interface ApiInterface {
     Call<OrtuList> getOrtuList();
 
     @FormUrlEncoded
+    @POST("get-ortu-list.php")
+    Call<OrtuList> getOrtuListWithParam(@Field("layanan") String layanan);
+
+    @FormUrlEncoded
     @POST("get-layanan-list.php")
     Call<LayananList> getLayananList(@Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("get-anak-list.php")
-    Call<AnakList> getAnakOrtuList(@Field("user_id") String user_id);
+    Call<AnakList> getAnakWithParam(@Field("user_id") String user_id,
+                                   @Field("layanan") String layanan);
 
     @FormUrlEncoded
     @POST("add-anak.php")
