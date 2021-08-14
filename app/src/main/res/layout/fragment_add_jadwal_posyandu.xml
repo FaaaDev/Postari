@@ -53,19 +53,22 @@
                             android:textStyle="bold" />
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="65dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="65dp"
                             android:layout_marginHorizontal="30dp"
                             android:layout_marginTop="60dp">
-                            <EditText
-                                android:id="@+id/name"
+                            <LinearLayout
+                                android:id="@+id/pos_location"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:minHeight="53dp"
                                 android:layout_marginTop="12dp"
-                                android:background="@drawable/layouting"
-                                android:fontFamily="@font/mitr_regular"
-                                android:hint="Lokasi"
-                                android:inputType="textCapWords"
-                                android:textSize="16sp" />
+                                android:background="@drawable/bg_spinner">
+                                <Spinner
+                                    android:id="@+id/spinner_loc"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"/>
+                            </LinearLayout>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -82,15 +85,18 @@
                             android:layout_height="65dp"
                             android:layout_marginHorizontal="30dp"
                             android:layout_marginTop="24dp">
+
                             <EditText
+                                android:id="@+id/date"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="12dp"
                                 android:background="@drawable/layouting"
+                                android:editable="false"
                                 android:fontFamily="@font/mitr_regular"
                                 android:hint="dd/MM/yyyy"
-                                android:inputType="textCapWords"
                                 android:textSize="16sp" />
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -108,7 +114,7 @@
                             android:layout_marginHorizontal="30dp"
                             android:layout_marginTop="24dp">
                             <EditText
-                                android:id="@+id/username"
+                                android:id="@+id/kegiatan"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="12dp"

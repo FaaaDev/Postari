@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
@@ -31,8 +32,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PenimbanganFragment extends BottomSheetDialogFragment {
-    private EditText date, tall, weight;
+public class AddImunisasiFragment extends BottomSheetDialogFragment {
+    private EditText date, ket;
     private int mYear, mMonth, mDay;
     private String month, day;
     private final Calendar c = Calendar.getInstance();
@@ -40,6 +41,8 @@ public class PenimbanganFragment extends BottomSheetDialogFragment {
     private DismisListener listener;
     private ApiInterface apiInterface;
     private String id_anak;
+    RadioButton rvit, rimunisasi;
+    private String type;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class PenimbanganFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_penimbangan, container, false);
+        View root = inflater.inflate(R.layout.fragment_imunisasi, container, false);
 
         _init(root);
 
@@ -59,9 +62,10 @@ public class PenimbanganFragment extends BottomSheetDialogFragment {
 
     private void _init(View root){
         date = root.findViewById(R.id.date);
-        tall = root.findViewById(R.id.tall);
-        weight = root.findViewById(R.id.weight);
+        ket = root.findViewById(R.id.ket);
         btn_add = root.findViewById(R.id.btn_add);
+        rvit = root.findViewById(R.id.rvit);
+        rimunisasi = root.findViewById(R.id.rimunisasi);
 
         if (getArguments() != null) {
             id_anak = getArguments().getString("id");
@@ -116,27 +120,35 @@ public class PenimbanganFragment extends BottomSheetDialogFragment {
     }
 
     private void validation(){
-        if (TextUtils.isEmpty(date.getText()) || TextUtils.isEmpty(tall.getText()) || TextUtils.isEmpty(tall.getText())){
+        if (rvit.isChecked()){
+            type = "Vitamin";
+        } else if (rimunisasi.isChecked()){
+            type = "Imunisasi";
+        } else {
+            type = "";
+        }
+
+        if (TextUtils.isEmpty(date.getText()) || TextUtils.isEmpty(ket.getText()) || TextUtils.isEmpty(type)){
+            if (TextUtils.isEmpty(type)){
+                Toast.makeText(getContext(), "Pilih Imunisasi/Vitamin", Toast.LENGTH_LONG).show();
+            }
             if (TextUtils.isEmpty(date.getText())){
-                date.setError("Pilih tanggal");
+                date.setError("Silahkan isi tanggal");
             }
-            if (TextUtils.isEmpty(tall.getText())){
-                tall.setError("Tinggi harus diisi");
-            }
-            if (TextUtils.isEmpty(weight.getText())){
-                weight.setError("Berat harus diisi");
+            if (TextUtils.isEmpty(ket.getText())){
+                ket.setError("Silahkan isi jenis imunisasi/vitamin");
             }
         } else {
-            addPenimbangan();
+            addImunisasi();
         }
     }
 
-    private void addPenimbangan(){
+    private void addImunisasi(){
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoading();
 
-        Call<BasicResponse> addPenimbangan = apiInterface.addPenimbangan(id_anak, weight.getText().toString(), Integer.parseInt(tall.getText().toString()), date.getText().toString());
-        addPenimbangan.enqueue(new Callback<BasicResponse>() {
+        Call<BasicResponse> addImunisasi = apiInterface.addImunisasi(id_anak, type, ket.getText().toString(), date.getText().toString());
+        addImunisasi.enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                 loadingDialog.dismis();
@@ -159,7 +171,6 @@ public class PenimbanganFragment extends BottomSheetDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
         try {
             listener = (DismisListener) context;
         } catch (ClassCastException e){
@@ -170,6 +181,6 @@ public class PenimbanganFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
-        listener.onDismisSheet("penimbangan");
+        listener.onDismisSheet("imunisasi");
     }
 }

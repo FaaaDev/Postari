@@ -101,9 +101,9 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
             fab_add_anak.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", anak.getId());
-                PenimbanganFragment penimbanganFragment = new PenimbanganFragment();
-                penimbanganFragment.setArguments(bundle);
-                penimbanganFragment.show(getSupportFragmentManager(), penimbanganFragment.getTag());
+                AddPenimbanganFragment addPenimbanganFragment = new AddPenimbanganFragment();
+                addPenimbanganFragment.setArguments(bundle);
+                addPenimbanganFragment.show(getSupportFragmentManager(), addPenimbanganFragment.getTag());
             });
             getPenimbanganList();
         } else if (type.equals("pemeriksaan")){
@@ -119,9 +119,9 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
             fab_add_anak.setOnClickListener(v -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("id", anak.getId());
-                ImunisasiFragment imunisasiFragment = new ImunisasiFragment();
-                imunisasiFragment.setArguments(bundle);
-                imunisasiFragment.show(getSupportFragmentManager(), imunisasiFragment.getTag());
+                AddImunisasiFragment addImunisasiFragment = new AddImunisasiFragment();
+                addImunisasiFragment.setArguments(bundle);
+                addImunisasiFragment.show(getSupportFragmentManager(), addImunisasiFragment.getTag());
             });
             getImunisasiList();
         }

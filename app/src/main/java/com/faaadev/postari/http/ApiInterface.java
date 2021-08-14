@@ -4,6 +4,7 @@ import com.faaadev.postari.service.AnakList;
 import com.faaadev.postari.service.Auth;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.service.ImunisasiList;
+import com.faaadev.postari.service.JadwalList;
 import com.faaadev.postari.service.LayananList;
 import com.faaadev.postari.service.LokasiList;
 import com.faaadev.postari.service.OrtuList;
@@ -64,7 +65,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("get-anak-list.php")
     Call<AnakList> getAnakWithParam(@Field("user_id") String user_id,
-                                   @Field("layanan") String layanan);
+                                    @Field("layanan") String layanan);
 
     @FormUrlEncoded
     @POST("add-anak.php")
@@ -97,4 +98,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("get-imunisasi-list.php")
     Call<ImunisasiList> getImunisasiList(@Field("id_anak") String id_anak);
+
+    @FormUrlEncoded
+    @POST("add-jadwal.php")
+    Call<BasicResponse> addJadwal(@Field("id_lokasi") String id_lokasi,
+                                  @Field("tanggal") String tanggal,
+                                  @Field("kegiatan") String kegiatan);
+
+    @GET("get-jadwal-list.php")
+    Call<JadwalList> getJadwalList();
 }

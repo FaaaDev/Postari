@@ -10,10 +10,13 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.adapter.JadwalAdapter;
 import com.faaadev.postari.adapter.LokasiAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.model.Jadwal;
 import com.faaadev.postari.model.Lokasi;
+import com.faaadev.postari.service.JadwalList;
 import com.faaadev.postari.service.LokasiList;
 import com.faaadev.postari.widget.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -28,10 +31,12 @@ import retrofit2.Response;
 public class DataPosyanduActivity extends AppCompatActivity implements DismisListener {
 
     private FloatingActionButton add_data;
-    private RecyclerView rv_jadwal;
+    private RecyclerView rv_jadwal, rv_lokasi;
     private ApiInterface apiInterface;
     private List<Lokasi> lokasi;
     private LokasiAdapter adapter;
+    private List<Jadwal> jadwal;
+    private JadwalAdapter jadwalAdapter;
     LoadingDialog loadingDialog;
 
     @Override
@@ -57,6 +62,7 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
     private void _init(){
         add_data = findViewById(R.id.fab_add_data);
         rv_jadwal = findViewById(R.id.rv_jadwal);
+        rv_lokasi = findViewById(R.id.rv_lokasi);
         _implement();
     }
 
@@ -69,7 +75,7 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         loadingDialog = new LoadingDialog(this);
 
-        getLokasiList();
+        getJadwalList();
     }
 
     private void getLokasiList(){
@@ -85,7 +91,7 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
                     lokasi = response.body().getLokasi();
 
                     adapter = new LokasiAdapter(getApplicationContext(), lokasi);
-                    rv_jadwal.setAdapter(adapter);
+                    rv_lokasi.setAdapter(adapter);
                 }
             }
 
@@ -97,9 +103,40 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
         });
     }
 
+    private void getJadwalList(){
+        loadingDialog.startLoading();
+        jadwal = new ArrayList<>();
+
+        Call<JadwalList> getJadwal = apiInterface.getJadwalList();
+        getJadwal.enqueue(new Callback<JadwalList>() {
+            @Override
+            public void onResponse(Call<JadwalList> call, Response<JadwalList> response) {
+                loadingDialog.dismis();
+                getLokasiList();
+                if (response.body().isSuccess()){
+                    jadwal = response.body().getJadwal();
+
+                    jadwalAdapter = new JadwalAdapter(getApplicationContext(), jadwal);
+                    rv_jadwal.setAdapter(jadwalAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JadwalList> call, Throwable t) {
+                loadingDialog.dismis();
+                getLokasiList();
+                Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     @Override
     public void onDismisSheet(String from) {
-        getLokasiList();
+        if(from.equals("lokasi")){
+            getLokasiList();
+        } else {
+            getJadwalList();
+        }
     }
 
 }

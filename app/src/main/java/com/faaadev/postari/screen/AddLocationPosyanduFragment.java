@@ -118,6 +118,6 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
-        listener.onDismisSheet("");
+        listener.onDismisSheet("lokasi");
     }
 }
