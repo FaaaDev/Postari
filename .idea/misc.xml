@@ -20,10 +20,11 @@
         <entry key="app/src/main/res/layout/fragment_add_jadwal_posyandu.xml" value="0.23988853552664932" />
         <entry key="app/src/main/res/layout/fragment_add_location_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_ortu.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_add_pemeriksaan.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_add_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_user.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_imunisasi.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_penimbangan.xml" value="0.26644736842105265" />
+        <entry key="app/src/main/res/layout/fragment_penimbangan.xml" value="0.2578397212543554" />
         <entry key="app/src/main/res/layout/item_anak.xml" value="0.2862190812720848" />
         <entry key="app/src/main/res/layout/item_anak_ortu.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_imunisasi.xml" value="0.22752808988764045" />

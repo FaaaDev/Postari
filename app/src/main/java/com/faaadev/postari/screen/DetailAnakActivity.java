@@ -12,6 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.faaadev.postari.AddPemeriksaanFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.ImunisasiAdapter;
 import com.faaadev.postari.adapter.PenimbanganAdapter;
@@ -110,7 +111,11 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
             rv_penimbangan.setVisibility(View.GONE);
             rv_imunisasi.setVisibility(View.GONE);
             fab_add_anak.setOnClickListener(v -> {
-
+                Bundle bundle = new Bundle();
+                bundle.putString("id", ortu.getUser_id());
+                AddPemeriksaanFragment addPemeriksaanFragment = new AddPemeriksaanFragment();
+                addPemeriksaanFragment.setArguments(bundle);
+                addPemeriksaanFragment.show(getSupportFragmentManager(), addPemeriksaanFragment.getTag());
             });
             getPemeriksaanList();
         } else {

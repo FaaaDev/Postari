@@ -107,4 +107,22 @@ public interface ApiInterface {
 
     @GET("get-jadwal-list.php")
     Call<JadwalList> getJadwalList();
+
+    @FormUrlEncoded
+    @POST("add-pemeriksaan.php")
+    Call<BasicResponse> addPemeriksaan(@Field("user_id") String user_id,
+                                       @Field("tanggal") String tanggal,
+                                       @Field("keluhan") String keluhan,
+                                       @Field("tekanan_darah") String tekanan,
+                                       @Field("bb_ibu") String berat,
+                                       @Field("umur_hamil") String umur,
+                                       @Field("tinggi_fundus") String tinggi,
+                                       @Field("letak_janin") String letak,
+                                       @Field("denyut_janin") String denyut,
+                                       @Field("kaki_bengkak") String bengkak,
+                                       @Field("pem_laboratorium") String pemLab,
+                                       @Field("tindakan") String tindakan,
+                                       @Field("nasihat") String nasihat,
+                                       @Field("pemeriksa") String pemeriksa,
+                                       @Field("tanggal_periksa_kembali") String periksaKembali);
 }
