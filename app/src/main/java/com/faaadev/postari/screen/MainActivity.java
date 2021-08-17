@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 this.getWindow().setNavigationBarColor(Color.argb(255,248,248,248));
             }
             main.setSystemUiVisibility(flags);
-            this.getWindow().setStatusBarColor(Color.argb(255,243,243,243));
+            this.getWindow().setStatusBarColor(Color.WHITE);
         }
     }
 

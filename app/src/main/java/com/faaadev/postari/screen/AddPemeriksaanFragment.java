@@ -1,8 +1,11 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.TextUtils;
@@ -15,9 +18,11 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.faaadev.postari.R;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.http.Preferences;
+import com.faaadev.postari.screen.DismisListener;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.widget.LoadingDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -39,6 +44,7 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
     private final Calendar c = Calendar.getInstance();
     private ApiInterface apiInterface;
     private String bengkak, user_id;
+    private DismisListener listener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -222,5 +228,22 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
                 Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (DismisListener) context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString()+"Must implement this");
+        }
+
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        listener.onDismisSheet("pemeriksaan");
     }
 }

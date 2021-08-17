@@ -17,6 +17,7 @@ import com.faaadev.postari.adapter.AnakOrtuAdapter;
 import com.faaadev.postari.adapter.LayananAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.model.Layanan;
 import com.faaadev.postari.model.Ortu;
@@ -35,7 +36,7 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
 
     private Ortu ortu = new Ortu();
     private TextView tv_dadname, tv_momname, tv_location, tv_address;
-    private LinearLayout layanan_container;
+    private LinearLayout layanan_container, edit_container;
     private RecyclerView rv_layanan, rv_anak_ortu;
     private List<Layanan> layananList;
     private List<Anak> anakList;
@@ -76,6 +77,7 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
         rv_anak_ortu = findViewById(R.id.rv_anak_ortu);
         rv_layanan = findViewById(R.id.rv_layanan);
         btn_add = findViewById(R.id.btn_add);
+        edit_container = findViewById(R.id.edit_container);
 
         _implement();
     }
@@ -87,6 +89,10 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
         tv_address.setText(ortu.getAlamat());
         layananList = new ArrayList<>();
         anakList = new ArrayList<>();
+
+        if (Preferences.getRole(getApplicationContext()).equals("ortu")){
+            edit_container.setVisibility(View.GONE);
+        }
 
         layanan_container.setVisibility(View.GONE);
 

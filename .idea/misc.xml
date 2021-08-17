@@ -12,7 +12,8 @@
         <entry key="app/src/main/res/layout/activity_data_penimbangan.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_data_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_detail_anak.xml" value="0.16" />
-        <entry key="app/src/main/res/layout/activity_detail_ortu.xml" value="0.15" />
+        <entry key="app/src/main/res/layout/activity_detail_ortu.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_pemeriksaan.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_petugas.xml" value="0.14" />
         <entry key="app/src/main/res/layout/activity_user_account.xml" value="0.1" />
@@ -23,6 +24,7 @@
         <entry key="app/src/main/res/layout/fragment_add_pemeriksaan.xml" value="0.2" />
         <entry key="app/src/main/res/layout/fragment_add_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_user.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_imunisasi.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_penimbangan.xml" value="0.2578397212543554" />
         <entry key="app/src/main/res/layout/item_anak.xml" value="0.2862190812720848" />
@@ -30,7 +32,9 @@
         <entry key="app/src/main/res/layout/item_imunisasi.xml" value="0.22752808988764045" />
         <entry key="app/src/main/res/layout/item_jadwal.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_layanan.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/item_layanan_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_ortu.xml" value="0.29012135551406654" />
+        <entry key="app/src/main/res/layout/item_pemeriksaan.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_penimbangan.xml" value="0.22" />
       </map>
     </option>

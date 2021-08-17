@@ -15,6 +15,7 @@ import com.faaadev.postari.adapter.AnakAdapter;
 import com.faaadev.postari.adapter.OrtuAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.service.AnakList;
 import com.faaadev.postari.widget.LoadingDialog;
@@ -71,7 +72,11 @@ public class DataAnakActivity extends AppCompatActivity {
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
-        getAnakList();
+        if (Preferences.getRole(getApplicationContext()).equals("ortu")){
+            getAnakListById();
+        } else {
+            getAnakList();
+        }
     }
 
     private void getAnakList(){
@@ -80,6 +85,32 @@ public class DataAnakActivity extends AppCompatActivity {
         listAnak = new ArrayList<>();
 
         Call<AnakList> anakList = apiInterface.getAnakWithParam("", type);
+        anakList.enqueue(new Callback<AnakList>() {
+            @Override
+            public void onResponse(Call<AnakList> call, Response<AnakList> response) {
+                loadingDialog.dismis();
+                if (response.body().isSuccess()){
+                    listAnak = response.body().getAnak();
+
+                    anakAdapter = new AnakAdapter(getApplicationContext(), listAnak, type);
+                    rv_anak.setAdapter(anakAdapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AnakList> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getAnakListById(){
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.startLoading();
+        listAnak = new ArrayList<>();
+
+        Call<AnakList> anakList = apiInterface.getAnakWithParam(Preferences.getUserId(getApplicationContext()), "");
         anakList.enqueue(new Callback<AnakList>() {
             @Override
             public void onResponse(Call<AnakList> call, Response<AnakList> response) {

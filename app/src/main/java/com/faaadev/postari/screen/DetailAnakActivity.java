@@ -12,17 +12,20 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.faaadev.postari.AddPemeriksaanFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.ImunisasiAdapter;
+import com.faaadev.postari.adapter.PemeriksaanAdapter;
 import com.faaadev.postari.adapter.PenimbanganAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.model.Imunisasi;
 import com.faaadev.postari.model.Ortu;
+import com.faaadev.postari.model.Pemeriksaan;
 import com.faaadev.postari.model.Penimbangan;
 import com.faaadev.postari.service.ImunisasiList;
+import com.faaadev.postari.service.PemeriksaanList;
 import com.faaadev.postari.service.PenimbanganList;
 import com.faaadev.postari.widget.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,6 +48,8 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
     private FloatingActionButton fab_add_anak;
     private List<Penimbangan> penimbanganList;
     private List<Imunisasi> imunisasiList;
+    private List<Pemeriksaan> pemeriksaanList;
+    private PemeriksaanAdapter pemeriksaanAdapter;
     private PenimbanganAdapter penimbanganAdapter;
     private ImunisasiAdapter imunisasiAdapter;
     private ApiInterface apiInterface;
@@ -90,6 +95,10 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
             title.setText("Ibu "+ortu.getMom_name());
         } else {
             title.setText(anak.getNama());
+        }
+
+        if (Preferences.getRole(getApplicationContext()).equals("ortu")){
+            fab_add_anak.setVisibility(View.GONE);
         }
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -199,19 +208,19 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
     private void getPemeriksaanList(){
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.startLoading();
-        imunisasiList = new ArrayList<>();
+        pemeriksaanList = new ArrayList<>();
 
-        Call<ImunisasiList> imunisasiListCall = apiInterface.getImunisasiList("1");
-        imunisasiListCall.enqueue(new Callback<ImunisasiList>() {
+        Call<PemeriksaanList> pemeriksaanListCall = apiInterface.getPemeriksaanList(ortu.getUser_id());
+        pemeriksaanListCall.enqueue(new Callback<PemeriksaanList>() {
             @Override
-            public void onResponse(Call<ImunisasiList> call, Response<ImunisasiList> response) {
+            public void onResponse(Call<PemeriksaanList> call, Response<PemeriksaanList> response) {
                 loadingDialog.dismis();
                 if(response.body().isSuccess()){
                     is_empty.setVisibility(View.GONE);
                     has_data.setVisibility(View.VISIBLE);
-                    imunisasiList = response.body().getImunisasi();
-                    imunisasiAdapter = new ImunisasiAdapter(getApplicationContext(), imunisasiList);
-                    rv_pemeriksaan.setAdapter(imunisasiAdapter);
+                    pemeriksaanList = response.body().getPemeriksaan();
+                    pemeriksaanAdapter = new PemeriksaanAdapter(getApplicationContext(), pemeriksaanList);
+                    rv_pemeriksaan.setAdapter(pemeriksaanAdapter);
                 } else {
                     is_empty.setVisibility(View.VISIBLE);
                     has_data.setVisibility(View.GONE);
@@ -219,7 +228,7 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
             }
 
             @Override
-            public void onFailure(Call<ImunisasiList> call, Throwable t) {
+            public void onFailure(Call<PemeriksaanList> call, Throwable t) {
                 is_empty.setVisibility(View.VISIBLE);
                 has_data.setVisibility(View.GONE);
                 loadingDialog.dismis();
@@ -232,6 +241,8 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
     public void onDismisSheet(String from) {
         if (from.equals("penimbangan")){
             getPenimbanganList();
+        } else if (from.equals("pemeriksaan")){
+            getPemeriksaanList();
         } else {
             getImunisasiList();
         }

@@ -7,7 +7,9 @@ import com.faaadev.postari.service.ImunisasiList;
 import com.faaadev.postari.service.JadwalList;
 import com.faaadev.postari.service.LayananList;
 import com.faaadev.postari.service.LokasiList;
+import com.faaadev.postari.service.Ortu;
 import com.faaadev.postari.service.OrtuList;
+import com.faaadev.postari.service.PemeriksaanList;
 import com.faaadev.postari.service.PenimbanganList;
 import com.faaadev.postari.service.UserList;
 
@@ -57,6 +59,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("get-ortu-list.php")
     Call<OrtuList> getOrtuListWithParam(@Field("layanan") String layanan);
+
+    @FormUrlEncoded
+    @POST("get-ortu-by-id.php")
+    Call<Ortu> getOrtuById(@Field("user_id") String user_id);
 
     @FormUrlEncoded
     @POST("get-layanan-list.php")
@@ -125,4 +131,8 @@ public interface ApiInterface {
                                        @Field("nasihat") String nasihat,
                                        @Field("pemeriksa") String pemeriksa,
                                        @Field("tanggal_periksa_kembali") String periksaKembali);
+
+    @FormUrlEncoded
+    @POST("get-pemeriksaan-list.php")
+    Call<PemeriksaanList> getPemeriksaanList(@Field("user_id") String user_id);
 }

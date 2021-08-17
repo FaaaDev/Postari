@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#ffffff">
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="08/08/2021"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/tekanan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tekanan Darah : 100 Kg"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Berat Badan : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/umur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Umur Hamil : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/tinggi_fundus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tinggi Fundus : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/letak_janin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Letak Janin: 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/denyut_janin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Denyut Janin: 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/keluhan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Keluhan: 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/kaki_bengkak"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kaki Bengkak : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/pem_lab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hasil Lab : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/tindakan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tindakan : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/nasihat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nasihat : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/pemeriksa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pemeriksa: 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <TextView
+        android:id="@+id/periksa_kembali"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tanggal Periksa Kembali : 200 Cm"
+        android:fontFamily="@font/mitr_regular"
+        android:textColor="#030112"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#D6D6D6"
+        android:layout_marginTop="20dp"/>
+</LinearLayout>

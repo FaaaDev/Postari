@@ -31,10 +31,9 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="80dp"
-        android:layout_marginBottom="80dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/edit_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -253,6 +252,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/edit_container"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="#ffffff"
@@ -260,7 +260,8 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
         <Button
             android:id="@+id/btn_edit"
@@ -270,11 +271,11 @@
             android:layout_weight="1"
             android:background="@drawable/button_edit_background"
             android:fontFamily="@font/mitr_regular"
+            android:stateListAnimator="@null"
             android:text="Edit Data"
             android:textAllCaps="false"
             android:textColor="#ffffff"
-            android:textSize="18sp"
-            android:stateListAnimator="@null"/>
+            android:textSize="18sp" />
 
         <ImageButton
             android:id="@+id/btn_add"
