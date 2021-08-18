@@ -15,6 +15,8 @@ public class Ortu implements Serializable {
     private String alamat;
     @SerializedName("nama_posyandu")
     private String posyandu;
+    @SerializedName("posyandu")
+    private String idPosyandu;
 
     public String getUser_id() {
         return user_id;
@@ -54,5 +56,13 @@ public class Ortu implements Serializable {
 
     public void setPosyandu(String posyandu) {
         this.posyandu = posyandu;
+    }
+
+    public String getIdPosyandu() {
+        return idPosyandu;
+    }
+
+    public void setIdPosyandu(String idPosyandu) {
+        this.idPosyandu = idPosyandu;
     }
 }
