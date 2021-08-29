@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "892394546409",
+    "project_id": "postari-d46d5",
+    "storage_bucket": "postari-d46d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892394546409:android:f39cebfea35fe5832b3c78",
+        "android_client_info": {
+          "package_name": "com.faaadev.postari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "892394546409-708dsfekcc0n34kvk8f2qnbm8dahdel3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJh006Hp5MoGyEDWmnaCUBoeR334ZYtuc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892394546409-708dsfekcc0n34kvk8f2qnbm8dahdel3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

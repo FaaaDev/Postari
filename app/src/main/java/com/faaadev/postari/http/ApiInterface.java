@@ -135,4 +135,18 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("get-pemeriksaan-list.php")
     Call<PemeriksaanList> getPemeriksaanList(@Field("user_id") String user_id);
+
+    @GET("get-petugas-list.php")
+    Call<UserList> getPetugas();
+
+    @FormUrlEncoded
+    @POST("add-chat-list.php")
+    Call<BasicResponse> addChat(@Field("id_sender") String sender_id,
+                                @Field("id_receiver") String user_id);
+
+    @FormUrlEncoded
+    @POST("add-chat-detail.php")
+    Call<BasicResponse> addToChatRoom(@Field("chat_id") String chat_id,
+                                      @Field("sender") String sender,
+                                      @Field("message") String message);
 }

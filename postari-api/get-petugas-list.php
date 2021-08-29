@@ -1,12 +1,10 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
-    $user_id = $_POST['user_id'];
+if ($_SERVER['REQUEST_METHOD'] == 'GET'){    
 
     require_once('connection.php');
 
-    $sql = "SELECT * FROM layanan WHERE user_id = '$user_id'";
+    $sql = "SELECT * FROM user WHERE role = 'petugas_kesehatan' OR role = 'petugas_posyandu'";
 
     $query = mysqli_query($conn,$sql);
 

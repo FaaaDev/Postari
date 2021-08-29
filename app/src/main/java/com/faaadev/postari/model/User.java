@@ -1,8 +1,12 @@
 package com.faaadev.postari.model;
 
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     @SerializedName("user_id")
     private String user_id;
     @SerializedName("username")

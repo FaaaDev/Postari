@@ -3,11 +3,17 @@ package com.faaadev.postari.screen;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.faaadev.postari.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -37,6 +43,22 @@ public class MainActivity extends AppCompatActivity {
             main.setSystemUiVisibility(flags);
             this.getWindow().setStatusBarColor(Color.WHITE);
         }
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed "+task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+                        System.out.println("Token == "+token);
+                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_LONG).show();
+                    }
+                });
     }
 
 }

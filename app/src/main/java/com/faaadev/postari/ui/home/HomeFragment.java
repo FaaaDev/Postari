@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.ChatActivity;
 import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.LayananAdapter;
 import com.faaadev.postari.adapter.LayananMainAdapter;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView rv_layanan;
     private LayananMainAdapter adapter;
     private com.faaadev.postari.model.Ortu ortu = new com.faaadev.postari.model.Ortu();
-    private LinearLayout menu1;
+    private LinearLayout menu0, menu1, menu2;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -70,6 +71,7 @@ public class HomeFragment extends Fragment {
         date = root.findViewById(R.id.date);
         rv_layanan = root.findViewById(R.id.rv_layanan);
         menu1 = root.findViewById(R.id.menu1);
+        menu0 = root.findViewById(R.id.menu0);
 
         _implement();
     }
@@ -101,6 +103,10 @@ public class HomeFragment extends Fragment {
             Intent i = new Intent(getActivity(), DetailOrtuActivity.class);
             i.putExtra("ortu", ortu);
             startActivity(i);
+        });
+
+        menu0.setOnClickListener(v-> {
+            startActivity(new Intent(getActivity(), ChatActivity.class));
         });
     }
 

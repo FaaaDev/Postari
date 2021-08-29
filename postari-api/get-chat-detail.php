@@ -2,11 +2,11 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-    $user_id = $_POST['user_id'];
+    $id = $_POST['id'];
 
     require_once('connection.php');
 
-    $sql = "SELECT * FROM layanan WHERE user_id = '$user_id'";
+    $sql = "SELECT * FROM chat WHERE id = '$id'";
 
     $query = mysqli_query($conn,$sql);
 

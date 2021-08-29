@@ -1,12 +1,16 @@
 <?php
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-
     $user_id = $_POST['user_id'];
+    $role = $_POST['role'];
 
     require_once('connection.php');
 
-    $sql = "SELECT * FROM layanan WHERE user_id = '$user_id'";
+    if ($role == 'ortu'){
+        $sql = "SELECT a.id, a.id_sender, a.id_receiver, b.message FROM chat_list a INNER JOIN chat b ON a.id = b.id_chat WHERE a.id_sender = '$user_id' ORDER BY b.id DESC LIMIT 1";
+    } else {
+        $sql = "SELECT a.id, a.id_sender, a.id_receiver, b.message FROM chat_list a INNER JOIN chat b ON a.id = b.id_chat WHERE a.id_receiver = '$user_id' ORDER BY b.id DESC LIMIT 1";
+    }
 
     $query = mysqli_query($conn,$sql);
 
