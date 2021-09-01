@@ -15,11 +15,19 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.faaadev.postari.adapter.ChatAdapter;
+import com.faaadev.postari.adapter.ChatDetailAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.http.Preferences;
+import com.faaadev.postari.model.Chat;
 import com.faaadev.postari.model.User;
 import com.faaadev.postari.service.BasicResponse;
+import com.faaadev.postari.service.ChatList;
+import com.faaadev.postari.widget.LoadingDialog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +43,9 @@ public class ChatRoomActivity extends AppCompatActivity {
     private ImageView state_false;
     private ProgressBar state_true;
     private ApiInterface apiInterface;
-    private String sender_id, receiver_id;
+    private String sender_id, receiver_id, name, rawRole;
+    private List<Chat> list;
+    private ChatDetailAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,18 +74,27 @@ public class ChatRoomActivity extends AppCompatActivity {
         role = findViewById(R.id.role);
         state_false = findViewById(R.id.state_false);
         state_true = findViewById(R.id.state_true);
+        rv_chat = findViewById(R.id.rv_chat);
 
-        data = (User) getIntent().getSerializableExtra("user");
+        if (getIntent().getStringExtra("from").equals("new")){
+            data = (User) getIntent().getSerializableExtra("user");
+            name = data.getUsername();
+            rawRole = data.getRole();
+            receiver_id = data.getUser_id();
+        } else {
+            name = getIntent().getStringExtra("receiverName");
+            rawRole = getIntent().getStringExtra("receiverRole");
+            receiver_id = getIntent().getStringExtra("receiverId");
+        }
 
         sender_id = Preferences.getUserId(getApplicationContext());
-        receiver_id = data.getUser_id();
 
         implement();
     }
 
     private  void implement(){
-        username.setText(data.getUsername());
-        switch (data.getRole()) {
+        username.setText(name);
+        switch (rawRole) {
             case "ortu":
                 role.setText("Orang Tua");
                 break;
@@ -93,6 +112,11 @@ public class ChatRoomActivity extends AppCompatActivity {
         setSendLoading(false);
 
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        list = new ArrayList<>();
+        adapter = new ChatDetailAdapter(getApplicationContext(), list);
+        rv_chat.setAdapter(adapter);
+        getChat();
     }
 
     private void setSendLoading(Boolean state){
@@ -115,12 +139,17 @@ public class ChatRoomActivity extends AppCompatActivity {
 
     private void addChat(){
         setSendLoading(true);
-        Call<BasicResponse> addChat = apiInterface.addChat(sender_id, receiver_id);
+        Call<BasicResponse> addChat = apiInterface.addChat(message.getText().toString(), sender_id, receiver_id);
         addChat.enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                 if (response.body().getStatus()){
-                    addToChatRoom(response.body().getMessage());
+
+                    list.add(new Chat(sender_id, receiver_id, message.getText().toString()));
+                    adapter.notifyDataSetChanged();
+                    rv_chat.smoothScrollToPosition(adapter.getItemCount() - 1);
+                    message.setText("");
+                    setSendLoading(false);
                 } else {
                     setSendLoading(false);
                     System.out.println(response.body().getMessage());
@@ -136,24 +165,30 @@ public class ChatRoomActivity extends AppCompatActivity {
         });
     }
 
-    private void addToChatRoom(String chat_id){
-        Call<BasicResponse> addToChat = apiInterface.addToChatRoom(chat_id, sender_id, message.getText().toString());
-        addToChat.enqueue(new Callback<BasicResponse>() {
+    private void getChat(){
+        setSendLoading(true);
+
+        Call<ChatList> chatList = apiInterface.getChatDetail(Preferences.getUserId(getApplicationContext()), receiver_id);
+        chatList.enqueue(new Callback<ChatList>() {
             @Override
-            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
-                if (response.body().getStatus()){
+            public void onResponse(Call<ChatList> call, Response<ChatList> response) {
+                if(response.body().isSuccess()){
                     setSendLoading(false);
-                    message.setText("");
+                    list.addAll(response.body().getChat());
+                    adapter.notifyDataSetChanged();
                 } else {
                     setSendLoading(false);
-                    Toast.makeText(getApplicationContext(), "Gagal Mengirim Pesan", Toast.LENGTH_LONG).show();
+//                    is_empty.setVisibility(View.VISIBLE);
+//                    has_data.setVisibility(View.GONE);
                 }
             }
 
             @Override
-            public void onFailure(Call<BasicResponse> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Kesalahan saat mengirim ke server", Toast.LENGTH_LONG).show();
+            public void onFailure(Call<ChatList> call, Throwable t) {
+//                is_empty.setVisibility(View.VISIBLE);
+//                has_data.setVisibility(View.GONE);
                 setSendLoading(false);
+                Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
     }

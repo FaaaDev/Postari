@@ -3,6 +3,7 @@ package com.faaadev.postari.http;
 import com.faaadev.postari.service.AnakList;
 import com.faaadev.postari.service.Auth;
 import com.faaadev.postari.service.BasicResponse;
+import com.faaadev.postari.service.ChatList;
 import com.faaadev.postari.service.ImunisasiList;
 import com.faaadev.postari.service.JadwalList;
 import com.faaadev.postari.service.LayananList;
@@ -140,13 +141,22 @@ public interface ApiInterface {
     Call<UserList> getPetugas();
 
     @FormUrlEncoded
-    @POST("add-chat-list.php")
-    Call<BasicResponse> addChat(@Field("id_sender") String sender_id,
-                                @Field("id_receiver") String user_id);
+    @POST("add-chat-detail.php")
+    Call<BasicResponse> addChat(@Field("messages") String messages,
+                                @Field("sender_id") String sender_id,
+                                @Field("receiver_id") String receiver_id);
 
     @FormUrlEncoded
-    @POST("add-chat-detail.php")
-    Call<BasicResponse> addToChatRoom(@Field("chat_id") String chat_id,
-                                      @Field("sender") String sender,
-                                      @Field("message") String message);
+    @POST("get-chat-list.php")
+    Call<ChatList> getChatList(@Field("user_id") String user_id);
+
+    @FormUrlEncoded
+    @POST("get-chat-detail.php")
+    Call<ChatList> getChatDetail(@Field("sender_id") String sender_id,
+                                 @Field("receiver_id") String receiver_id);
+
+    @FormUrlEncoded
+    @POST("add-token.php")
+    Call<BasicResponse> addToken(@Field("user_id") String user_id,
+                                @Field("token") String token);
 }

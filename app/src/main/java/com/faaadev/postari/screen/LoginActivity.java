@@ -1,5 +1,6 @@
 package com.faaadev.postari.screen;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -19,7 +20,11 @@ import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.http.SharedPrefManager;
 import com.faaadev.postari.service.Auth;
+import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.widget.LoadingDialog;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -32,6 +37,8 @@ public class LoginActivity extends AppCompatActivity {
     private ApiInterface apiInterface;
     private SharedPrefManager sharedPrefManager;
     private Preferences preferences;
+    private LoadingDialog loadingDialog;
+    private String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +75,25 @@ public class LoginActivity extends AppCompatActivity {
 
     private void _implement() {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
+        loadingDialog = new LoadingDialog(this);
         sharedPrefManager = new SharedPrefManager(LoginActivity.this);
 
         preferences = new Preferences();
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            System.out.println("Fetching FCM registration token failed "+task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        token = task.getResult();
+                        System.out.println("Token == "+token);
+                    }
+                });
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,33 +114,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void auth() {
-        LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.startLoading();
         Call<Auth> goAuth = apiInterface.goAuth(et_user.getText().toString(), et_password.getText().toString());
         goAuth.enqueue(new Callback<Auth>() {
             @Override
             public void onResponse(Call<Auth> call, Response<Auth> response) {
                 if (response.body().getStatus().equals("true")) {
-                    Handler hh = new Handler();
-                    hh.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            loadingDialog.dismis();
-                            sharedPrefManager.saveUser(response.body().getUser());
-
-                            preferences.saveUser(response.body().getUser(), getApplicationContext());
-                           // System.out.println("USER === "+  preferences.getUser(getApplicationContext()).getUser_id());
-                            if (response.body().getUser().getRole().equals("ortu")) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
-                            } else {
-                                Intent i = new Intent(LoginActivity.this, PetugasActivity.class);
-                                i.putExtra("type", Preferences.getRole(getApplicationContext()));
-                                startActivity(i);
-                                finish();
-                            }
-                        }
-                    }, 1000);
+                    sharedPrefManager.saveUser(response.body().getUser());
+                    preferences.saveUser(response.body().getUser(), getApplicationContext());
+                    storeToken();
                 } else {
                     loadingDialog.dismis();
                     Toast.makeText(LoginActivity.this, "Periksa Kembali Email atau Password", Toast.LENGTH_LONG).show();
@@ -129,6 +133,38 @@ public class LoginActivity extends AppCompatActivity {
             public void onFailure(Call<Auth> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Gagal Menghubungi Server, Coba Lagi!", Toast.LENGTH_LONG).show();
                 loadingDialog.dismis();
+            }
+        });
+    }
+    private void storeToken(){
+        Call<BasicResponse> store =
+                apiInterface.addToken(Preferences.getUserId(getApplicationContext()),token);
+        store.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                if (response.body().getStatus()){
+                    Handler hh = new Handler();
+                    hh.postDelayed(() -> {
+                        loadingDialog.dismis();
+                        if (Preferences.getRole(getApplicationContext()).equals("ortu")) {
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        } else {
+                            Intent i = new Intent(LoginActivity.this, PetugasActivity.class);
+                            i.putExtra("type", Preferences.getRole(getApplicationContext()));
+                            startActivity(i);
+                        }
+                        finish();
+                    }, 1000);
+                } else {
+                    loadingDialog.dismis();
+                    Toast.makeText(LoginActivity.this, "Gagal Menyimpan Token FCM!", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(LoginActivity.this, "Gagal Menyimpan Token FCM!", Toast.LENGTH_LONG).show();
             }
         });
     }

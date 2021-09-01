@@ -2,11 +2,14 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-    $id = $_POST['id'];
+    $receiver_id = $_POST['receiver_id'];
+    $sender_id = $_POST['sender_id'];
 
     require_once('connection.php');
 
-    $sql = "SELECT * FROM chat WHERE id = '$id'";
+    $sql = "SELECT * FROM messages 
+            WHERE (receiver_id = '$receiver_id' AND sender_id = '$sender_id') 
+            OR (receiver_id = '$sender_id' AND sender_id = '$receiver_id')";
 
     $query = mysqli_query($conn,$sql);
 

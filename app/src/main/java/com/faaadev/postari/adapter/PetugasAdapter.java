@@ -20,10 +20,12 @@ import java.util.List;
 public class PetugasAdapter extends RecyclerView.Adapter<PetugasAdapter.MyViewHolder> {
     private Context mContext;
     private List<User> mData;
+    ItemClickListener itemClickListener;
 
-    public PetugasAdapter(Context mContext, List<User> mData) {
+    public PetugasAdapter(Context mContext, List<User> mData, ItemClickListener itemClickListener) {
         this.mContext = mContext;
         this.mData = mData;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -53,7 +55,9 @@ public class PetugasAdapter extends RecyclerView.Adapter<PetugasAdapter.MyViewHo
         holder.container.setOnClickListener(v -> {
             Intent i = new Intent(mContext, ChatRoomActivity.class);
             i.putExtra("user", data);
+            i.putExtra("from", "new");
             mContext.startActivity(i);
+            itemClickListener.onItemClicked("");
         });
     }
 

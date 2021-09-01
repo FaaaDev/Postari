@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.faaadev.postari.adapter.ItemClickListener;
 import com.faaadev.postari.adapter.PetugasAdapter;
 import com.faaadev.postari.adapter.UserAdapter;
 import com.faaadev.postari.http.ApiClient;
@@ -39,6 +40,7 @@ public class AddChatFragment extends BottomSheetDialogFragment {
     private RecyclerView rv_petugas;
     private LinearLayout loading, after;
     private ApiInterface apiInterface;
+    private ItemClickListener listener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,8 @@ public class AddChatFragment extends BottomSheetDialogFragment {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         getUserList();
+
+        listener = params -> dismiss();
     }
 
     private void getUserList(){
@@ -81,7 +85,7 @@ public class AddChatFragment extends BottomSheetDialogFragment {
                 if (response.body().getStatus().equals("true")){
                     list = response.body().getUser();
 
-                    adapter = new PetugasAdapter(getContext(), list);
+                    adapter = new PetugasAdapter(getContext(), list, listener);
                     rv_petugas.setAdapter(adapter);
                     loading.setVisibility(View.GONE);
                     after.setVisibility(View.VISIBLE);

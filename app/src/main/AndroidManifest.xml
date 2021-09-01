@@ -19,7 +19,8 @@
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".ChatActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".screen.DetailAnakActivity"
             android:exported="true" />
@@ -31,7 +32,8 @@
         <activity android:name=".screen.UserAccountActivity" />
         <activity android:name=".screen.DataOrtuActivity" />
         <activity android:name=".screen.PetugasActivity" />
-        <activity android:name=".screen.LoginActivity" />
+        <activity android:name=".screen.LoginActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity android:name=".screen.MainActivity" />
         <activity
             android:name=".screen.SplashActivity"

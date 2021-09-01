@@ -44,21 +44,7 @@ public class MainActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(Color.WHITE);
         }
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            System.out.println("Fetching FCM registration token failed "+task.getException());
-                            return;
-                        }
 
-                        // Get new FCM registration token
-                        String token = task.getResult();
-                        System.out.println("Token == "+token);
-                        Toast.makeText(MainActivity.this, token, Toast.LENGTH_LONG).show();
-                    }
-                });
     }
 
 }

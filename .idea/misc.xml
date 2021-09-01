@@ -3,13 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/a.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/button_add_background.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/button_edit_background.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/drawable/last_left_bubble.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/last_right_bubble.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/layouting.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/drawable/left_bubble.xml" value="0.17" />
+        <entry key="app/src/main/res/drawable/radio_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/right_bubble.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/same_left_bubble.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/same_right_bubble.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/search_background.xml" value="0.10740740740740741" />
-        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.15" />
-        <entry key="app/src/main/res/layout/activity_chat_room.xml" value="0.24444444444444444" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_chat_room.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_data_anak.xml" value="0.15" />
         <entry key="app/src/main/res/layout/activity_data_ortu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_data_penimbangan.xml" value="0.22" />
@@ -36,6 +44,7 @@
         <entry key="app/src/main/res/layout/item_anak.xml" value="0.2862190812720848" />
         <entry key="app/src/main/res/layout/item_anak_ortu.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_chat.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/item_chat_detail.xml" value="0.2074074074074074" />
         <entry key="app/src/main/res/layout/item_imunisasi.xml" value="0.22752808988764045" />
         <entry key="app/src/main/res/layout/item_jadwal.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_layanan.xml" value="0.67" />
