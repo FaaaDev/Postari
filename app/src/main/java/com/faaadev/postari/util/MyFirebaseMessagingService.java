@@ -4,6 +4,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.faaadev.postari.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -20,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
+    public static final String INFO_UPDATE_FILTER = "info_update_filter";
+
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -57,5 +61,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         notificationManager.notify(0, builder.build());
+
+        Intent i = new Intent(INFO_UPDATE_FILTER);
+        i.putExtra(INFO_UPDATE_FILTER, body);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(i);
     }
 }

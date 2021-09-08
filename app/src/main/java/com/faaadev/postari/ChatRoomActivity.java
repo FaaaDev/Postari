@@ -2,8 +2,13 @@ package com.faaadev.postari;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,6 +29,7 @@ import com.faaadev.postari.model.Chat;
 import com.faaadev.postari.model.User;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.service.ChatList;
+import com.faaadev.postari.util.MyFirebaseMessagingService;
 import com.faaadev.postari.widget.LoadingDialog;
 
 import java.util.ArrayList;
@@ -63,6 +69,8 @@ public class ChatRoomActivity extends AppCompatActivity {
             main.setSystemUiVisibility(flags);
             this.getWindow().setStatusBarColor(Color.WHITE);
         }
+
+        LocalBroadcastManager.getInstance(this).registerReceiver(updates_receiver, new IntentFilter(MyFirebaseMessagingService.INFO_UPDATE_FILTER));
 
         init();
     }
@@ -117,7 +125,18 @@ public class ChatRoomActivity extends AppCompatActivity {
         adapter = new ChatDetailAdapter(getApplicationContext(), list);
         rv_chat.setAdapter(adapter);
         getChat();
+
     }
+
+    private BroadcastReceiver updates_receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String filter = MyFirebaseMessagingService.INFO_UPDATE_FILTER;
+            if(intent.getAction().equals(filter)){
+                getChat();
+            }
+        }
+    };
 
     private void setSendLoading(Boolean state){
         if (state) {
@@ -176,20 +195,24 @@ public class ChatRoomActivity extends AppCompatActivity {
                     setSendLoading(false);
                     list.addAll(response.body().getChat());
                     adapter.notifyDataSetChanged();
+                    rv_chat.smoothScrollToPosition(adapter.getItemCount() - 1);
                 } else {
                     setSendLoading(false);
-//                    is_empty.setVisibility(View.VISIBLE);
-//                    has_data.setVisibility(View.GONE);
                 }
             }
 
             @Override
             public void onFailure(Call<ChatList> call, Throwable t) {
-//                is_empty.setVisibility(View.VISIBLE);
-//                has_data.setVisibility(View.GONE);
                 setSendLoading(false);
                 Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(updates_receiver);
     }
 }

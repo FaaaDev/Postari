@@ -1,8 +1,13 @@
 package com.faaadev.postari;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +24,7 @@ import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Chat;
 import com.faaadev.postari.service.ChatList;
 import com.faaadev.postari.service.ImunisasiList;
+import com.faaadev.postari.util.MyFirebaseMessagingService;
 import com.faaadev.postari.widget.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -57,6 +63,8 @@ public class ChatActivity extends AppCompatActivity {
             this.getWindow().setStatusBarColor(Color.WHITE);
         }
 
+        LocalBroadcastManager.getInstance(this).registerReceiver(updates_receiver, new IntentFilter(MyFirebaseMessagingService.INFO_UPDATE_FILTER));
+
         _init();
     }
 
@@ -78,6 +86,16 @@ public class ChatActivity extends AppCompatActivity {
             addChatFragment.show(getSupportFragmentManager(), addChatFragment.getTag());
         });
     }
+
+    private BroadcastReceiver updates_receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String filter = MyFirebaseMessagingService.INFO_UPDATE_FILTER;
+            if(intent.getAction().equals(filter)){
+                getChatList();
+            }
+        }
+    };
 
     private void getChatList(){
         list = new ArrayList<>();
@@ -111,5 +129,11 @@ public class ChatActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getChatList();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(updates_receiver);
     }
 }
