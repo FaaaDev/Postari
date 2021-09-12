@@ -16,9 +16,9 @@
         android:icon="@drawable/ic__08_maps"
         android:title="@string/title_notifications" />
 
-    <item
-        android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic__25_settings"
-        android:title="Settings" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_settings"-->
+<!--        android:icon="@drawable/ic__25_settings"-->
+<!--        android:title="Settings" />-->
 
 </menu>

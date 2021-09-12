@@ -8,8 +8,11 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.faaadev.postari.ChatActivity;
+import com.faaadev.postari.ProfileFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,6 +23,7 @@ public class PetugasActivity extends AppCompatActivity {
     private FloatingActionButton fab_live_chat;
     private String type;
     private TextView username;
+    private ImageView img_profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class PetugasActivity extends AppCompatActivity {
         menu6 = findViewById(R.id.menu6);
         username = findViewById(R.id.username);
         fab_live_chat = findViewById(R.id.fab_live_chat);
+        img_profile = findViewById(R.id.img_profile);
 
         type = getIntent().getStringExtra("type");
 
@@ -89,7 +94,12 @@ public class PetugasActivity extends AppCompatActivity {
         });
 
         fab_live_chat.setOnClickListener(v -> {
+            startActivity(new Intent(this, ChatActivity.class));
+        });
 
+        img_profile.setOnClickListener(v -> {
+            ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.show(getSupportFragmentManager(), profileFragment.getTag());
         });
     }
 }

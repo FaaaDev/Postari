@@ -78,6 +78,11 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void _implement(){
+        if (Preferences.getRole(getApplicationContext()).equals("ortu")){
+            fab_add.setVisibility(View.VISIBLE);
+        } else {
+            fab_add.setVisibility(View.GONE);
+        }
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         is_empty.setVisibility(View.GONE);

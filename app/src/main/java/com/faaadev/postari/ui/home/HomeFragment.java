@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.ChatActivity;
+import com.faaadev.postari.ProfileFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.LayananAdapter;
 import com.faaadev.postari.adapter.LayananMainAdapter;
@@ -56,6 +58,7 @@ public class HomeFragment extends Fragment {
     private LayananMainAdapter adapter;
     private com.faaadev.postari.model.Ortu ortu = new com.faaadev.postari.model.Ortu();
     private LinearLayout menu0, menu1, menu2;
+    private ImageView img_profile;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -72,6 +75,7 @@ public class HomeFragment extends Fragment {
         rv_layanan = root.findViewById(R.id.rv_layanan);
         menu1 = root.findViewById(R.id.menu1);
         menu0 = root.findViewById(R.id.menu0);
+        img_profile = root.findViewById(R.id.img_profile);
 
         _implement();
     }
@@ -107,6 +111,11 @@ public class HomeFragment extends Fragment {
 
         menu0.setOnClickListener(v-> {
             startActivity(new Intent(getActivity(), ChatActivity.class));
+        });
+
+        img_profile.setOnClickListener(v -> {
+            ProfileFragment profileFragment = new ProfileFragment();
+            profileFragment.show(getChildFragmentManager(), profileFragment.getTag());
         });
     }
 
