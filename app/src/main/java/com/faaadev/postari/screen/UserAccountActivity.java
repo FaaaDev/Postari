@@ -1,12 +1,20 @@
 package com.faaadev.postari.screen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
@@ -32,6 +40,9 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
     private RecyclerView rv_user;
     private List<User> list;
     private UserAdapter userAdapter;
+    private  List<User> searchUser;
+    private EditText search;
+    private CardView search_button;
 
 
     @Override
@@ -57,6 +68,8 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
     private void _init(){
         fab_add_user = findViewById(R.id.fab_add_user);
         rv_user = findViewById(R.id.rv_user);
+        search = findViewById(R.id.search);
+        search_button = findViewById(R.id.search_button);
 
         _implement();
     }
@@ -69,11 +82,72 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
             public void onClick(View v) {
                 AddUserFragment addUserFragment = new AddUserFragment();
                 addUserFragment.show(getSupportFragmentManager(), addUserFragment.getTag());
+            }
+        });
 
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null) {
+                    search(s.toString());
+                } else {
+                    userAdapter = new UserAdapter(getApplicationContext(), list);
+                    rv_user.setAdapter(userAdapter);
+                }
+            }
+        });
+
+        search.setOnKeyListener((v, keyCode, event) -> {
+            if (event.getAction() == KeyEvent.ACTION_DOWN)
+            {
+                System.out.println("KODE : "+keyCode);
+                if (keyCode == 66){
+                    View view = getCurrentFocus();
+                    if (view!=null){
+                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                }
+            }
+            return false;
+        });
+
+        search_button.setOnClickListener(v -> {
+            View view = getCurrentFocus();
+            if (view!=null){
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         });
 
         getUserList();
+    }
+
+    private void search(String param){
+        searchUser = new ArrayList<>();
+        if (list.size() > 0) {
+            for (User z : list) {
+                if (z.getUser_id().toLowerCase().contains(param.toLowerCase()) ||
+                        z.getUsername().toLowerCase().contains(param.toLowerCase())) {
+                    System.out.println(z);
+                    searchUser.add(z);
+                    //searchAdapter.notifyAll();
+                }
+            }
+        }
+
+        userAdapter = new UserAdapter(getApplicationContext(), searchUser);
+        rv_user.setAdapter(userAdapter);
     }
 
     private void getUserList(){

@@ -26,11 +26,15 @@
             android:exported="true" />
         <activity
             android:name=".screen.DataAnakActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".screen.DetailOrtuActivity" />
-        <activity android:name=".screen.DataPosyanduActivity" />
-        <activity android:name=".screen.UserAccountActivity" />
-        <activity android:name=".screen.DataOrtuActivity" />
+        <activity android:name=".screen.DataPosyanduActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".screen.UserAccountActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".screen.DataOrtuActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity android:name=".screen.PetugasActivity" />
         <activity android:name=".screen.LoginActivity"
             android:windowSoftInputMode="stateHidden|adjustPan"/>
