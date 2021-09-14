@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.model.Penimbangan;
 
@@ -41,6 +43,13 @@ public class PenimbanganAdapter extends RecyclerView.Adapter<PenimbanganAdapter.
         holder.date.setText(data.getDate());
         holder.tall.setText("Tinggi Badan : "+data.getTall()+" Cm");
         holder.weight.setText("Berat Badan : "+data.getWeight()+" Kg");
+        if (Preferences.getRole(mContext).equals("ortu")){
+            holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
+        } else {
+            holder.edit.setVisibility(View.VISIBLE);
+            holder.delete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -51,12 +60,15 @@ public class PenimbanganAdapter extends RecyclerView.Adapter<PenimbanganAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView date, weight, tall;
+        CardView edit, delete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             date = itemView.findViewById(R.id.date);
             weight = itemView.findViewById(R.id.weight);
             tall = itemView.findViewById(R.id.tall);
+            delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.edit);
         }
     }
 }

@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Jadwal;
 import com.faaadev.postari.model.Lokasi;
 
@@ -42,6 +44,14 @@ public class JadwalAdapter extends RecyclerView.Adapter<JadwalAdapter.ViewHolder
         holder.tanggal.setText(data.getTanggal());
         holder.nama_posyandu.setText(data.getNamaPosyandu());
         holder.kegiatan.setText(data.getKegiatan());
+        System.out.println("ROLE === "+Preferences.getRole(mContext));
+        if (Preferences.getRole(mContext).equals("ortu")){
+            holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
+        } else {
+            holder.edit.setVisibility(View.VISIBLE);
+            holder.delete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -51,11 +61,14 @@ public class JadwalAdapter extends RecyclerView.Adapter<JadwalAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tanggal, nama_posyandu, kegiatan;
+        CardView edit, delete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nama_posyandu = itemView.findViewById(R.id.nama_posyandu);
             kegiatan = itemView.findViewById(R.id.kegiatan);
             tanggal = itemView.findViewById(R.id.tanggal);
+            delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.edit);
         }
     }
 }

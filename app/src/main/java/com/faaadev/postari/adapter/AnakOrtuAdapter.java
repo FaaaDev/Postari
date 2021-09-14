@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
 
 import java.util.List;
@@ -41,6 +43,13 @@ public class AnakOrtuAdapter extends RecyclerView.Adapter<AnakOrtuAdapter.ViewHo
         holder.nama_anak.setText("Nama : "+data.getNama());
         holder.birthdate.setText("Tanggal Lahir : "+data.getBirthdate());
         holder.geder.setText("Jenis Kelamin : "+data.getGender());
+        if (Preferences.getRole(mContext).equals("ortu")){
+            holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
+        } else {
+            holder.edit.setVisibility(View.VISIBLE);
+            holder.delete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -51,6 +60,7 @@ public class AnakOrtuAdapter extends RecyclerView.Adapter<AnakOrtuAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView posisi, nama_anak, birthdate, geder;
+        CardView edit, delete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -58,6 +68,8 @@ public class AnakOrtuAdapter extends RecyclerView.Adapter<AnakOrtuAdapter.ViewHo
             nama_anak = itemView.findViewById(R.id.nama_anak);
             birthdate = itemView.findViewById(R.id.birthdate);
             geder = itemView.findViewById(R.id.gender);
+            delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.edit);
         }
     }
 }

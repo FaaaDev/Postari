@@ -54,6 +54,7 @@ public class AnakAdapter extends RecyclerView.Adapter<AnakAdapter.ViewHolder>{
             Intent i = new Intent(mContext, DetailAnakActivity.class);
             i.putExtra("anak", data);
             i.putExtra("type", type);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(i);
         });
     }

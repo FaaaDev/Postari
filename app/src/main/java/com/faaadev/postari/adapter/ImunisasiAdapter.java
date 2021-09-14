@@ -9,9 +9,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Imunisasi;
 import com.faaadev.postari.model.Penimbangan;
 
@@ -46,6 +48,13 @@ public class ImunisasiAdapter extends RecyclerView.Adapter<ImunisasiAdapter.View
         if (data.getType().equals("Vitamin")){
             holder.tag_type.setBackgroundColor(Color.argb(255,237,120,120));
         }
+        if (Preferences.getRole(mContext).equals("ortu")){
+            holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
+        } else {
+            holder.edit.setVisibility(View.VISIBLE);
+            holder.delete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -57,6 +66,7 @@ public class ImunisasiAdapter extends RecyclerView.Adapter<ImunisasiAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView date, jenis, type;
         LinearLayout tag_type;
+        CardView edit, delete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -64,6 +74,8 @@ public class ImunisasiAdapter extends RecyclerView.Adapter<ImunisasiAdapter.View
             jenis = itemView.findViewById(R.id.jenis);
             type = itemView.findViewById(R.id.type);
             tag_type = itemView.findViewById(R.id.tag_type);
+            delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.edit);
         }
     }
 }

@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Lokasi;
 
 import java.util.List;
@@ -40,6 +42,13 @@ public class LokasiAdapter extends RecyclerView.Adapter<LokasiAdapter.ViewHolder
         Lokasi data = mData.get(position);
         holder.nama_posyandu.setText(data.getNamaPosyandu());
         holder.lokasi.setText(data.getAlamat());
+        if (Preferences.getRole(mContext).equals("ortu")){
+            holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
+        } else {
+            holder.edit.setVisibility(View.VISIBLE);
+            holder.delete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -49,10 +58,13 @@ public class LokasiAdapter extends RecyclerView.Adapter<LokasiAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nama_posyandu, lokasi;
+        CardView edit, delete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nama_posyandu = itemView.findViewById(R.id.nama_posyandu);
             lokasi = itemView.findViewById(R.id.lokasi);
+            delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.edit);
         }
     }
 }

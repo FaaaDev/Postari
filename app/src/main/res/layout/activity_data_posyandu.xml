@@ -133,6 +133,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_lokasi"
                     android:layout_width="match_parent"
@@ -140,7 +141,9 @@
                     android:nestedScrollingEnabled="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="2"
-                    tools:listitem="@layout/item_lokasi" />
+                    tools:listitem="@layout/item_lokasi"
+                    android:paddingBottom="80dp"
+                    android:clipToPadding="false"/>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

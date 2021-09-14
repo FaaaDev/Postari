@@ -17,13 +17,22 @@ import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class PetugasActivity extends AppCompatActivity {
 
     private CardView menu1, menu2, menu3, menu4, menu5, menu6;
     private FloatingActionButton fab_live_chat;
     private String type;
-    private TextView username;
+    private TextView username, date, greetings;
     private ImageView img_profile;
+    String today;
+    private int hours;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", new Locale("id"));
+    private Calendar c = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,8 @@ public class PetugasActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         fab_live_chat = findViewById(R.id.fab_live_chat);
         img_profile = findViewById(R.id.img_profile);
+        date = findViewById(R.id.date);
+        greetings = findViewById(R.id.greetings);
 
         type = getIntent().getStringExtra("type");
 
@@ -62,6 +73,21 @@ public class PetugasActivity extends AppCompatActivity {
     }
 
     private void _implement(){
+        hours = c.get(Calendar.HOUR_OF_DAY);
+        if (hours >= 12 && hours < 15) {
+            greetings.setText("Selamat siang "+Preferences.getUsername(getApplicationContext()));
+        } else if (hours >= 15 && hours < 18) {
+            greetings.setText("Selamat sore "+Preferences.getUsername(getApplicationContext()));
+        } else if (hours >= 18) {
+            greetings.setText("Selamat malam "+Preferences.getUsername(getApplicationContext()));
+        } else {
+            greetings.setText("Selamat pagi "+Preferences.getUsername(getApplicationContext()));
+        }
+
+        today = sdf.format(new Date());
+
+        date.setText(today);
+
         if (type.equals("petugas_kesehatan")){
             menu1.setVisibility(View.GONE);
             menu2.setVisibility(View.GONE);

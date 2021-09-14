@@ -3,7 +3,7 @@ package com.faaadev.postari.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Jadwal {
-    @SerializedName("id")
+    @SerializedName("id_lokasi")
     private String id;
     @SerializedName("tanggal")
     private String tanggal;

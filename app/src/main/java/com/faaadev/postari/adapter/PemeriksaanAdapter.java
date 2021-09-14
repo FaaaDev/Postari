@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
+import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Pemeriksaan;
 import com.faaadev.postari.model.Penimbangan;
 
@@ -52,6 +54,13 @@ public class PemeriksaanAdapter extends RecyclerView.Adapter<PemeriksaanAdapter.
         holder.nasihat.setText(data.getKeluhan().isEmpty() ? "Nasihat : -" : "Nasihat : "+data.getKeluhan());
         holder.pemeriksa.setText("Pemeriksa : "+data.getPemeriksa());
         holder.periksa_kembali.setText("Tanggal Periksa Kembali : "+data.getPeriksaKembali());
+        if (Preferences.getRole(mContext).equals("ortu")){
+            holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
+        } else {
+            holder.edit.setVisibility(View.VISIBLE);
+            holder.delete.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -63,6 +72,7 @@ public class PemeriksaanAdapter extends RecyclerView.Adapter<PemeriksaanAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView date, periksa_kembali, tekanan, weight, umur, tinggi_fundus, letak_janin,
                 denyut_janin, keluhan, pem_lab, tindakan, nasihat, kaki_bengkak, pemeriksa;
+        CardView edit, delete;
         public ViewHolder(@NonNull View root) {
             super(root);
 
@@ -80,6 +90,8 @@ public class PemeriksaanAdapter extends RecyclerView.Adapter<PemeriksaanAdapter.
             nasihat = root.findViewById(R.id.nasihat);
             kaki_bengkak = root.findViewById(R.id.kaki_bengkak);
             pemeriksa = root.findViewById(R.id.pemeriksa);
+            delete = itemView.findViewById(R.id.delete);
+            edit = itemView.findViewById(R.id.edit);
         }
     }
 }

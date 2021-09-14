@@ -61,6 +61,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
                 i.putExtra("ortu", data);
                 mContext.startActivity(i);
             });
+            holder.delete.setVisibility(View.GONE);
         } else {
             holder.username.setText("Bp. "+data.getDad_name()+" & Ibu "+data.getMom_name());
             holder.card.setOnClickListener(v -> {
@@ -68,6 +69,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
                 i.putExtra("ortu", data);
                 mContext.startActivity(i);
             });
+            holder.delete.setVisibility(View.VISIBLE);
         }
     }
 
@@ -78,7 +80,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView userid, username, posyandu;
-        CardView card;
+        CardView card, delete;
         LinearLayout tag_color;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -89,6 +91,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
             posyandu = itemView.findViewById(R.id.posyandu);
             card = itemView.findViewById(R.id.card);
             tag_color = itemView.findViewById(R.id.tag_color);
+            delete = itemView.findViewById(R.id.delete);
         }
     }
 }

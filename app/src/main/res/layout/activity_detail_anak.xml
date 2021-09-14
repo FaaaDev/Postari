@@ -81,11 +81,12 @@
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="false"
                     android:paddingHorizontal="10dp"
-                    android:paddingBottom="40dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="5"
                     tools:listitem="@layout/item_imunisasi"
-                    tools:targetApi="lollipop" />
+                    tools:targetApi="lollipop"
+                    android:paddingBottom="80dp"
+                    android:clipToPadding="false"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -98,7 +99,8 @@
                     android:layout_height="match_parent"
                     android:nestedScrollingEnabled="false"
                     android:paddingHorizontal="10dp"
-                    android:paddingBottom="40dp"
+                    android:paddingBottom="80dp"
+                    android:clipToPadding="false"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="5"
                     tools:listitem="@layout/item_penimbangan"

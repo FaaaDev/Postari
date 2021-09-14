@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.faaadev.postari.ChatActivity;
 import com.faaadev.postari.ProfileFragment;
 import com.faaadev.postari.R;
+import com.faaadev.postari.adapter.JadwalAdapter;
 import com.faaadev.postari.adapter.LayananAdapter;
 import com.faaadev.postari.adapter.LayananMainAdapter;
 import com.faaadev.postari.adapter.OrtuAdapter;
@@ -28,6 +29,7 @@ import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Layanan;
 import com.faaadev.postari.screen.DetailOrtuActivity;
+import com.faaadev.postari.service.JadwalList;
 import com.faaadev.postari.service.LayananList;
 import com.faaadev.postari.service.Ortu;
 import com.faaadev.postari.service.OrtuList;
@@ -46,7 +48,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    private TextView username, time, date;
+    private TextView username, time, date, jadwal;
     private int hours;
     String today;
     SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", new Locale("id"));
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment {
         menu1 = root.findViewById(R.id.menu1);
         menu0 = root.findViewById(R.id.menu0);
         img_profile = root.findViewById(R.id.img_profile);
+        jadwal = root.findViewById(R.id.jadwal);
 
         _implement();
     }
@@ -152,6 +155,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call<Ortu> call, Response<Ortu> response) {
                 getLayananList();
+                getJadwalList();
                 loadingDialog.dismis();
                 if (response.body().isSuccess()){
                     ortu = response.body().getOrtu();
@@ -162,6 +166,35 @@ public class HomeFragment extends Fragment {
             public void onFailure(Call<Ortu> call, Throwable t) {
                 loadingDialog.dismis();
                 getLayananList();
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void getJadwalList(){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", new Locale("id"));
+        String date = sdf.format(new Date());
+        System.out.println(date);
+        Call<JadwalList> getJadwal = apiInterface.getJadwalList();
+        getJadwal.enqueue(new Callback<JadwalList>() {
+            @Override
+            public void onResponse(Call<JadwalList> call, Response<JadwalList> response) {
+                if (response.body().isSuccess()){
+                    for (int i = 0; i < response.body().getJadwal().size(); i++) {
+                        if (response.body().getJadwal().get(i).getId().equals(ortu.getIdPosyandu())
+                                && response.body().getJadwal().get(i).getTanggal().equals(date)){
+                            jadwal.setText(response.body().getJadwal().get(i).getKegiatan()+ "\ndi "+response.body().getJadwal().get(i).getNamaPosyandu());
+                        }
+                        else {
+                            jadwal.setText("Tidak ada jadwal hari ini");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<JadwalList> call, Throwable t) {
+                loadingDialog.dismis();
                 Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
             }
         });
