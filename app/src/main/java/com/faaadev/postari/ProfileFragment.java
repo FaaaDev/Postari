@@ -116,8 +116,8 @@ public class ProfileFragment extends BottomSheetDialogFragment {
                         startActivity(new Intent(this.getContext(), LoginActivity.class));
                         this.getActivity().finish();
                     }).setNegativeButton("Tidak", (dialog, which) -> {
-                        return;
-                    }).show();
+                return;
+            }).show();
         });
     }
 

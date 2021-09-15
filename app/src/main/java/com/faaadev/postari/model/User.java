@@ -18,6 +18,9 @@ public class User implements Serializable {
     @SerializedName("image")
     private String image;
 
+    public User() {
+    }
+
     public User(String user_id, String username, String password, String role, String image) {}
 
     public String getUser_id() {

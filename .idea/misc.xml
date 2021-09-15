@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/layout/fragment_add_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_user.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_delete.xml" value="0.18" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17" />
         <entry key="app/src/main/res/layout/fragment_imunisasi.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.15" />

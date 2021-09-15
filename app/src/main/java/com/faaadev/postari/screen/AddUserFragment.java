@@ -1,5 +1,6 @@
 package com.faaadev.postari.screen;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -16,11 +17,13 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.model.User;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.widget.LoadingDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
@@ -33,6 +36,7 @@ import retrofit2.Response;
 public class AddUserFragment extends BottomSheetDialogFragment {
 
     private EditText userid, username, password;
+    private TextView title;
     private RadioButton rpetugas, rortu, rposyandu, rkesehatan;
     private Button btn_add;
     private ApiInterface apiInterface;
@@ -40,6 +44,7 @@ public class AddUserFragment extends BottomSheetDialogFragment {
     private String jenis_petugas = "nodata";
     private RelativeLayout jenis;
     DismisListener listener;
+    private User user = new User();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,15 +72,43 @@ public class AddUserFragment extends BottomSheetDialogFragment {
         rkesehatan = root.findViewById(R.id.rkesehatan);
         btn_add = root.findViewById(R.id.btn_add);
         jenis = root.findViewById(R.id.jenis_petugas);
+        title = root.findViewById(R.id.title);
 
         _implement();
     }
 
     private void _implement() {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        
+
+        if (getArguments() != null){
+            if (getArguments().getBoolean("isUpdate")){
+                title.setText("Edit Akun");
+                btn_add.setText("Perbarui Pengguna");
+                user = (User) getArguments().getSerializable("data");
+                userid.setText(user.getUser_id());
+                username.setText(user.getUsername());
+                password.setText(user.getPassword());
+                if (user.getRole().equals("ortu")){
+                    rortu.setChecked(true);
+                } else {
+                    rpetugas.setChecked(true);
+                    jenis.setVisibility(View.VISIBLE);
+                    if (user.getRole().equals("petugas_kesehatan")){
+                        rkesehatan.setChecked(true);
+                    } else if(user.getRole().equals("petugas_posyandu")){
+                        rposyandu.setChecked(true);
+                    } else {
+                        jenis.setVisibility(View.GONE);
+                    }
+                }
+                btn_add.setOnClickListener(v -> {
+                    _validation(true);
+                });
+            }
+        }
+
         btn_add.setOnClickListener(v -> {
-            _validation();
+            _validation(false);
         });
 
         rpetugas.setOnClickListener(v -> {
@@ -89,7 +122,7 @@ public class AddUserFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void _validation() {
+    private void _validation(boolean update) {
         if (rortu.isChecked()) {
             role = "ortu";
         } else if (rpetugas.isChecked()){
@@ -124,7 +157,11 @@ public class AddUserFragment extends BottomSheetDialogFragment {
                 Toast.makeText(getContext(), "Silahkan pilih Jenis Petugas", Toast.LENGTH_LONG).show();
             }
         } else {
-            addAccount();
+            if (update){
+                updateAccount();
+            } else {
+                addAccount();
+            }
         }
     }
 
@@ -147,6 +184,37 @@ public class AddUserFragment extends BottomSheetDialogFragment {
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updateAccount() {
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoading();
+
+        Call<BasicResponse> addUser = apiInterface.updateUser(
+                userid.getText().toString(),
+                username.getText().toString(),
+                password.getText().toString(),
+                role,
+                "",
+                user.getUser_id());
+        addUser.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                loadingDialog.dismis();
+                if (response.body().getStatus()){
+                    Toast.makeText(getContext(), "Berhasil Mengubah Data", Toast.LENGTH_LONG).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Gagal Mengubah Data", Toast.LENGTH_LONG).show();
                 }
             }
 

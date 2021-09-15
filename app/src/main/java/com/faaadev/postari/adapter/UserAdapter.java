@@ -1,28 +1,40 @@
 package com.faaadev.postari.adapter;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.User;
+import com.faaadev.postari.screen.AddUserFragment;
+import com.faaadev.postari.screen.LoginActivity;
+import com.faaadev.postari.widget.CoreDeleteRecord;
 
 import java.util.List;
 
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> {
     private Context mContext;
     private List<User> mData;
+    private FragmentManager mFm;
 
-    public UserAdapter(Context mContext, List<User> mData) {
+    public UserAdapter(Context mContext, List<User> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
     }
 
     @NonNull
@@ -30,7 +42,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        view = layoutInflater.inflate(R.layout.item_user, parent,false);
+        view = layoutInflater.inflate(R.layout.item_user, parent, false);
         final MyViewHolder myViewHolder = new MyViewHolder(view);
 
         return myViewHolder;
@@ -41,15 +53,29 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         User data = mData.get(position);
         holder.email.setText(data.getUser_id());
         holder.username.setText(data.getUsername());
-        if (data.getRole().equals("ortu")){
+        if (data.getRole().equals("ortu")) {
             holder.role.setText("Orang Tua");
-        } else if (data.getRole().equals("petugas_posyandu")){
+        } else if (data.getRole().equals("petugas_posyandu")) {
             holder.role.setText("Petugas Posyandu");
-        } else if (data.getRole().equals("petugas_kesehatan")){
+        } else if (data.getRole().equals("petugas_kesehatan")) {
             holder.role.setText("Petugas Kesehatan");
         } else {
             holder.role.setText("Petugas");
+            holder.edit.setVisibility(View.GONE);
+            holder.delete.setVisibility(View.GONE);
         }
+        holder.edit.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            bundle.putBoolean("isUpdate", true);
+            AddUserFragment addUserFragment = new AddUserFragment();
+            addUserFragment.setArguments(bundle);
+            addUserFragment.show(mFm, addUserFragment.getTag());
+        });
+
+        holder.delete.setOnClickListener(v -> {
+
+        });
     }
 
     @Override

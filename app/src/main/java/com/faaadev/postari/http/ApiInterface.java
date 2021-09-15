@@ -38,6 +38,15 @@ public interface ApiInterface {
                                 @Field("image") String image);
 
     @FormUrlEncoded
+    @POST("add-user.php")
+    Call<BasicResponse> updateUser(@Field("user_id") String user_id,
+                                   @Field("username") String username,
+                                   @Field("password") String password,
+                                   @Field("role") String role,
+                                   @Field("image") String image,
+                                   @Field("id") String id);
+
+    @FormUrlEncoded
     @POST("add-lokasi.php")
     Call<BasicResponse> addLoc(@Field("nama_posyandu") String name,
                                @Field("alamat") String alamat);
@@ -158,5 +167,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("add-token.php")
     Call<BasicResponse> addToken(@Field("user_id") String user_id,
-                                @Field("token") String token);
+                                 @Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("delete-record.php")
+    Call<BasicResponse> deleteRecord(@Field("table") String table,
+                                     @Field("param") String param,
+                                     @Field("where") String where);
+
 }

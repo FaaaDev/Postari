@@ -101,7 +101,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
                 if (s != null) {
                     search(s.toString());
                 } else {
-                    userAdapter = new UserAdapter(getApplicationContext(), list);
+                    userAdapter = new UserAdapter(getApplicationContext(), list, getSupportFragmentManager());
                     rv_user.setAdapter(userAdapter);
                 }
             }
@@ -146,7 +146,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
             }
         }
 
-        userAdapter = new UserAdapter(getApplicationContext(), searchUser);
+        userAdapter = new UserAdapter(getApplicationContext(), searchUser, getSupportFragmentManager());
         rv_user.setAdapter(userAdapter);
     }
 
@@ -163,7 +163,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
                 if (response.body().getStatus().equals("true")){
                     list = response.body().getUser();
 
-                    userAdapter = new UserAdapter(getApplicationContext(), list);
+                    userAdapter = new UserAdapter(getApplicationContext(), list, getSupportFragmentManager());
                     rv_user.setAdapter(userAdapter);
                 }
             }

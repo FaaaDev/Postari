@@ -10,7 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require_once 'connection.php';
 
-    $sql = "INSERT INTO user (user_id, username, password, role, image) VALUES ('$user_id', '$username', '$password', '$role',  '$image')";
+    if (empty($_POST['id'])){
+        $sql = "INSERT INTO user (user_id, username, password, role, image) VALUES ('$user_id', '$username', '$password', '$role',  '$image')";
+    } else {
+        $id = $_POST['id'];
+        $sql = "UPDATE user SET user_id = '$user_id', username = '$username', password = '$password', role = '$role' WHERE user_id = '$id'";
+    }
+    
 
     if (mysqli_query($conn, $sql)) {
         $result["status"] = true;
