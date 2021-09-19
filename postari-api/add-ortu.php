@@ -22,28 +22,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!empty($layanan)) {
             $value = explode(",", $layanan);
             $success = 0;
-            foreach($value as $param){
-                if (empty($_POST['id'])) {
+            if (empty($_POST['id'])){
+                foreach($value as $param){
                     $sql = "INSERT INTO layanan (id, user_id, nama) VALUES (null, '$user_id', '$param')";
-                } else {
-                    $id = $_POST['id'];
-                    $sql1 = "DELETE FROM layanan WHERE user_id = '$id'";
-                    if (mysqli_query($conn, $sql1)){
+    
+                    if (mysqli_query($conn, $sql)) {
+                        $success++;
+                        if ($success == count($value)) {
+                            $result["status"] = true;
+                            $result["message"] = "Berhasil Menambah Data dan Layanan";
+                    
+                            echo json_encode($result);
+                            mysqli_close($conn);
+                        }
+                    }
+                } 
+            } else{
+                $id = $_POST['id'];
+                $sql1 = "DELETE FROM layanan WHERE user_id = '$id'";
+                if (mysqli_query($conn, $sql1)){
+                    foreach($value as $param){
                         $sql = "INSERT INTO layanan (id, user_id, nama) VALUES (null, '$user_id', '$param')";
-                    }
-                }
-
-                if (mysqli_query($conn, $sql)) {
-                    $success++;
-                    if ($success == count($value)) {
-                        $result["status"] = true;
-                        $result["message"] = "Berhasil Menambah Data dan Layanan";
-                
-                        echo json_encode($result);
-                        mysqli_close($conn);
-                    }
-                }
-            } 
+        
+                        if (mysqli_query($conn, $sql)) {
+                            $success++;
+                            if ($success == count($value)) {
+                                $result["status"] = true;
+                                $result["message"] = "Berhasil Menambah Data dan Layanan";
+                        
+                                echo json_encode($result);
+                                mysqli_close($conn);
+                            }
+                        }
+                    } 
+                } 
+            }
         } else {
             $result["status"] = true;
             $result["message"] = "Berhasil Menambah Data";
