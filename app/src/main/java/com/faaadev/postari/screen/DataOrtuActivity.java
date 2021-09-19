@@ -115,7 +115,11 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
                 if (s != null) {
                     search(s.toString());
                 } else {
-                    ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu, getSupportFragmentManager());
+                    if (pemeriksaan){
+                        ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu, getSupportFragmentManager(), pemeriksaan);
+                    } else {
+                        ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu, getSupportFragmentManager());
+                    }
                     rv_ortu.setAdapter(ortuAdapter);
                 }
             }
@@ -144,7 +148,6 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
             }
         });
 
-        getortuList();
     }
 
     private void search(String param){
@@ -162,7 +165,11 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
             }
         }
 
-        ortuAdapter = new OrtuAdapter(getApplicationContext(), searchOrtu, getSupportFragmentManager());
+        if (pemeriksaan){
+            ortuAdapter = new OrtuAdapter(getApplicationContext(), searchOrtu, getSupportFragmentManager(), pemeriksaan);
+        } else {
+            ortuAdapter = new OrtuAdapter(getApplicationContext(), searchOrtu, getSupportFragmentManager());
+        }
         rv_ortu.setAdapter(ortuAdapter);
     }
 
@@ -205,7 +212,7 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
                 if (response.body().isSuccess()){
                     ortu = response.body().getOrtu();
 
-                    ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu, pemeriksaan);
+                    ortuAdapter = new OrtuAdapter(getApplicationContext(), ortu, getSupportFragmentManager(), pemeriksaan);
                     rv_ortu.setAdapter(ortuAdapter);
                 }
             }

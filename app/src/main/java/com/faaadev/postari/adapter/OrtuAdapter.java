@@ -33,9 +33,10 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
         this.mFm = mFm;
     }
 
-    public OrtuAdapter(Context mContext, List<Ortu> mData, Boolean pemeriksaan) {
+    public OrtuAdapter(Context mContext, List<Ortu> mData, FragmentManager mFm, Boolean pemeriksaan) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
         this.pemeriksaan = pemeriksaan;
     }
 
@@ -62,6 +63,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
                 Intent i = new Intent(mContext, DetailAnakActivity.class);
                 i.putExtra("type", "pemeriksaan");
                 i.putExtra("ortu", data);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(i);
             });
             holder.delete.setVisibility(View.GONE);
@@ -70,6 +72,7 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
             holder.card.setOnClickListener(v -> {
                 Intent i = new Intent(mContext, DetailOrtuActivity.class);
                 i.putExtra("ortu", data);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 mContext.startActivity(i);
             });
             holder.delete.setVisibility(View.VISIBLE);
