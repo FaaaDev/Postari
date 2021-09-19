@@ -8,8 +8,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
@@ -20,10 +22,12 @@ import java.util.List;
 public class PenimbanganAdapter extends RecyclerView.Adapter<PenimbanganAdapter.ViewHolder>{
     Context mContext;
     List<Penimbangan> mData;
+    private FragmentManager mFm;
 
-    public PenimbanganAdapter(Context mContext, List<Penimbangan> mData) {
+    public PenimbanganAdapter(Context mContext, List<Penimbangan> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
     }
 
     @NonNull
@@ -50,6 +54,12 @@ public class PenimbanganAdapter extends RecyclerView.Adapter<PenimbanganAdapter.
             holder.edit.setVisibility(View.VISIBLE);
             holder.delete.setVisibility(View.VISIBLE);
         }
+        holder.delete.setOnClickListener(v -> {
+            DeleteFragment deleteFragment = new DeleteFragment();
+            deleteFragment.setCancelable(false);
+            deleteFragment.setFrom("penimbangan");
+            deleteFragment.show(mFm, deleteFragment.getTag());
+        });
     }
 
     @Override

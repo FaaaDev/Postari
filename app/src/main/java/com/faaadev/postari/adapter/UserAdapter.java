@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.User;
@@ -74,7 +75,12 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.MyViewHolder> 
         });
 
         holder.delete.setOnClickListener(v -> {
-
+            DeleteFragment deleteFragment = new DeleteFragment();
+            deleteFragment.setTable("user");
+            deleteFragment.setParam("user_id");
+            deleteFragment.setWhere(data.getUser_id());
+            deleteFragment.setCancelable(false);
+            deleteFragment.show(mFm, deleteFragment.getTag());
         });
     }
 

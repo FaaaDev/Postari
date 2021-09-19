@@ -155,7 +155,7 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
                     is_empty.setVisibility(View.GONE);
                     has_data.setVisibility(View.VISIBLE);
                     penimbanganList = response.body().getPenimbangan();
-                    penimbanganAdapter = new PenimbanganAdapter(getApplicationContext(), penimbanganList);
+                    penimbanganAdapter = new PenimbanganAdapter(getApplicationContext(), penimbanganList, getSupportFragmentManager());
                     rv_penimbangan.setAdapter(penimbanganAdapter);
                 } else {
                     is_empty.setVisibility(View.VISIBLE);

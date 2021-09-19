@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/button_add_background.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/button_background.xml" value="0.11574074074074074" />
         <entry key="app/src/main/res/drawable/button_edit_background.xml" value="0.11574074074074074" />
+        <entry key="app/src/main/res/drawable/ic_round_delete_24_red.xml" value="0.11018518518518519" />
         <entry key="app/src/main/res/drawable/last_left_bubble.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/last_right_bubble.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/layouting.xml" value="0.11574074074074074" />
@@ -38,7 +39,7 @@
         <entry key="app/src/main/res/layout/fragment_add_posyandu.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_add_user.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/fragment_delete.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/fragment_delete.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17" />
         <entry key="app/src/main/res/layout/fragment_imunisasi.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.15" />

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,7 +45,7 @@ import retrofit2.Response;
 public class ProfileFragment extends BottomSheetDialogFragment {
 
     private TextView email, username, role;
-    private RelativeLayout logout;
+    private Button logout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

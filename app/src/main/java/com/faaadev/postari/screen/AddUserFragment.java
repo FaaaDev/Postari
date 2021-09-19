@@ -240,10 +240,6 @@ public class AddUserFragment extends BottomSheetDialogFragment {
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
-        listener.onDismisSheet();
-    }
-
-    public interface DismisListener{
-        void onDismisSheet();
+        listener.onDismisSheet("");
     }
 }

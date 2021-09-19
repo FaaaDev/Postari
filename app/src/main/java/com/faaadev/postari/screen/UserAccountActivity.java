@@ -28,19 +28,20 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserAccountActivity extends AppCompatActivity implements AddUserFragment.DismisListener {
+public class UserAccountActivity extends AppCompatActivity implements DismisListener {
 
     private FloatingActionButton fab_add_user;
     private ApiInterface apiInterface;
     private RecyclerView rv_user;
     private List<User> list;
     private UserAdapter userAdapter;
-    private  List<User> searchUser;
+    private List<User> searchUser;
     private EditText search;
     private CardView search_button;
 
@@ -65,7 +66,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
         _init();
     }
 
-    private void _init(){
+    private void _init() {
         fab_add_user = findViewById(R.id.fab_add_user);
         rv_user = findViewById(R.id.rv_user);
         search = findViewById(R.id.search);
@@ -74,7 +75,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
         _implement();
     }
 
-    private void _implement(){
+    private void _implement() {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         fab_add_user.setOnClickListener(new View.OnClickListener() {
@@ -108,12 +109,11 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
         });
 
         search.setOnKeyListener((v, keyCode, event) -> {
-            if (event.getAction() == KeyEvent.ACTION_DOWN)
-            {
-                System.out.println("KODE : "+keyCode);
-                if (keyCode == 66){
+            if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                System.out.println("KODE : " + keyCode);
+                if (keyCode == 66) {
                     View view = getCurrentFocus();
-                    if (view!=null){
+                    if (view != null) {
                         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     }
@@ -124,7 +124,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
 
         search_button.setOnClickListener(v -> {
             View view = getCurrentFocus();
-            if (view!=null){
+            if (view != null) {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
@@ -133,12 +133,13 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
         getUserList();
     }
 
-    private void search(String param){
+    private void search(String param) {
         searchUser = new ArrayList<>();
         if (list.size() > 0) {
             for (User z : list) {
                 if (z.getUser_id().toLowerCase().contains(param.toLowerCase()) ||
-                        z.getUsername().toLowerCase().contains(param.toLowerCase())) {
+                        z.getUsername().toLowerCase().contains(param.toLowerCase()) ||
+                        z.getRole().toLowerCase().contains(param.toLowerCase())) {
                     System.out.println(z);
                     searchUser.add(z);
                     //searchAdapter.notifyAll();
@@ -150,7 +151,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
         rv_user.setAdapter(userAdapter);
     }
 
-    private void getUserList(){
+    private void getUserList() {
         System.out.println("REFRESHED");
         LoadingDialog loadingDialog = new LoadingDialog(this);
         loadingDialog.startLoading();
@@ -160,7 +161,7 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
             @Override
             public void onResponse(Call<UserList> call, Response<UserList> response) {
                 loadingDialog.dismis();
-                if (response.body().getStatus().equals("true")){
+                if (response.body().getStatus().equals("true")) {
                     list = response.body().getUser();
 
                     userAdapter = new UserAdapter(getApplicationContext(), list, getSupportFragmentManager());
@@ -176,9 +177,8 @@ public class UserAccountActivity extends AppCompatActivity implements AddUserFra
         });
     }
 
-
     @Override
-    public void onDismisSheet() {
+    public void onDismisSheet(String from) {
         getUserList();
     }
 }
