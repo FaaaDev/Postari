@@ -115,7 +115,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
                 title.setText("Edit Akun");
                 btn_add.setText("Perbarui Pengguna");
                 ortu = (Ortu) getArguments().getSerializable("data");
-                //no_hp.setEnabled(false);
+                no_hp.setEnabled(false);
                 no_hp.setText(ortu.getUser_id());
                 mom_name.setText(ortu.getMom_name());
                 dad_name.setText(ortu.getDad_name());
@@ -136,7 +136,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
                     cb2.setChecked(true);
                 }
                 if (getArguments().getBoolean("isPemeriksaan")) {
-                    cb3.setChecked(true);
+                    cb1.setChecked(true);
                 }
 
                 btn_add.setOnClickListener(v -> {
@@ -221,7 +221,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
                 Toast.makeText(getContext(), "Silahkan pilih Layanan", Toast.LENGTH_LONG).show();
             }
         } else {
-            if (update){
+            if (!update){
                 addOrtu();
             } else  {
                 editOrtu();

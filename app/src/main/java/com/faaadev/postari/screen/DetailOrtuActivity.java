@@ -112,7 +112,7 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
             bundle.putBoolean("isImunisasi", false);
             bundle.putBoolean("isPemeriksaan", false);
             for (int i = 0; i < layananList.size(); i++){
-                if (layananList.get(i).getNama().equals("penimbagan")){
+                if (layananList.get(i).getNama().equals("penimbangan")){
                     bundle.putBoolean("isPenimbangan", true);
                 } else if (layananList.get(i).getNama().equals("imunisasi")){
                     bundle.putBoolean("isImunisasi", true);

@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } else {
                     $id = $_POST['id'];
                     $sql1 = "DELETE FROM layanan WHERE user_id = '$id'";
-                    if (mysqli_query($conn, $sql1){
+                    if (mysqli_query($conn, $sql1)){
                        $sql = "INSERT INTO layanan (id, user_id, nama) VALUES (null, '$user_id', '$param')";
                     }
                 }
