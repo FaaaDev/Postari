@@ -181,4 +181,9 @@ public class UserAccountActivity extends AppCompatActivity implements DismisList
     public void onDismisSheet(String from) {
         getUserList();
     }
+
+    @Override
+    public void onUpdateOrtu(Object object) {
+
+    }
 }

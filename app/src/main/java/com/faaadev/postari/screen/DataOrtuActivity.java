@@ -229,4 +229,9 @@ public class DataOrtuActivity extends AppCompatActivity implements DismisListene
     public void onDismisSheet(String from) {
         getortuList();
     }
+
+    @Override
+    public void onUpdateOrtu(Object object) {
+
+    }
 }

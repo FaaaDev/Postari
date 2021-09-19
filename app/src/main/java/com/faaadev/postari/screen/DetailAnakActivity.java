@@ -247,4 +247,9 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
             getImunisasiList();
         }
     }
+
+    @Override
+    public void onUpdateOrtu(Object object) {
+
+    }
 }
