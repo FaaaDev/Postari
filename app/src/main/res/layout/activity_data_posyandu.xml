@@ -61,6 +61,7 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/search"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#00000000"
@@ -71,6 +72,7 @@
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/search_button"
                     android:layout_width="58dp"
                     android:layout_height="58dp"
                     android:layout_marginRight="30dp"

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
@@ -20,10 +21,13 @@ public class LokasiAdapter extends RecyclerView.Adapter<LokasiAdapter.ViewHolder
 
     Context mContext;
     List<Lokasi> mData;
+    FragmentManager mFm;
 
-    public LokasiAdapter(Context mContext, List<Lokasi> mData) {
+    public LokasiAdapter(Context mContext, List<Lokasi> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
+        //this.mlokasi = adapter;
     }
 
     @NonNull

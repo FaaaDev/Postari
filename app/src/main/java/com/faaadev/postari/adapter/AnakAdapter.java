@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.screen.DetailAnakActivity;
@@ -22,12 +23,16 @@ import java.util.List;
 public class AnakAdapter extends RecyclerView.Adapter<AnakAdapter.ViewHolder>{
     Context mContext;
     List<Anak> mData;
+    FragmentManager mFm;
     String type;
 
-    public AnakAdapter(Context mContext, List<Anak> mData, String type) {
+
+    public AnakAdapter(Context mContext, List<Anak> mData, FragmentManager supportFragmentManager, String type) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = supportFragmentManager;
         this.type = type;
+
     }
 
     @NonNull
