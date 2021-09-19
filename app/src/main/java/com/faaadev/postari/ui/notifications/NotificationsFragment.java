@@ -67,7 +67,7 @@ public class NotificationsFragment extends Fragment {
                 if (response.body().getStatus().equals("true")){
                     lokasi = response.body().getLokasi();
 
-                    adapter = new LokasiAdapter(getContext(), lokasi);
+                    adapter = new LokasiAdapter(getContext(), lokasi, getChildFragmentManager());
                     rv_lokasi.setAdapter(adapter);
                 }
             }

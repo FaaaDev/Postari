@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
@@ -21,10 +22,12 @@ public class JadwalAdapter extends RecyclerView.Adapter<JadwalAdapter.ViewHolder
 
     Context mContext;
     List<Jadwal> mData;
+    FragmentManager mFm;
 
-    public JadwalAdapter(Context mContext, List<Jadwal> mData) {
+    public JadwalAdapter(Context mContext, List<Jadwal> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
     }
 
     @NonNull

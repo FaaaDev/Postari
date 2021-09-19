@@ -99,11 +99,11 @@ public class DashboardFragment extends Fragment {
                     for (int i = 0; i < response.body().getJadwal().size(); i++) {
                         if (response.body().getJadwal().get(i).getId().equals(ortu.getIdPosyandu())){
                             jadwal.add(response.body().getJadwal().get(i));
-                            jadwalAdapter = new JadwalAdapter(getContext(), jadwal);
+                            jadwalAdapter = new JadwalAdapter(getContext(), jadwal, getParentFragmentManager());
                             rv_jadwal.setAdapter(jadwalAdapter);
                         } else {
                             lainnya.add(response.body().getJadwal().get(i));
-                            lainnyaAdapter = new JadwalAdapter(getContext(), lainnya);
+                            lainnyaAdapter = new JadwalAdapter(getContext(), lainnya, getParentFragmentManager());
                             rv_lainnya.setAdapter(lainnyaAdapter);
                         }
                     }

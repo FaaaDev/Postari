@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.screen.DetailAnakActivity;
@@ -23,11 +24,13 @@ import java.util.List;
 public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> {
     private Context mContext;
     private List<Ortu> mData;
+    private FragmentManager mFm;
     private Boolean pemeriksaan = false;
 
-    public OrtuAdapter(Context mContext, List<Ortu> mData) {
+    public OrtuAdapter(Context mContext, List<Ortu> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
     }
 
     public OrtuAdapter(Context mContext, List<Ortu> mData, Boolean pemeriksaan) {
