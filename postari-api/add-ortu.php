@@ -11,14 +11,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require_once 'connection.php';
 
-    $sql = "INSERT INTO orang_tua (user_id, nama_ibu, nama_suami, alamat, posyandu) VALUES ('$user_id', '$nama_ibu', '$nama_suami', '$alamat',  '$posyandu')";
+    if(empty($_POST['id'])) {
+        $sql = "INSERT INTO orang_tua (user_id, nama_ibu, nama_suami, alamat, posyandu) VALUES ('$user_id', '$nama_ibu', '$nama_suami', '$alamat',  '$posyandu')";
+    } else {
+         $id = $_POST['id'];
+         $sql = "UPDATE orang_tua SET user_id = '$user_id', nama_ibu = '$nama_ibu', nama_suami = '$nama_suami', alamat = '$alamat', posyandu = '$posyandu' WHERE user_id = '$id'";
+    }
 
     if (mysqli_query($conn, $sql)) {
         if (!empty($layanan)) {
             $value = explode(",", $layanan);
             $success = 0;
             foreach($value as $param){
-                $sql = "INSERT INTO layanan (id, user_id, nama) VALUES (null, '$user_id', '$param')";
+                if (empty($_POST['id'])) {
+                    $sql = "INSERT INTO layanan (id, user_id, nama) VALUES (null, '$user_id', '$param')";
+                } else {
+                    $id = $_POST['id'];
+                    $sql1 = "DELETE FROM layanan WHERE user_id = '$id'";
+                    if (mysqli_query($conn, $sql1){
+                       $sql = "INSERT INTO layanan (id, user_id, nama) VALUES (null, '$user_id', '$param')";
+                    }
+                }
+
                 if (mysqli_query($conn, $sql)) {
                     $success++;
                     if ($success == count($value)) {

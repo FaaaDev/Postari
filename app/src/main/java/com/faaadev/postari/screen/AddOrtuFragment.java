@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
@@ -26,6 +27,8 @@ import com.faaadev.postari.adapter.LokasiSpinnerAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.model.Lokasi;
+import com.faaadev.postari.model.Ortu;
+import com.faaadev.postari.model.User;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.service.LokasiList;
 import com.faaadev.postari.widget.LoadingDialog;
@@ -43,13 +46,16 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
 
     private ApiInterface apiInterface;
     private List<Lokasi> lokasi;
+    private Ortu ortu = new Ortu();
     private LokasiSpinnerAdapter adapter;
     private Spinner spinner_loc;
     private String location_id;
     private Button btn_add;
     private EditText no_hp, mom_name, dad_name, alamat;
+    private TextView title;
     private String layanan;
     private CheckBox cb1, cb2, cb3;
+    String id;
     DismisListener listener;
 
     @Override
@@ -75,6 +81,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         mom_name = root.findViewById(R.id.mom_name);
         dad_name = root.findViewById(R.id.dad_name);
         alamat = root.findViewById(R.id.alamat);
+        title = root.findViewById(R.id.title);
         cb1 = root.findViewById(R.id.cb1);
         cb2 = root.findViewById(R.id.cb2);
         cb3 = root.findViewById(R.id.cb3);
@@ -99,7 +106,44 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
             }
         });
 
-        btn_add.setOnClickListener(v -> _validation());
+        btn_add.setOnClickListener(v -> _validation(false));
+    }
+
+    private void setUpdate(){
+        if (getArguments() != null){
+            if (getArguments().getBoolean("isUpdate")){
+                title.setText("Edit Akun");
+                btn_add.setText("Perbarui Pengguna");
+                ortu = (Ortu) getArguments().getSerializable("data");
+                //no_hp.setEnabled(false);
+                no_hp.setText(ortu.getUser_id());
+                mom_name.setText(ortu.getMom_name());
+                dad_name.setText(ortu.getDad_name());
+                alamat.setText(ortu.getAlamat());
+                if (lokasi.size() > 0) {
+                    for (int x = 0; x < lokasi.size(); x++){
+                        if (lokasi.get(x).getNamaPosyandu().equals(ortu.getPosyandu())){
+                            spinner_loc.setSelection(x);
+                            //return;
+                        }
+                    }
+                }
+
+                if (getArguments().getBoolean("isPenimbangan")) {
+                    cb3.setChecked(true);
+                }
+                if (getArguments().getBoolean("isImunisasi")) {
+                    cb2.setChecked(true);
+                }
+                if (getArguments().getBoolean("isPemeriksaan")) {
+                    cb3.setChecked(true);
+                }
+
+                btn_add.setOnClickListener(v -> {
+                    _validation(true);
+                });
+            }
+        }
     }
 
     private void getLokasiList(){
@@ -118,6 +162,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
 
                    adapter = new LokasiSpinnerAdapter(getContext(), lokasi);
                    spinner_loc.setAdapter(adapter);
+                   setUpdate();
                 }
             }
 
@@ -129,7 +174,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void _validation(){
+    private void _validation(Boolean update){
         layanan = null;
         if (cb1.isChecked()){
             if (TextUtils.isEmpty(layanan)){
@@ -176,8 +221,46 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
                 Toast.makeText(getContext(), "Silahkan pilih Layanan", Toast.LENGTH_LONG).show();
             }
         } else {
-            addOrtu();
+            if (update){
+                addOrtu();
+            } else  {
+                editOrtu();
+            }
+
         }
+    }
+
+    private void editOrtu(){
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoading();
+
+        Call<BasicResponse> addOrtu = apiInterface.editOrtu(
+                no_hp.getText().toString(),
+                mom_name.getText().toString(),
+                dad_name.getText().toString(),
+                alamat.getText().toString(),
+                location_id,
+                layanan,
+                no_hp.getText().toString()
+        );
+        addOrtu.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                loadingDialog.dismis();
+                if (response.body().getStatus()){
+                    Toast.makeText(getContext(), "Berhasil memperbaharui data", Toast.LENGTH_LONG).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Gagal memperbaharui data", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void addOrtu(){

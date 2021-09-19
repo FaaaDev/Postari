@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
     private ApiInterface apiInterface;
     private LoadingDialog loadingDialog;
     private ImageButton btn_add;
+    private Button btn_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +80,7 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
         rv_layanan = findViewById(R.id.rv_layanan);
         btn_add = findViewById(R.id.btn_add);
         edit_container = findViewById(R.id.edit_container);
+        btn_edit = findViewById(R.id.btn_edit);
 
         _implement();
     }
@@ -100,6 +103,27 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
         loadingDialog = new LoadingDialog(this);
 
         getLayananList();
+
+        btn_edit.setOnClickListener(V -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", ortu);
+            bundle.putBoolean("isUpdate", true);
+            bundle.putBoolean("isPenimbangan", false);
+            bundle.putBoolean("isImunisasi", false);
+            bundle.putBoolean("isPemeriksaan", false);
+            for (int i = 0; i < layananList.size(); i++){
+                if (layananList.get(i).getNama().equals("penimbagan")){
+                    bundle.putBoolean("isPenimbangan", true);
+                } else if (layananList.get(i).getNama().equals("imunisasi")){
+                    bundle.putBoolean("isImunisasi", true);
+                } else if (layananList.get(i).getNama().equals("pemeriksaan")){
+                    bundle.putBoolean("isPemeriksaan", true);
+                }
+            }
+            AddOrtuFragment addOrtuFragment = new AddOrtuFragment();
+            addOrtuFragment.setArguments(bundle);
+            addOrtuFragment.show(getSupportFragmentManager(), addOrtuFragment.getTag());
+        });
 
         btn_add.setOnClickListener(v->{
             Bundle bundle = new Bundle();
