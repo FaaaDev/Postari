@@ -18,6 +18,18 @@ public class Ortu implements Serializable {
     @SerializedName("posyandu")
     private String idPosyandu;
 
+    public Ortu() {
+    }
+
+    public Ortu(String user_id, String mom_name, String dad_name, String alamat, String posyandu, String idPosyandu) {
+        this.user_id = user_id;
+        this.mom_name = mom_name;
+        this.dad_name = dad_name;
+        this.alamat = alamat;
+        this.posyandu = posyandu;
+        this.idPosyandu = idPosyandu;
+    }
+
     public String getUser_id() {
         return user_id;
     }

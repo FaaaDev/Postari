@@ -241,4 +241,9 @@ public class DataPosyanduActivity extends AppCompatActivity implements DismisLis
         }
     }
 
+    @Override
+    public void onUpdateOrtu(Object object) {
+
+    }
+
 }

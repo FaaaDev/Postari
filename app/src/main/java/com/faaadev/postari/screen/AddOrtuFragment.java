@@ -2,6 +2,7 @@ package com.faaadev.postari.screen;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -55,7 +56,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
     private TextView title;
     private String layanan;
     private CheckBox cb1, cb2, cb3;
-    String id;
+    private String lokasi_posyandu;
     DismisListener listener;
 
     @Override
@@ -74,7 +75,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         return root;
     }
 
-    private void _init(View root){
+    private void _init(View root) {
         spinner_loc = root.findViewById(R.id.spinner_loc);
         btn_add = root.findViewById(R.id.btn_add);
         no_hp = root.findViewById(R.id.no_hp);
@@ -89,7 +90,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         _implement();
     }
 
-    private void _implement(){
+    private void _implement() {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
         getLokasiList();
 
@@ -98,6 +99,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Lokasi loc = lokasi.get(position);
                 location_id = loc.getId();
+                lokasi_posyandu = loc.getNamaPosyandu();
             }
 
             @Override
@@ -109,9 +111,9 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         btn_add.setOnClickListener(v -> _validation(false));
     }
 
-    private void setUpdate(){
-        if (getArguments() != null){
-            if (getArguments().getBoolean("isUpdate")){
+    private void setUpdate() {
+        if (getArguments() != null) {
+            if (getArguments().getBoolean("isUpdate")) {
                 title.setText("Edit Akun");
                 btn_add.setText("Perbarui Pengguna");
                 ortu = (Ortu) getArguments().getSerializable("data");
@@ -121,8 +123,8 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
                 dad_name.setText(ortu.getDad_name());
                 alamat.setText(ortu.getAlamat());
                 if (lokasi.size() > 0) {
-                    for (int x = 0; x < lokasi.size(); x++){
-                        if (lokasi.get(x).getNamaPosyandu().equals(ortu.getPosyandu())){
+                    for (int x = 0; x < lokasi.size(); x++) {
+                        if (lokasi.get(x).getNamaPosyandu().equals(ortu.getPosyandu())) {
                             spinner_loc.setSelection(x);
                             //return;
                         }
@@ -146,7 +148,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         }
     }
 
-    private void getLokasiList(){
+    private void getLokasiList() {
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoading();
         lokasi = new ArrayList<>();
@@ -156,13 +158,13 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
             @Override
             public void onResponse(Call<LokasiList> call, Response<LokasiList> response) {
                 loadingDialog.dismis();
-                if (response.body().getStatus().equals("true")){
-                   lokasi.add(new Lokasi(null, "Pilih Lokasi", null));
-                   lokasi.addAll(response.body().getLokasi());
+                if (response.body().getStatus().equals("true")) {
+                    lokasi.add(new Lokasi(null, "Pilih Lokasi", null));
+                    lokasi.addAll(response.body().getLokasi());
 
-                   adapter = new LokasiSpinnerAdapter(getContext(), lokasi);
-                   spinner_loc.setAdapter(adapter);
-                   setUpdate();
+                    adapter = new LokasiSpinnerAdapter(getContext(), lokasi);
+                    spinner_loc.setAdapter(adapter);
+                    setUpdate();
                 }
             }
 
@@ -174,63 +176,63 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void _validation(Boolean update){
+    private void _validation(Boolean update) {
         layanan = null;
-        if (cb1.isChecked()){
-            if (TextUtils.isEmpty(layanan)){
+        if (cb1.isChecked()) {
+            if (TextUtils.isEmpty(layanan)) {
                 layanan = "pemeriksaan";
             } else {
-                layanan = layanan+",pemeriksaan";
+                layanan = layanan + ",pemeriksaan";
             }
         }
-        if (cb2.isChecked()){
-            if (TextUtils.isEmpty(layanan)){
+        if (cb2.isChecked()) {
+            if (TextUtils.isEmpty(layanan)) {
                 layanan = "imunisasi";
             } else {
-                layanan = layanan+",imunisasi";
+                layanan = layanan + ",imunisasi";
             }
         }
-        if (cb3.isChecked()){
-            if (TextUtils.isEmpty(layanan)){
+        if (cb3.isChecked()) {
+            if (TextUtils.isEmpty(layanan)) {
                 layanan = "penimbangan";
             } else {
-                layanan = layanan+",penimbangan";
+                layanan = layanan + ",penimbangan";
             }
         }
         //System.out.println("LAYANAN = "+layanan);
 
         if (TextUtils.isEmpty(no_hp.getText()) || TextUtils.isEmpty(mom_name.getText()) || TextUtils.isEmpty(dad_name.getText())
                 || TextUtils.isEmpty(mom_name.getText()) || TextUtils.isEmpty(alamat.getText()) || TextUtils.isEmpty(location_id) ||
-                TextUtils.isEmpty(layanan)){
-            if (TextUtils.isEmpty(no_hp.getText())){
+                TextUtils.isEmpty(layanan)) {
+            if (TextUtils.isEmpty(no_hp.getText())) {
                 no_hp.setError("Bagian ini harus diisi");
             }
-            if (TextUtils.isEmpty(mom_name.getText())){
+            if (TextUtils.isEmpty(mom_name.getText())) {
                 mom_name.setError("Bagian ini harus diisi");
             }
-            if (TextUtils.isEmpty(dad_name.getText())){
+            if (TextUtils.isEmpty(dad_name.getText())) {
                 dad_name.setError("Bagian ini harus diisi");
             }
-            if (TextUtils.isEmpty(location_id)){
+            if (TextUtils.isEmpty(location_id)) {
                 Toast.makeText(getContext(), "Silahkan pilih Lokasi Posyandu", Toast.LENGTH_LONG).show();
             }
-            if (TextUtils.isEmpty(alamat.getText())){
+            if (TextUtils.isEmpty(alamat.getText())) {
                 alamat.setError("Bagian ini harus diisi");
             }
-            if (TextUtils.isEmpty(layanan)){
+            if (TextUtils.isEmpty(layanan)) {
                 Toast.makeText(getContext(), "Silahkan pilih Layanan", Toast.LENGTH_LONG).show();
             }
         } else {
-            if (!update){
+            if (!update) {
                 addOrtu();
-            } else  {
+            } else {
                 editOrtu();
             }
 
         }
     }
 
-    private void editOrtu(){
+    private void editOrtu() {
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoading();
 
@@ -247,8 +249,10 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                 loadingDialog.dismis();
-                if (response.body().getStatus()){
+                if (response.body().getStatus()) {
                     Toast.makeText(getContext(), "Berhasil memperbaharui data", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(getActivity(), DetailOrtuActivity.class);
+                    i.putExtra("ortu", new Ortu(no_hp.getText().toString(), mom_name.getText().toString(), dad_name.getText().toString(), alamat.getText().toString(), lokasi_posyandu, location_id));
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), "Gagal memperbaharui data", Toast.LENGTH_LONG).show();
@@ -263,7 +267,7 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void addOrtu(){
+    private void addOrtu() {
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoading();
 
@@ -279,8 +283,9 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                 loadingDialog.dismis();
-                if (response.body().getStatus()){
+                if (response.body().getStatus()) {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    ortu.setAlamat("tes");
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
@@ -301,14 +306,15 @@ public class AddOrtuFragment extends BottomSheetDialogFragment {
 
         try {
             listener = (DismisListener) context;
-        } catch (ClassCastException e){
-            throw new ClassCastException(context.toString()+"Must implement this");
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "Must implement this");
         }
 
     }
 
     @Override
     public void onDismiss(@NonNull DialogInterface dialog) {
-        listener.onDismisSheet("");
+        listener.onDismisSheet("update");
+        listener.onUpdateOrtu(ortu);
     }
 }

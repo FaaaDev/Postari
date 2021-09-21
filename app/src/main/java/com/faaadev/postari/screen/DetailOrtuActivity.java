@@ -33,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailOrtuActivity extends AppCompatActivity implements DismisListener{
+public class DetailOrtuActivity extends AppCompatActivity implements DismisListener {
 
     private Ortu ortu = new Ortu();
     private TextView tv_dadname, tv_momname, tv_location, tv_address;
@@ -194,10 +194,45 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
 
     }
 
+    private void getortuListWithParam(String id){
+        LoadingDialog loadingDialog = new LoadingDialog(this);
+        loadingDialog.startLoading();
+
+        Call<com.faaadev.postari.service.Ortu> getOrtu = apiInterface.getOrtuById(id);
+        getOrtu.enqueue(new Callback<com.faaadev.postari.service.Ortu>() {
+            @Override
+            public void onResponse(Call<com.faaadev.postari.service.Ortu> call, Response<com.faaadev.postari.service.Ortu> response) {
+                loadingDialog.dismis();
+                if (response.body().isSuccess()){
+                    ortu = response.body().getOrtu();
+                    tv_dadname.setText(ortu.getDad_name());
+                    tv_momname.setText(ortu.getMom_name());
+                    tv_location.setText(ortu.getPosyandu());
+                    tv_address.setText(ortu.getAlamat());
+                    getLayananList();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.faaadev.postari.service.Ortu> call, Throwable t) {
+                loadingDialog.dismis();
+                getLayananList();
+                Toast.makeText(getApplicationContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
     @Override
     public void onDismisSheet(String from) {
         if (from.equals("add_anak")){
             getAnakList();
+        } else if (from.equals("update")){
+            getortuListWithParam(ortu.getUser_id());
         }
+    }
+
+    @Override
+    public void onUpdateOrtu(Object object) {
+
     }
 }
