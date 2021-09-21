@@ -1,6 +1,7 @@
 package com.faaadev.postari.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,21 +9,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
+import com.faaadev.postari.screen.AddAnakFragment;
+import com.faaadev.postari.screen.AddUserFragment;
 
 import java.util.List;
 
 public class AnakOrtuAdapter extends RecyclerView.Adapter<AnakOrtuAdapter.ViewHolder>{
     Context mContext;
     List<Anak> mData;
+    FragmentManager mFm;
 
-    public AnakOrtuAdapter(Context mContext, List<Anak> mData) {
+    public AnakOrtuAdapter(Context mContext, List<Anak> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
     }
 
     @NonNull
@@ -50,6 +56,15 @@ public class AnakOrtuAdapter extends RecyclerView.Adapter<AnakOrtuAdapter.ViewHo
             holder.edit.setVisibility(View.VISIBLE);
             holder.delete.setVisibility(View.VISIBLE);
         }
+
+        holder.edit.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            bundle.putBoolean("isUpdate", true);
+            AddAnakFragment addAnakFragment = new AddAnakFragment();
+            addAnakFragment.setArguments(bundle);
+            addAnakFragment.show(mFm, addAnakFragment.getTag());
+        });
     }
 
     @Override

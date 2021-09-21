@@ -178,7 +178,7 @@ public class DetailOrtuActivity extends AppCompatActivity implements DismisListe
                 loadingDialog.dismis();
                 if(response.body().isSuccess()){
                     anakList = response.body().getAnak();
-                    anakAdapter = new AnakOrtuAdapter(getApplicationContext(), anakList);
+                    anakAdapter = new AnakOrtuAdapter(getApplicationContext(), anakList, getSupportFragmentManager());
                     rv_anak_ortu.setAdapter(anakAdapter);
                 } else {
                     Toast.makeText(getApplicationContext(), "Data Anak Kosong", Toast.LENGTH_LONG).show();

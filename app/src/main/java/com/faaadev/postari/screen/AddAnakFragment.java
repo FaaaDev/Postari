@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.model.Anak;
+import com.faaadev.postari.model.User;
 import com.faaadev.postari.screen.DismisListener;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.widget.LoadingDialog;
@@ -36,6 +38,7 @@ import retrofit2.Response;
 
 public class AddAnakFragment extends BottomSheetDialogFragment {
     private EditText birthdate, nama;
+    private TextView title;
     private int mYear, mMonth, mDay;
     private String month, day;
     private final Calendar c = Calendar.getInstance();
@@ -45,6 +48,7 @@ public class AddAnakFragment extends BottomSheetDialogFragment {
     private DismisListener listener;
     private ApiInterface apiInterface;
     String user_id;
+    private Anak anak = new Anak();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,19 +59,20 @@ public class AddAnakFragment extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-         View root = inflater.inflate(R.layout.fragment_add_anak, container, false);
+        View root = inflater.inflate(R.layout.fragment_add_anak, container, false);
 
-         _init(root);
+        _init(root);
 
         return root;
     }
 
-    private void _init (View root){
+    private void _init(View root) {
         birthdate = root.findViewById(R.id.birthdate);
         nama = root.findViewById(R.id.name);
         rp = root.findViewById(R.id.rp);
         rl = root.findViewById(R.id.rl);
         btn_add = root.findViewById(R.id.btn_add);
+        title = root.findViewById(R.id.title);
 
         if (getArguments() != null) {
             user_id = getArguments().getString("user_id");
@@ -76,37 +81,37 @@ public class AddAnakFragment extends BottomSheetDialogFragment {
         _implement();
     }
 
-    private void _implement(){
+    private void _implement() {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        if (mMonth < 10){
-            month = "0"+(mMonth+1);
+        if (mMonth < 10) {
+            month = "0" + (mMonth + 1);
         } else {
-            month = ""+(mMonth+1);
+            month = "" + (mMonth + 1);
         }
-        if (mDay < 10){
-            day = "0"+mDay;
+        if (mDay < 10) {
+            day = "0" + mDay;
         } else {
-            day = ""+mDay;
+            day = "" + mDay;
         }
         birthdate.setText(day + "/" + month + "/" + mYear);
 
-        birthdate.setOnClickListener(v->{
+        birthdate.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                     new DatePickerDialog.OnDateSetListener() {
                         @Override
                         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            if (monthOfYear+1 < 10){
-                                month = "0"+(monthOfYear+1);
+                            if (monthOfYear + 1 < 10) {
+                                month = "0" + (monthOfYear + 1);
                             } else {
-                                month = ""+(monthOfYear+1);
+                                month = "" + (monthOfYear + 1);
                             }
-                            if (dayOfMonth < 10){
-                                day = "0"+dayOfMonth;
+                            if (dayOfMonth < 10) {
+                                day = "0" + dayOfMonth;
                             } else {
-                                day = ""+dayOfMonth;
+                                day = "" + dayOfMonth;
                             }
                             birthdate.setText(day + "/" + month + "/" + year);
                         }
@@ -114,35 +119,64 @@ public class AddAnakFragment extends BottomSheetDialogFragment {
             datePickerDialog.show();
         });
 
-        btn_add.setOnClickListener(v -> validation());
+        btn_add.setOnClickListener(v -> validation(false));
+
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        if (getArguments() != null) {
+            if (getArguments().getBoolean("isUpdate")) {
+                title.setText("Edit Anak");
+                btn_add.setText("Perbarui Data Anak");
+                anak = (Anak) getArguments().getSerializable("data");
+                nama.setText(anak.getNama());
+                user_id = anak.getUser_id();
+                birthdate.setText(anak.getBirthdate());
+                if (anak.getGender().equals("Laki-Laki")) {
+                    rl.setChecked(true);
+                } else if (anak.getGender().equals("Perempuan")) {
+                    rp.setChecked(true);
+                } else {
+
+                }
+
+                btn_add.setOnClickListener(v -> {
+                    validation(true);
+                });
+            }
+        }
+
+
     }
 
-    private void validation(){
-        if (rl.isChecked()){
+    private void validation(boolean update) {
+        if (rl.isChecked()) {
             gender = "Laki-Laki";
-        } else if (rp.isChecked()){
+        } else if (rp.isChecked()) {
             gender = "Perempuan";
         } else {
             gender = "";
         }
 
         if (TextUtils.isEmpty(nama.getText()) || TextUtils.isEmpty(birthdate.getText()) || TextUtils.isEmpty(gender)) {
-            if (TextUtils.isEmpty(nama.getText())){
+            if (TextUtils.isEmpty(nama.getText())) {
                 nama.setError("Bagian ini harus diisi");
             }
-            if (TextUtils.isEmpty(birthdate.getText())){
+            if (TextUtils.isEmpty(birthdate.getText())) {
                 nama.setError("Bagian ini harus diisi");
             }
             if (TextUtils.isEmpty(gender)) {
                 Toast.makeText(getContext(), "Silahkan pilih jenis kelamin", Toast.LENGTH_LONG).show();
             }
         } else {
-            addAnak();
+            if (update) {
+                updateAnak();
+            } else {
+                addAnak();
+            }
         }
     }
 
-    private void addAnak(){
+    private void addAnak() {
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoading();
 
@@ -151,11 +185,36 @@ public class AddAnakFragment extends BottomSheetDialogFragment {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                 loadingDialog.dismis();
-                if (response.body().getStatus()){
+                if (response.body().getStatus()) {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updateAnak() {
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoading();
+
+        Call<BasicResponse> addAnak = apiInterface.editAnak(user_id, nama.getText().toString(), birthdate.getText().toString(), gender, anak.getId());
+        addAnak.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                loadingDialog.dismis();
+                if (response.body().getStatus()) {
+                    Toast.makeText(getContext(), "Berhasil Mengubah Data", Toast.LENGTH_LONG).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Gagal Mengubah Data", Toast.LENGTH_LONG).show();
                 }
             }
 
@@ -173,8 +232,8 @@ public class AddAnakFragment extends BottomSheetDialogFragment {
 
         try {
             listener = (DismisListener) context;
-        } catch (ClassCastException e){
-            throw new ClassCastException(context.toString()+"Must implement this");
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "Must implement this");
         }
 
     }

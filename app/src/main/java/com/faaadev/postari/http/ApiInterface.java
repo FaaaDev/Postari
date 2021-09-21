@@ -100,6 +100,15 @@ public interface ApiInterface {
                                 @Field("birthdate") String birthdate,
                                 @Field("gender") String gender);
 
+    @FormUrlEncoded
+    @POST("add-anak.php")
+    Call<BasicResponse> editAnak(@Field("user_id") String user_id,
+                                   @Field("nama") String nama,
+                                   @Field("birthdate") String birthdate,
+                                   @Field("gender") String gender,
+                                   @Field("id") String id);
+
+
     @GET("get-anak-list.php")
     Call<AnakList> getAnakList();
 
