@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DeleteFragment;
 import com.faaadev.postari.screen.DetailAnakActivity;
 import com.faaadev.postari.screen.DetailOrtuActivity;
 import com.faaadev.postari.R;
@@ -76,6 +77,16 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
                 mContext.startActivity(i);
             });
             holder.delete.setVisibility(View.VISIBLE);
+
+            holder.delete.setOnClickListener(v -> {
+                DeleteFragment deleteFragment = new DeleteFragment();
+                deleteFragment.setTable("jadwal");
+                deleteFragment.setFrom("orang_tua");
+                deleteFragment.setParam("id");
+                deleteFragment.setWhere(data.getUser_id());
+                deleteFragment.setCancelable(false);
+                deleteFragment.show(mFm, deleteFragment.getTag());
+            });
         }
     }
 

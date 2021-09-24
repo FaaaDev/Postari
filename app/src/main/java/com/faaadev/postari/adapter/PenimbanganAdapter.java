@@ -1,6 +1,7 @@
 package com.faaadev.postari.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
 import com.faaadev.postari.model.Penimbangan;
+import com.faaadev.postari.screen.AddAnakFragment;
+import com.faaadev.postari.screen.AddPenimbanganFragment;
 
 import java.util.List;
 
@@ -54,10 +57,23 @@ public class PenimbanganAdapter extends RecyclerView.Adapter<PenimbanganAdapter.
             holder.edit.setVisibility(View.VISIBLE);
             holder.delete.setVisibility(View.VISIBLE);
         }
+
+        holder.edit.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            bundle.putBoolean("isUpdate", true);
+            AddPenimbanganFragment addPenimbanganFragment = new AddPenimbanganFragment();
+            addPenimbanganFragment.setArguments(bundle);
+            addPenimbanganFragment.show(mFm, addPenimbanganFragment.getTag());
+        });
+
         holder.delete.setOnClickListener(v -> {
             DeleteFragment deleteFragment = new DeleteFragment();
-            deleteFragment.setCancelable(false);
+            deleteFragment.setTable("penimbangan");
             deleteFragment.setFrom("penimbangan");
+            deleteFragment.setParam("id");
+            deleteFragment.setWhere(data.getId());
+            deleteFragment.setCancelable(false);
             deleteFragment.show(mFm, deleteFragment.getTag());
         });
     }

@@ -12,7 +12,7 @@ public class Penimbangan implements Serializable {
     @SerializedName("bb_anak")
     private String weight;
     @SerializedName("tb_anak")
-    private int tall;
+    private String tall;
     @SerializedName("tanggal")
     private String date;
 
@@ -40,11 +40,11 @@ public class Penimbangan implements Serializable {
         this.weight = weight;
     }
 
-    public int getTall() {
+    public String getTall() {
         return tall;
     }
 
-    public void setTall(int tall) {
+    public void setTall(String tall) {
         this.tall = tall;
     }
 

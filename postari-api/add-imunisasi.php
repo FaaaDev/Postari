@@ -9,7 +9,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require_once 'connection.php';
 
-    $sql = "INSERT INTO imunisasi (id, id_anak, type, keterangan, tanggal) VALUES (null, '$id_anak', '$type', '$keterangan', '$tanggal')";
+    if (empty($_POST['id'])) {
+        $sql = "INSERT INTO imunisasi (id, id_anak, type, keterangan, tanggal) VALUES (null, '$id_anak', '$type', '$keterangan', '$tanggal')";
+    } else {
+        $id = $_POST['id'];
+        $sql = "UPDATE imunisasi SET id_anak = '$id_anak', type = '$type', keterangan = '$keterangan', tanggal = '$tanggal' WHERE id = $id";
+    }
 
     if (mysqli_query($conn, $sql)) {
         $result["status"] = true;

@@ -187,7 +187,7 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
                     is_empty.setVisibility(View.GONE);
                     has_data.setVisibility(View.VISIBLE);
                     imunisasiList = response.body().getImunisasi();
-                    imunisasiAdapter = new ImunisasiAdapter(getApplicationContext(), imunisasiList);
+                    imunisasiAdapter = new ImunisasiAdapter(getApplicationContext(), imunisasiList, getSupportFragmentManager());
                     rv_imunisasi.setAdapter(imunisasiAdapter);
                 } else {
                     is_empty.setVisibility(View.VISIBLE);
@@ -219,7 +219,7 @@ public class DetailAnakActivity extends AppCompatActivity implements DismisListe
                     is_empty.setVisibility(View.GONE);
                     has_data.setVisibility(View.VISIBLE);
                     pemeriksaanList = response.body().getPemeriksaan();
-                    pemeriksaanAdapter = new PemeriksaanAdapter(getApplicationContext(), pemeriksaanList);
+                    pemeriksaanAdapter = new PemeriksaanAdapter(getApplicationContext(), pemeriksaanList, getSupportFragmentManager());
                     rv_pemeriksaan.setAdapter(pemeriksaanAdapter);
                 } else {
                     is_empty.setVisibility(View.VISIBLE);

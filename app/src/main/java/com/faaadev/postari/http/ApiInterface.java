@@ -51,6 +51,12 @@ public interface ApiInterface {
     Call<BasicResponse> addLoc(@Field("nama_posyandu") String name,
                                @Field("alamat") String alamat);
 
+    @FormUrlEncoded
+    @POST("add-lokasi.php")
+    Call<BasicResponse> editLoc(@Field("nama_posyandu") String name,
+                               @Field("alamat") String alamat,
+                               @Field("id") String id);
+
     @GET("get-lokasi-list.php")
     Call<LokasiList> getLokasiList();
 
@@ -116,8 +122,16 @@ public interface ApiInterface {
     @POST("add-penimbangan.php")
     Call<BasicResponse> addPenimbangan(@Field("id_anak") String id_anak,
                                        @Field("bb_anak") String bb_anak,
-                                       @Field("tb_anak") int tb_anak,
+                                       @Field("tb_anak") String tb_anak,
                                        @Field("tanggal") String tanggal);
+
+    @FormUrlEncoded
+    @POST("add-penimbangan.php")
+    Call<BasicResponse> editPenimbangan(@Field("id_anak") String id_anak,
+                                       @Field("bb_anak") String bb_anak,
+                                       @Field("tb_anak") String tb_anak,
+                                       @Field("tanggal") String tanggal,
+                                       @Field("id") String id);
 
     @FormUrlEncoded
     @POST("add-imunisasi.php")
@@ -125,6 +139,14 @@ public interface ApiInterface {
                                      @Field("type") String type,
                                      @Field("keterangan") String keterangan,
                                      @Field("tanggal") String tanggal);
+
+    @FormUrlEncoded
+    @POST("add-imunisasi.php")
+    Call<BasicResponse> editImunisasi(@Field("id_anak") String id_anak,
+                                     @Field("type") String type,
+                                     @Field("keterangan") String keterangan,
+                                     @Field("tanggal") String tanggal,
+                                     @Field("id") String id);
 
     @FormUrlEncoded
     @POST("get-penimbangan-list.php")
@@ -139,6 +161,13 @@ public interface ApiInterface {
     Call<BasicResponse> addJadwal(@Field("id_lokasi") String id_lokasi,
                                   @Field("tanggal") String tanggal,
                                   @Field("kegiatan") String kegiatan);
+
+    @FormUrlEncoded
+    @POST("add-jadwal.php")
+    Call<BasicResponse> editJadwal(@Field("id_lokasi") String id_lokasi,
+                                  @Field("tanggal") String tanggal,
+                                  @Field("kegiatan") String kegiatan,
+                                  @Field("id") String id);
 
     @GET("get-jadwal-list.php")
     Call<JadwalList> getJadwalList();
@@ -160,6 +189,25 @@ public interface ApiInterface {
                                        @Field("nasihat") String nasihat,
                                        @Field("pemeriksa") String pemeriksa,
                                        @Field("tanggal_periksa_kembali") String periksaKembali);
+
+    @FormUrlEncoded
+    @POST("add-pemeriksaan.php")
+    Call<BasicResponse> editPemeriksaan(@Field("user_id") String user_id,
+                                       @Field("tanggal") String tanggal,
+                                       @Field("keluhan") String keluhan,
+                                       @Field("tekanan_darah") String tekanan,
+                                       @Field("bb_ibu") String berat,
+                                       @Field("umur_hamil") String umur,
+                                       @Field("tinggi_fundus") String tinggi,
+                                       @Field("letak_janin") String letak,
+                                       @Field("denyut_janin") String denyut,
+                                       @Field("kaki_bengkak") String bengkak,
+                                       @Field("pem_laboratorium") String pemLab,
+                                       @Field("tindakan") String tindakan,
+                                       @Field("nasihat") String nasihat,
+                                       @Field("pemeriksa") String pemeriksa,
+                                       @Field("tanggal_periksa_kembali") String periksaKembali,
+                                       @Field("id") String id);
 
     @FormUrlEncoded
     @POST("get-pemeriksaan-list.php")

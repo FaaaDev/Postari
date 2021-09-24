@@ -13,11 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.model.Jadwal;
+import com.faaadev.postari.model.Lokasi;
 import com.faaadev.postari.screen.AddUserFragment;
 import com.faaadev.postari.screen.DismisListener;
 import com.faaadev.postari.service.BasicResponse;
@@ -31,10 +34,13 @@ import retrofit2.Response;
 
 public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
 
+    private TextView title;
     private EditText name, alamat;
     private Button add_button;
     private ApiInterface apiInterface;
     DismisListener listener;
+    private Lokasi lokasi = new Lokasi();
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,16 +62,31 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
         name = root.findViewById(R.id.name);
         alamat = root.findViewById(R.id.alamat);
         add_button = root.findViewById(R.id.btn_add);
+        title = root.findViewById(R.id.title);
 
         _implement();
     }
 
     private void _implement(){
-        add_button.setOnClickListener(v-> validation());
+        add_button.setOnClickListener(v-> validation(false));
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        if (getArguments() != null) {
+            if (getArguments().getBoolean("isUpdate")) {
+                title.setText("Edit Anak");
+                add_button.setText("Perbarui Data Anak");
+                lokasi = (Lokasi) getArguments().getSerializable("data");
+                name.setText(lokasi.getNamaPosyandu());
+                alamat.setText(lokasi.getAlamat());
+
+                add_button.setOnClickListener(v -> {
+                    validation(true);
+                });
+            }
+        }
     }
 
-    private void validation(){
+    private void validation(boolean update){
         if (TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(name.getText())){
             if (TextUtils.isEmpty(name.getText())){
                 name.setError("Bagian ini tidak boleh kosong");
@@ -75,7 +96,11 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
                 alamat.setError("Bagian ini tidak boleh kosong");
             }
         } else {
-            addLocation();
+            if (update) {
+                updateLocation();
+            } else {
+                addLocation();
+            }
         }
     }
 
@@ -93,6 +118,31 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updateLocation() {
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoading();
+
+        Call<BasicResponse> addLoc = apiInterface.editLoc(name.getText().toString(), alamat.getText().toString(), lokasi.getId());
+        addLoc.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                loadingDialog.dismis();
+                if (response.body().getStatus()){
+                    Toast.makeText(getContext(), "Data berhasil diupdate", Toast.LENGTH_LONG).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Data gagal diupdate", Toast.LENGTH_LONG).show();
                 }
             }
 

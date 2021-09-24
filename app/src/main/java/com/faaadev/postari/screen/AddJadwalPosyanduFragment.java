@@ -23,6 +23,8 @@ import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.LokasiSpinnerAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.model.Anak;
+import com.faaadev.postari.model.Jadwal;
 import com.faaadev.postari.model.Lokasi;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.service.LokasiList;
@@ -39,7 +41,7 @@ import retrofit2.Response;
 
 public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
 
-    private TextView date, kegiatan;
+    private TextView date, kegiatan, title;
     private Spinner spinner_loc;
     private LokasiSpinnerAdapter adapter;
     private String location_id;
@@ -50,6 +52,8 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
     private String month, day;
     private DismisListener listener;
     private Button btn_add;
+    String id_jadwal;
+    private Jadwal jadwal = new Jadwal();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,6 +76,7 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
         date = root.findViewById(R.id.date);
         kegiatan = root.findViewById(R.id.kegiatan);
         btn_add = root.findViewById(R.id.btn_add);
+        title = root.findViewById(R.id.title);
 
         _implement();
     }
@@ -131,7 +136,8 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
             datePickerDialog.show();
         });
 
-        btn_add.setOnClickListener(v -> _validation());
+        btn_add.setOnClickListener(v -> _validation(false));
+
     }
 
     private void getLokasiList(){
@@ -150,6 +156,7 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
 
                     adapter = new LokasiSpinnerAdapter(getContext(), lokasi);
                     spinner_loc.setAdapter(adapter);
+                    setUpdate();
                 }
             }
 
@@ -161,7 +168,31 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
         });
     }
 
-    private void _validation(){
+    private void setUpdate() {
+        if (getArguments() != null) {
+            if (getArguments().getBoolean("isUpdate")) {
+                title.setText("Edit Anak");
+                btn_add.setText("Perbarui Data Anak");
+                jadwal = (Jadwal) getArguments().getSerializable("data");
+                date.setText(jadwal.getTanggal());
+                kegiatan.setText(jadwal.getKegiatan());
+                if (lokasi.size() > 0) {
+                    for (int x = 0; x < lokasi.size(); x++) {
+                        if (lokasi.get(x).getNamaPosyandu().equals(jadwal.getNamaPosyandu())) {
+                            spinner_loc.setSelection(x);
+                            //return;
+                        }
+                    }
+                }
+
+                btn_add.setOnClickListener(v -> {
+                    _validation(true);
+                });
+            }
+        }
+    }
+
+    private void _validation(boolean update){
         if (TextUtils.isEmpty(location_id) || TextUtils.isEmpty(date.getText()) || TextUtils.isEmpty(kegiatan.getText())){
             if (TextUtils.isEmpty(location_id)){
                 Toast.makeText(getContext(), "Silahkan pilih Lokasi Posyandu", Toast.LENGTH_LONG).show();
@@ -173,7 +204,11 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
                 date.setError("Bagian ini harus diisi");
             }
         } else {
-            addJadwal();
+            if (update) {
+                updateJadwal();
+            } else {
+                addJadwal();
+            }
         }
     }
 
@@ -195,6 +230,36 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updateJadwal() {
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoading();
+
+        Call<BasicResponse> addJadwal = apiInterface.editJadwal(
+                location_id,
+                date.getText().toString(),
+                kegiatan.getText().toString(),
+                jadwal.getId()
+        );
+        addJadwal.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                loadingDialog.dismis();
+                if (response.body().getStatus()){
+                    Toast.makeText(getContext(), "Data berhasil diupdate", Toast.LENGTH_LONG).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Data gagal diupdate", Toast.LENGTH_LONG).show();
                 }
             }
 

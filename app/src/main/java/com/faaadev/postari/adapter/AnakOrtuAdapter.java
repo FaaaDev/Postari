@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Anak;
@@ -64,6 +65,15 @@ public class AnakOrtuAdapter extends RecyclerView.Adapter<AnakOrtuAdapter.ViewHo
             AddAnakFragment addAnakFragment = new AddAnakFragment();
             addAnakFragment.setArguments(bundle);
             addAnakFragment.show(mFm, addAnakFragment.getTag());
+        });
+
+        holder.delete.setOnClickListener(v -> {
+            DeleteFragment deleteFragment = new DeleteFragment();
+            deleteFragment.setTable("anak");
+            deleteFragment.setParam("id");
+            deleteFragment.setWhere(data.getId());
+            deleteFragment.setCancelable(false);
+            deleteFragment.show(mFm, deleteFragment.getTag());
         });
     }
 

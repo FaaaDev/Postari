@@ -80,6 +80,10 @@ public class AddUserFragment extends BottomSheetDialogFragment {
     private void _implement() {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
+        btn_add.setOnClickListener(v -> {
+            _validation(false);
+        });
+
         if (getArguments() != null){
             if (getArguments().getBoolean("isUpdate")){
                 title.setText("Edit Akun");
@@ -106,10 +110,6 @@ public class AddUserFragment extends BottomSheetDialogFragment {
                 });
             }
         }
-
-        btn_add.setOnClickListener(v -> {
-            _validation(false);
-        });
 
         rpetugas.setOnClickListener(v -> {
             jenis_petugas = "";

@@ -1,6 +1,7 @@
 package com.faaadev.postari.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,22 +9,28 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Pemeriksaan;
 import com.faaadev.postari.model.Penimbangan;
+import com.faaadev.postari.screen.AddAnakFragment;
+import com.faaadev.postari.screen.AddPemeriksaanFragment;
 
 import java.util.List;
 
 public class PemeriksaanAdapter extends RecyclerView.Adapter<PemeriksaanAdapter.ViewHolder>{
     Context mContext;
     List<Pemeriksaan> mData;
+    FragmentManager mFm;
 
-    public PemeriksaanAdapter(Context mContext, List<Pemeriksaan> mData) {
+    public PemeriksaanAdapter(Context mContext, List<Pemeriksaan> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
     }
 
     @NonNull
@@ -51,7 +58,7 @@ public class PemeriksaanAdapter extends RecyclerView.Adapter<PemeriksaanAdapter.
         holder.keluhan.setText(data.getKeluhan().isEmpty() ? "Keluhan : -" : "Keluhan : "+data.getKeluhan());
         holder.pem_lab.setText(data.getPemeriksaanLab().isEmpty() ? "Pemeriksaan Laboratorium : -" : "Pemeriksaan Laboratorium : "+data.getPemeriksaanLab());
         holder.tindakan.setText(data.getTindakan().isEmpty() ? "Tindakan : -" : "Tindakan : "+data.getTindakan());
-        holder.nasihat.setText(data.getKeluhan().isEmpty() ? "Nasihat : -" : "Nasihat : "+data.getKeluhan());
+        holder.nasihat.setText(data.getNasihat().isEmpty() ? "Nasihat : -" : "Nasihat : "+data.getNasihat());
         holder.pemeriksa.setText("Pemeriksa : "+data.getPemeriksa());
         holder.periksa_kembali.setText("Tanggal Periksa Kembali : "+data.getPeriksaKembali());
         if (Preferences.getRole(mContext).equals("ortu")){
@@ -61,6 +68,25 @@ public class PemeriksaanAdapter extends RecyclerView.Adapter<PemeriksaanAdapter.
             holder.edit.setVisibility(View.VISIBLE);
             holder.delete.setVisibility(View.VISIBLE);
         }
+
+        holder.edit.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            bundle.putBoolean("isUpdate", true);
+            AddPemeriksaanFragment addPemeriksaanFragment = new AddPemeriksaanFragment();
+            addPemeriksaanFragment.setArguments(bundle);
+            addPemeriksaanFragment.show(mFm, addPemeriksaanFragment.getTag());
+        });
+
+        holder.delete.setOnClickListener(v -> {
+            DeleteFragment deleteFragment = new DeleteFragment();
+            deleteFragment.setTable("pemeriksaan_bumil");
+            deleteFragment.setFrom("pemeriksaan");
+            deleteFragment.setParam("id");
+            deleteFragment.setWhere(data.getId());
+            deleteFragment.setCancelable(false);
+            deleteFragment.show(mFm, deleteFragment.getTag());
+        });
     }
 
     @Override

@@ -16,11 +16,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
+import com.faaadev.postari.model.Anak;
+import com.faaadev.postari.model.Imunisasi;
 import com.faaadev.postari.screen.DismisListener;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.widget.LoadingDialog;
@@ -34,6 +37,7 @@ import retrofit2.Response;
 
 public class AddImunisasiFragment extends BottomSheetDialogFragment {
     private EditText date, ket;
+    private TextView title;
     private int mYear, mMonth, mDay;
     private String month, day;
     private final Calendar c = Calendar.getInstance();
@@ -43,6 +47,7 @@ public class AddImunisasiFragment extends BottomSheetDialogFragment {
     private String id_anak;
     RadioButton rvit, rimunisasi;
     private String type;
+    private Imunisasi imunisasi = new Imunisasi();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class AddImunisasiFragment extends BottomSheetDialogFragment {
         btn_add = root.findViewById(R.id.btn_add);
         rvit = root.findViewById(R.id.rvit);
         rimunisasi = root.findViewById(R.id.rimunisasi);
+        title = root.findViewById(R.id.title);
 
         if (getArguments() != null) {
             id_anak = getArguments().getString("id");
@@ -115,11 +121,33 @@ public class AddImunisasiFragment extends BottomSheetDialogFragment {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         btn_add.setOnClickListener(v -> {
-            validation();
+            validation(false);
         });
+
+        if (getArguments() != null) {
+            if (getArguments().getBoolean("isUpdate")) {
+                title.setText("Edit Imunisasi");
+                btn_add.setText("Perbarui Data Imunisasi");
+                imunisasi = (Imunisasi) getArguments().getSerializable("data");
+                id_anak = imunisasi.getIdAnak();
+                date.setText(imunisasi.getDate());
+                ket.setText(imunisasi.getKeterangan());
+                if (imunisasi.getType().equals("Imunisasi")) {
+                    rimunisasi.setChecked(true);
+                } else if (imunisasi.getType().equals("Vitamin")) {
+                    rvit.setChecked(true);
+                } else {
+
+                }
+
+                btn_add.setOnClickListener(v -> {
+                    validation(true);
+                });
+            }
+        }
     }
 
-    private void validation(){
+    private void validation(boolean update){
         if (rvit.isChecked()){
             type = "Vitamin";
         } else if (rimunisasi.isChecked()){
@@ -139,7 +167,11 @@ public class AddImunisasiFragment extends BottomSheetDialogFragment {
                 ket.setError("Silahkan isi jenis imunisasi/vitamin");
             }
         } else {
-            addImunisasi();
+            if (update) {
+                updateImunisasi();
+            } else {
+                addImunisasi();
+            }
         }
     }
 
@@ -157,6 +189,31 @@ public class AddImunisasiFragment extends BottomSheetDialogFragment {
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updateImunisasi() {
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoading();
+
+        Call<BasicResponse> addImunisasi = apiInterface.editImunisasi(id_anak, type, ket.getText().toString(), date.getText().toString(), imunisasi.getId());
+        addImunisasi.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                loadingDialog.dismis();
+                if (response.body().getStatus()){
+                    Toast.makeText(getContext(), "Data berhasil diubah", Toast.LENGTH_LONG).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Data gagal diubah", Toast.LENGTH_LONG).show();
                 }
             }
 

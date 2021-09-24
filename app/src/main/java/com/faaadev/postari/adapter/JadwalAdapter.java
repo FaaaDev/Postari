@@ -1,6 +1,7 @@
 package com.faaadev.postari.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,13 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Jadwal;
 import com.faaadev.postari.model.Lokasi;
+import com.faaadev.postari.screen.AddAnakFragment;
+import com.faaadev.postari.screen.AddJadwalPosyanduFragment;
 
 import java.util.List;
 
@@ -55,6 +59,24 @@ public class JadwalAdapter extends RecyclerView.Adapter<JadwalAdapter.ViewHolder
             holder.edit.setVisibility(View.VISIBLE);
             holder.delete.setVisibility(View.VISIBLE);
         }
+
+        holder.edit.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            bundle.putBoolean("isUpdate", true);
+            AddJadwalPosyanduFragment addJadwalPosyanduFragment = new AddJadwalPosyanduFragment();
+            addJadwalPosyanduFragment.setArguments(bundle);
+            addJadwalPosyanduFragment.show(mFm, addJadwalPosyanduFragment.getTag());
+        });
+
+        holder.delete.setOnClickListener(v -> {
+            DeleteFragment deleteFragment = new DeleteFragment();
+            deleteFragment.setTable("jadwal");
+            deleteFragment.setParam("id");
+            deleteFragment.setWhere(data.getIdLokasi());
+            deleteFragment.setCancelable(false);
+            deleteFragment.show(mFm, deleteFragment.getTag());
+        });
     }
 
     @Override

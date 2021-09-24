@@ -16,12 +16,15 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.http.Preferences;
+import com.faaadev.postari.model.Anak;
+import com.faaadev.postari.model.Pemeriksaan;
 import com.faaadev.postari.screen.DismisListener;
 import com.faaadev.postari.service.BasicResponse;
 import com.faaadev.postari.widget.LoadingDialog;
@@ -38,6 +41,7 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
     private EditText date, periksa_kembali, tekanan, weight, umur, tinggi_fundus, letak_janin,
             denyut_janin, keluhan, pem_lab, tindakan, nasihat;
     private RadioButton ryes, rno;
+    private TextView title;
     private Button btn_add;
     private int mYear, mMonth, mDay;
     private String month, day;
@@ -45,6 +49,7 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
     private ApiInterface apiInterface;
     private String bengkak, user_id;
     private DismisListener listener;
+    private Pemeriksaan pemeriksaan = new Pemeriksaan();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,7 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
         tindakan = root.findViewById(R.id.tindakan);
         nasihat = root.findViewById(R.id.nasihat);
         btn_add = root.findViewById(R.id.btn_add);
+        title = root.findViewById(R.id.title);
 
         if (getArguments() != null) {
             user_id = getArguments().getString("id");
@@ -150,11 +156,43 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
         apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
         btn_add.setOnClickListener(v -> {
-            validation();
+            validation(false);
         });
+
+        if (getArguments() != null) {
+            if (getArguments().getBoolean("isUpdate")) {
+                title.setText("Edit Pemeriksaan");
+                btn_add.setText("Perbarui Data Pemeriksaan");
+                pemeriksaan = (Pemeriksaan) getArguments().getSerializable("data");
+                user_id = pemeriksaan.getUserId();
+                date.setText(pemeriksaan.getTanggal());
+                tekanan.setText(pemeriksaan.getTekanan());
+                weight.setText(pemeriksaan.getWeight());
+                umur.setText(pemeriksaan.getUmur());
+                tinggi_fundus.setText(pemeriksaan.getTinggiFundus());
+                letak_janin.setText(pemeriksaan.getLetakJanin());
+                denyut_janin.setText(pemeriksaan.getDenyutJanin());
+                keluhan.setText(pemeriksaan.getKeluhan());
+                if (pemeriksaan.getKakiBengkak().equals("Ya")) {
+                    ryes.setChecked(true);
+                } else if (pemeriksaan.getKakiBengkak().equals("Tidak")) {
+                    rno.setChecked(true);
+                } else {
+
+                }
+                pem_lab.setText(pemeriksaan.getPemeriksaanLab());
+                tindakan.setText(pemeriksaan.getTindakan());
+                nasihat.setText(pemeriksaan.getNasihat());
+                periksa_kembali.setText(pemeriksaan.getPeriksaKembali());
+
+                btn_add.setOnClickListener(v -> {
+                    validation(true);
+                });
+            }
+        }
     }
 
-    private void validation(){
+    private void validation(boolean update){
         if(ryes.isChecked()){
             bengkak = "Ya";
         } else {
@@ -184,7 +222,11 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
                 periksa_kembali.setError("Bagian ini wajib diisi");
             }
         } else {
-            addPemeriksaan();
+            if (update) {
+                updatePemeriksaan();
+            } else {
+                addPemeriksaan();
+            }
         }
     }
 
@@ -218,6 +260,49 @@ public class AddPemeriksaanFragment extends BottomSheetDialogFragment {
                     dismiss();
                 } else {
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                loadingDialog.dismis();
+                System.out.println("ERRORR == "+t.toString());
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void updatePemeriksaan() {
+        LoadingDialog loadingDialog = new LoadingDialog(getActivity());
+        loadingDialog.startLoading();
+
+        Call<BasicResponse> addPemeriksaan = apiInterface.editPemeriksaan(
+                user_id,
+                date.getText().toString(),
+                keluhan.getText().toString(),
+                tekanan.getText().toString(),
+                weight.getText().toString(),
+                umur.getText().toString(),
+                tinggi_fundus.getText().toString(),
+                letak_janin.getText().toString(),
+                denyut_janin.getText().toString(),
+                bengkak,
+                pem_lab.getText().toString(),
+                tindakan.getText().toString(),
+                nasihat.getText().toString(),
+                Preferences.getUsername(getContext()),
+                periksa_kembali.getText().toString(),
+                pemeriksaan.getId()
+        );
+        addPemeriksaan.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                loadingDialog.dismis();
+                if (response.body().getStatus()){
+                    Toast.makeText(getContext(), "Data berhasil diupdate", Toast.LENGTH_LONG).show();
+                    dismiss();
+                } else {
+                    Toast.makeText(getContext(), "Data gagal diupdate", Toast.LENGTH_LONG).show();
                 }
             }
 

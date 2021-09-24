@@ -7,6 +7,8 @@ import java.io.Serializable;
 public class Pemeriksaan implements Serializable {
     @SerializedName("id")
     private String id;
+    @SerializedName("user_id")
+    private String userId;
     @SerializedName("tanggal")
     private String tanggal;
     @SerializedName("tekanan_darah")
@@ -14,7 +16,7 @@ public class Pemeriksaan implements Serializable {
     @SerializedName("bb_ibu")
     private String weight;
     @SerializedName("umur_hamil")
-    private int umur;
+    private String umur;
     @SerializedName("tinggi_fundus")
     private String tinggiFundus;
     @SerializedName("letak_janin")
@@ -44,6 +46,14 @@ public class Pemeriksaan implements Serializable {
         this.id = id;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public String getTanggal() {
         return tanggal;
     }
@@ -68,11 +78,11 @@ public class Pemeriksaan implements Serializable {
         this.weight = weight;
     }
 
-    public int getUmur() {
+    public String getUmur() {
         return umur;
     }
 
-    public void setUmur(int umur) {
+    public void setUmur(String umur) {
         this.umur = umur;
     }
 

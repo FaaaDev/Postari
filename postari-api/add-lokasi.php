@@ -7,7 +7,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require_once 'connection.php';
 
-    $sql = "INSERT INTO lokasi_posyandu (id, nama_posyandu, alamat) VALUES (null, '$nama_posyandu', '$alamat')";
+    if (empty($_POST['id'])) {
+        $sql = "INSERT INTO lokasi_posyandu (id, nama_posyandu, alamat) VALUES (null, '$nama_posyandu', '$alamat')";
+    } else {
+        $id = $_POST['id'];
+        $sql = "UPDATE lokasi_posyandu SET nama_posyandu = '$nama_posyandu', alamat = '$alamat' WHERE id = $id ";
+    }
 
     if (mysqli_query($conn, $sql)) {
         $result["status"] = true;

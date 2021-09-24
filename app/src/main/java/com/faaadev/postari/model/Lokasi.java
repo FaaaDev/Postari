@@ -2,13 +2,18 @@ package com.faaadev.postari.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Lokasi {
+import java.io.Serializable;
+
+public class Lokasi implements Serializable {
     @SerializedName("id")
     private String id;
     @SerializedName("nama_posyandu")
     private String namaPosyandu;
     @SerializedName("alamat")
     private String alamat;
+
+    public Lokasi() {
+    }
 
     public Lokasi(String id, String namaPosyandu, String alamat) {
         this.id = id;

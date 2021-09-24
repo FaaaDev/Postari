@@ -2,6 +2,7 @@ package com.faaadev.postari.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +11,28 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.faaadev.postari.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Imunisasi;
 import com.faaadev.postari.model.Penimbangan;
+import com.faaadev.postari.screen.AddAnakFragment;
+import com.faaadev.postari.screen.AddImunisasiFragment;
 
 import java.util.List;
 
 public class ImunisasiAdapter extends RecyclerView.Adapter<ImunisasiAdapter.ViewHolder>{
     Context mContext;
     List<Imunisasi> mData;
+    FragmentManager mFm;
 
-    public ImunisasiAdapter(Context mContext, List<Imunisasi> mData) {
+    public ImunisasiAdapter(Context mContext, List<Imunisasi> mData, FragmentManager mFm) {
         this.mContext = mContext;
         this.mData = mData;
+        this.mFm = mFm;
     }
 
     @NonNull
@@ -55,6 +62,24 @@ public class ImunisasiAdapter extends RecyclerView.Adapter<ImunisasiAdapter.View
             holder.edit.setVisibility(View.VISIBLE);
             holder.delete.setVisibility(View.VISIBLE);
         }
+
+        holder.edit.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("data", data);
+            bundle.putBoolean("isUpdate", true);
+            AddImunisasiFragment addImunisasiFragment = new AddImunisasiFragment();
+            addImunisasiFragment.setArguments(bundle);
+            addImunisasiFragment.show(mFm, addImunisasiFragment.getTag());
+        });
+
+        holder.delete.setOnClickListener(v -> {
+            DeleteFragment deleteFragment = new DeleteFragment();
+            deleteFragment.setTable("imunisasi");
+            deleteFragment.setParam("id");
+            deleteFragment.setWhere(data.getId());
+            deleteFragment.setCancelable(false);
+            deleteFragment.show(mFm, deleteFragment.getTag());
+        });
     }
 
     @Override

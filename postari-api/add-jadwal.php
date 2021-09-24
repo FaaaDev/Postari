@@ -8,7 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require_once 'connection.php';
 
-    $sql = "INSERT INTO jadwal (id, id_lokasi, kegiatan, tanggal) VALUES (null, '$id_lokasi', '$kegiatan', '$tanggal')";
+    if (empty($_POST['id'])) {
+        $sql = "INSERT INTO jadwal (id, id_lokasi, kegiatan, tanggal) VALUES (null, '$id_lokasi', '$kegiatan', '$tanggal')";
+    } else {
+        $id = $_POST['id'];
+        $sql = "UPDATE jadwal SET id_lokasi = '$id_lokasi', kegiatan = '$kegiatan', tanggal = '$tanggal' WHERE id = $id ";
+    }
 
     if (mysqli_query($conn, $sql)) {
         $result["status"] = true;

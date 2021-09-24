@@ -9,7 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     require_once 'connection.php';
 
-    $sql = "INSERT INTO penimbangan (id, id_anak, bb_anak, tb_anak, tanggal) VALUES (null, '$id_anak', '$bb_anak', '$tb_anak', '$tanggal')";
+    if (empty($_POST['id'])) {
+        $sql = "INSERT INTO penimbangan (id, id_anak, bb_anak, tb_anak, tanggal) VALUES (null, '$id_anak', '$bb_anak', '$tb_anak', '$tanggal')";
+    } else {
+        $id = $_POST['id'];
+        $sql = "UPDATE penimbangan SET id_anak = '$id_anak', bb_anak = '$bb_anak', tb_anak = '$tb_anak', tanggal = '$tanggal' WHERE id = $id";
+    }
+
 
     if (mysqli_query($conn, $sql)) {
         $result["status"] = true;
