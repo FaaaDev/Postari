@@ -171,8 +171,8 @@ public class AddJadwalPosyanduFragment extends BottomSheetDialogFragment {
     private void setUpdate() {
         if (getArguments() != null) {
             if (getArguments().getBoolean("isUpdate")) {
-                title.setText("Edit Anak");
-                btn_add.setText("Perbarui Data Anak");
+                title.setText("Edit Jadwal");
+                btn_add.setText("Perbarui Data Jadwal");
                 jadwal = (Jadwal) getArguments().getSerializable("data");
                 date.setText(jadwal.getTanggal());
                 kegiatan.setText(jadwal.getKegiatan());

@@ -73,8 +73,8 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
 
         if (getArguments() != null) {
             if (getArguments().getBoolean("isUpdate")) {
-                title.setText("Edit Anak");
-                add_button.setText("Perbarui Data Anak");
+                title.setText("Edit Lokasi");
+                add_button.setText("Perbarui Data Lokasi");
                 lokasi = (Lokasi) getArguments().getSerializable("data");
                 name.setText(lokasi.getNamaPosyandu());
                 alamat.setText(lokasi.getAlamat());

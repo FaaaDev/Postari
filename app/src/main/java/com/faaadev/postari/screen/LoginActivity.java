@@ -123,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                     sharedPrefManager.saveUser(response.body().getUser());
                     preferences.saveUser(response.body().getUser(), getApplicationContext());
                     storeToken();
+                    Toast.makeText(LoginActivity.this, "Berhasil masuk", Toast.LENGTH_LONG).show();
                 } else {
                     loadingDialog.dismis();
                     Toast.makeText(LoginActivity.this, "Periksa Kembali Email atau Password", Toast.LENGTH_LONG).show();

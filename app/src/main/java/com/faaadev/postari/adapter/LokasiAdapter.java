@@ -1,6 +1,8 @@
 package com.faaadev.postari.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,6 +60,12 @@ public class LokasiAdapter extends RecyclerView.Adapter<LokasiAdapter.ViewHolder
             holder.delete.setVisibility(View.VISIBLE);
         }
 
+        holder.card.setOnClickListener(v -> {
+            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                    Uri.parse("https://maps.google.com?q=-6.9435506,107.6035664&hl=id-ID&gl=id&entry=gps&lucs=s2se"));
+            mContext.startActivity(intent);
+        });
+
         holder.edit.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putSerializable("data", data);
@@ -85,13 +93,14 @@ public class LokasiAdapter extends RecyclerView.Adapter<LokasiAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView nama_posyandu, lokasi;
-        CardView edit, delete;
+        CardView edit, delete, card;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nama_posyandu = itemView.findViewById(R.id.nama_posyandu);
             lokasi = itemView.findViewById(R.id.lokasi);
             delete = itemView.findViewById(R.id.delete);
             edit = itemView.findViewById(R.id.edit);
+            card = itemView.findViewById(R.id.card);
         }
     }
 }
