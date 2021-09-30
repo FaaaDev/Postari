@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,9 +62,11 @@ public class LokasiAdapter extends RecyclerView.Adapter<LokasiAdapter.ViewHolder
         }
 
         holder.card.setOnClickListener(v -> {
-            Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
-                    Uri.parse("https://maps.google.com?q=-6.9435506,107.6035664&hl=id-ID&gl=id&entry=gps&lucs=s2se"));
-            mContext.startActivity(intent);
+            if (!TextUtils.isEmpty(data.getUrl())) {
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(data.getUrl()));
+                mContext.startActivity(intent);
+            }
         });
 
         holder.edit.setOnClickListener(v -> {

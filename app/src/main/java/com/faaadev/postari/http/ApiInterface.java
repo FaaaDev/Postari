@@ -49,12 +49,14 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("add-lokasi.php")
     Call<BasicResponse> addLoc(@Field("nama_posyandu") String name,
-                               @Field("alamat") String alamat);
+                               @Field("alamat") String alamat,
+                               @Field("url") String url);
 
     @FormUrlEncoded
     @POST("add-lokasi.php")
     Call<BasicResponse> editLoc(@Field("nama_posyandu") String name,
                                @Field("alamat") String alamat,
+                               @Field("url") String url,
                                @Field("id") String id);
 
     @GET("get-lokasi-list.php")

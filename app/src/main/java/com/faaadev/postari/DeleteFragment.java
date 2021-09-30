@@ -125,6 +125,35 @@ public class DeleteFragment extends BottomSheetDialogFragment {
         delete.enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
+                if (!table.equals("orang_tua")) {
+                    setLoading(false);
+                }
+                if (response.body().getStatus()){
+                    if (!table.equals("orang_tua")) {
+                        dismiss();
+                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                    } else {
+                        deleteAnak();
+                    }
+                } else {
+                    Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<BasicResponse> call, Throwable t) {
+                setLoading(false);
+                Toast.makeText(getContext(), "Kesalahan saat menghubungi server", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void deleteAnak(){
+        setLoading(true);
+        Call<BasicResponse> delete = apiInterface.deleteRecord("anak", param, where);
+        delete.enqueue(new Callback<BasicResponse>() {
+            @Override
+            public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
                 setLoading(false);
                 if (response.body().getStatus()){
                     Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_LONG).show();

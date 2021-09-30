@@ -80,9 +80,9 @@ public class OrtuAdapter extends RecyclerView.Adapter<OrtuAdapter.MyViewHolder> 
 
             holder.delete.setOnClickListener(v -> {
                 DeleteFragment deleteFragment = new DeleteFragment();
-                deleteFragment.setTable("jadwal");
-                deleteFragment.setFrom("orang_tua");
-                deleteFragment.setParam("id");
+                deleteFragment.setTable("orang_tua");
+                deleteFragment.setFrom("update");
+                deleteFragment.setParam("user_id");
                 deleteFragment.setWhere(data.getUser_id());
                 deleteFragment.setCancelable(false);
                 deleteFragment.show(mFm, deleteFragment.getTag());

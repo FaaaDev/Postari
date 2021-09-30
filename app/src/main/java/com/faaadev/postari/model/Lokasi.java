@@ -11,6 +11,8 @@ public class Lokasi implements Serializable {
     private String namaPosyandu;
     @SerializedName("alamat")
     private String alamat;
+    @SerializedName("url")
+    private String url;
 
     public Lokasi() {
     }
@@ -19,6 +21,7 @@ public class Lokasi implements Serializable {
         this.id = id;
         this.namaPosyandu = namaPosyandu;
         this.alamat = alamat;
+        //this.url = url;
     }
 
     public String getId() {
@@ -43,5 +46,13 @@ public class Lokasi implements Serializable {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

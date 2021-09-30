@@ -69,6 +69,7 @@ public class AnakOrtuAdapter extends RecyclerView.Adapter<AnakOrtuAdapter.ViewHo
 
         holder.delete.setOnClickListener(v -> {
             DeleteFragment deleteFragment = new DeleteFragment();
+            deleteFragment.setFrom("add_anak");
             deleteFragment.setTable("anak");
             deleteFragment.setParam("id");
             deleteFragment.setWhere(data.getId());

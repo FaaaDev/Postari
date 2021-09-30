@@ -35,7 +35,7 @@ import retrofit2.Response;
 public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
 
     private TextView title;
-    private EditText name, alamat;
+    private EditText name, alamat, url;
     private Button add_button;
     private ApiInterface apiInterface;
     DismisListener listener;
@@ -63,6 +63,7 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
         alamat = root.findViewById(R.id.alamat);
         add_button = root.findViewById(R.id.btn_add);
         title = root.findViewById(R.id.title);
+        url = root.findViewById(R.id.url);
 
         _implement();
     }
@@ -78,6 +79,7 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
                 lokasi = (Lokasi) getArguments().getSerializable("data");
                 name.setText(lokasi.getNamaPosyandu());
                 alamat.setText(lokasi.getAlamat());
+                url.setText(lokasi.getUrl());
 
                 add_button.setOnClickListener(v -> {
                     validation(true);
@@ -87,13 +89,18 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
     }
 
     private void validation(boolean update){
-        if (TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(name.getText())){
+        if (TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(name.getText()) ||
+                TextUtils.isEmpty(url.getText())){
             if (TextUtils.isEmpty(name.getText())){
                 name.setError("Bagian ini tidak boleh kosong");
             }
 
             if (TextUtils.isEmpty(alamat.getText())){
                 alamat.setError("Bagian ini tidak boleh kosong");
+            }
+
+            if (TextUtils.isEmpty(url.getText())){
+                url.setError("Bagian ini tidak boleh kosong");
             }
         } else {
             if (update) {
@@ -108,7 +115,7 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoading();
 
-        Call<BasicResponse> addLoc = apiInterface.addLoc(name.getText().toString(), alamat.getText().toString());
+        Call<BasicResponse> addLoc = apiInterface.addLoc(name.getText().toString(), alamat.getText().toString(), url.getText().toString());
         addLoc.enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
@@ -133,7 +140,7 @@ public class AddLocationPosyanduFragment extends BottomSheetDialogFragment {
         LoadingDialog loadingDialog = new LoadingDialog(getActivity());
         loadingDialog.startLoading();
 
-        Call<BasicResponse> addLoc = apiInterface.editLoc(name.getText().toString(), alamat.getText().toString(), lokasi.getId());
+        Call<BasicResponse> addLoc = apiInterface.editLoc(name.getText().toString(), alamat.getText().toString(), url.getText().toString(), lokasi.getId());
         addLoc.enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {
