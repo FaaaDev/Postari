@@ -1,5 +1,6 @@
 package com.faaadev.postari.model;
 
+import com.faaadev.postari.ui.home.HomeFragment;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -15,6 +16,8 @@ public class Jadwal implements Serializable {
     private String namaPosyandu;
     @SerializedName("kegiatan")
     private String kegiatan;
+    @SerializedName("url")
+    private String url;
 
     public Jadwal() {
 
@@ -66,5 +69,13 @@ public class Jadwal implements Serializable {
 
     public void setKegiatan(String kegiatan) {
         this.kegiatan = kegiatan;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

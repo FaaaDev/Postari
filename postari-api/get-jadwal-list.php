@@ -4,7 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 
     require_once('connection.php');
 
-    $sql = "SELECT a.id, a.id_lokasi, b.nama_posyandu, a.kegiatan, a.tanggal FROM jadwal a INNER JOIN lokasi_posyandu b ON a.id_lokasi = b.id";
+    $sql = "SELECT a.id, a.id_lokasi, b.url, b.nama_posyandu, a.kegiatan, a.tanggal FROM jadwal a INNER JOIN lokasi_posyandu b ON a.id_lokasi = b.id";
 
     $query = mysqli_query($conn,$sql);
 

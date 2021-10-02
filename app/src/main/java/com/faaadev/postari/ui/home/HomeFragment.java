@@ -1,7 +1,9 @@
 package com.faaadev.postari.ui.home;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -61,6 +64,8 @@ public class HomeFragment extends Fragment {
     private com.faaadev.postari.model.Ortu ortu = new com.faaadev.postari.model.Ortu();
     private LinearLayout menu0, menu1, menu2;
     private ImageView img_profile;
+    private CardView navigation;
+    private String url;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
@@ -79,6 +84,7 @@ public class HomeFragment extends Fragment {
         menu0 = root.findViewById(R.id.menu0);
         img_profile = root.findViewById(R.id.img_profile);
         jadwal = root.findViewById(R.id.jadwal);
+        navigation = root.findViewById(R.id.navigation);
 
         _implement();
     }
@@ -120,6 +126,8 @@ public class HomeFragment extends Fragment {
             ProfileFragment profileFragment = new ProfileFragment();
             profileFragment.show(getChildFragmentManager(), profileFragment.getTag());
         });
+
+        navigation.setVisibility(View.GONE);
     }
 
     private void getLayananList() {
@@ -184,6 +192,16 @@ public class HomeFragment extends Fragment {
                         if (response.body().getJadwal().get(i).getId().equals(ortu.getIdPosyandu())
                                 && response.body().getJadwal().get(i).getTanggal().equals(date)){
                             jadwal.setText(response.body().getJadwal().get(i).getKegiatan()+ "\ndi "+response.body().getJadwal().get(i).getNamaPosyandu());
+                            url = response.body().getJadwal().get(i).getUrl();
+                            navigation.setVisibility(View.VISIBLE);
+                            navigation.setOnClickListener(v -> {
+                                if (!TextUtils.isEmpty(url)) {
+                                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                                            Uri.parse(url));
+                                    startActivity(intent);
+                                }
+                            });
+
                         }
                         else {
                             jadwal.setText("Tidak ada jadwal hari ini");
