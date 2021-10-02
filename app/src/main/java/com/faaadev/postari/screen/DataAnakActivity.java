@@ -14,6 +14,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,8 @@ public class DataAnakActivity extends AppCompatActivity {
     private RecyclerView rv_anak;
     private EditText search;
     private CardView search_button;
+    private LinearLayout is_empty;
+    private ScrollView has_data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +75,8 @@ public class DataAnakActivity extends AppCompatActivity {
         rv_anak = findViewById(R.id.rv_anak);
         search = findViewById(R.id.search);
         search_button = findViewById(R.id.search_button);
+        is_empty = findViewById(R.id.is_empty);
+        has_data = findViewById(R.id.has_data);
 
         _implement();
     }
@@ -135,8 +141,6 @@ public class DataAnakActivity extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         });
-
-        getAnakList();
     }
 
     private void search(String param){
@@ -171,6 +175,13 @@ public class DataAnakActivity extends AppCompatActivity {
                 if (response.body().isSuccess()){
                     listAnak = response.body().getAnak();
 
+                    if (listAnak.size() == 0){
+                        is_empty.setVisibility(View.VISIBLE);
+                        has_data.setVisibility(View.GONE);
+                    } else {
+                        is_empty.setVisibility(View.GONE);
+                        has_data.setVisibility(View.VISIBLE);
+                    }
                     anakAdapter = new AnakAdapter(getApplicationContext(), listAnak, getSupportFragmentManager(), type);
                     rv_anak.setAdapter(anakAdapter);
                 }
@@ -196,7 +207,13 @@ public class DataAnakActivity extends AppCompatActivity {
                 loadingDialog.dismis();
                 if (response.body().isSuccess()){
                     listAnak = response.body().getAnak();
-
+                    if (listAnak.size() == 0){
+                        is_empty.setVisibility(View.VISIBLE);
+                        has_data.setVisibility(View.GONE);
+                    } else {
+                        is_empty.setVisibility(View.GONE);
+                        has_data.setVisibility(View.VISIBLE);
+                    }
                     anakAdapter = new AnakAdapter(getApplicationContext(), listAnak, getSupportFragmentManager(), type);
                     rv_anak.setAdapter(anakAdapter);
                 }
