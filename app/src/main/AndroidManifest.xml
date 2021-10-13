@@ -14,11 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Postari">
         <activity
-            android:name=".ChatRoomActivity"
+            android:name=".screen.ChatRoomActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
-            android:name=".ChatActivity"
+            android:name=".screen.ChatActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity

@@ -15,11 +15,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.faaadev.postari.DeleteFragment;
+import com.faaadev.postari.screen.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Lokasi;
-import com.faaadev.postari.screen.AddJadwalPosyanduFragment;
 import com.faaadev.postari.screen.AddLocationPosyanduFragment;
 
 import java.util.List;

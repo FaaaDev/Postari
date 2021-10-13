@@ -14,7 +14,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.faaadev.postari.DeleteFragment;
+import com.faaadev.postari.screen.DeleteFragment;
 import com.faaadev.postari.screen.DetailAnakActivity;
 import com.faaadev.postari.screen.DetailOrtuActivity;
 import com.faaadev.postari.R;

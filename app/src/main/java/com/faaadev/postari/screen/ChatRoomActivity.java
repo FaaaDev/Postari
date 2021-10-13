@@ -1,4 +1,4 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.ChatAdapter;
 import com.faaadev.postari.adapter.ChatDetailAdapter;
 import com.faaadev.postari.http.ApiClient;

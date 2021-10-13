@@ -13,20 +13,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.faaadev.postari.ChatActivity;
-import com.faaadev.postari.ProfileFragment;
+import com.faaadev.postari.screen.ChatActivity;
+import com.faaadev.postari.screen.InformationFragment;
+import com.faaadev.postari.screen.ProfileFragment;
 import com.faaadev.postari.R;
-import com.faaadev.postari.adapter.JadwalAdapter;
-import com.faaadev.postari.adapter.LayananAdapter;
 import com.faaadev.postari.adapter.LayananMainAdapter;
-import com.faaadev.postari.adapter.OrtuAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.http.Preferences;
@@ -35,7 +30,6 @@ import com.faaadev.postari.screen.DetailOrtuActivity;
 import com.faaadev.postari.service.JadwalList;
 import com.faaadev.postari.service.LayananList;
 import com.faaadev.postari.service.Ortu;
-import com.faaadev.postari.service.OrtuList;
 import com.faaadev.postari.widget.LoadingDialog;
 
 import java.text.SimpleDateFormat;
@@ -82,6 +76,7 @@ public class HomeFragment extends Fragment {
         rv_layanan = root.findViewById(R.id.rv_layanan);
         menu1 = root.findViewById(R.id.menu1);
         menu0 = root.findViewById(R.id.menu0);
+        menu2 = root.findViewById(R.id.menu2);
         img_profile = root.findViewById(R.id.img_profile);
         jadwal = root.findViewById(R.id.jadwal);
         navigation = root.findViewById(R.id.navigation);
@@ -120,6 +115,11 @@ public class HomeFragment extends Fragment {
 
         menu0.setOnClickListener(v-> {
             startActivity(new Intent(getActivity(), ChatActivity.class));
+        });
+
+        menu2.setOnClickListener(v -> {
+            InformationFragment informationFragment = new InformationFragment();
+            informationFragment.show(getChildFragmentManager(), informationFragment.getTag());
         });
 
         img_profile.setOnClickListener(v -> {

@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.faaadev.postari.ChatRoomActivity;
+import com.faaadev.postari.screen.ChatRoomActivity;
 import com.faaadev.postari.R;
 import com.faaadev.postari.model.User;
 

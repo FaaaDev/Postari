@@ -12,12 +12,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.faaadev.postari.DeleteFragment;
+import com.faaadev.postari.screen.DeleteFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Pemeriksaan;
-import com.faaadev.postari.model.Penimbangan;
-import com.faaadev.postari.screen.AddAnakFragment;
 import com.faaadev.postari.screen.AddPemeriksaanFragment;
 
 import java.util.List;

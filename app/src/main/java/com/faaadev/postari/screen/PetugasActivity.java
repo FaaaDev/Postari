@@ -11,8 +11,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.faaadev.postari.ChatActivity;
-import com.faaadev.postari.ProfileFragment;
 import com.faaadev.postari.R;
 import com.faaadev.postari.http.Preferences;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

@@ -1,4 +1,4 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import android.os.Bundle;
 
@@ -14,6 +14,7 @@ import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.ItemClickListener;
 import com.faaadev.postari.adapter.PetugasAdapter;
 import com.faaadev.postari.adapter.UserAdapter;

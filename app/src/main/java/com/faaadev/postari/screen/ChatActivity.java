@@ -1,4 +1,4 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -16,16 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.ChatAdapter;
-import com.faaadev.postari.adapter.ImunisasiAdapter;
 import com.faaadev.postari.http.ApiClient;
 import com.faaadev.postari.http.ApiInterface;
 import com.faaadev.postari.http.Preferences;
 import com.faaadev.postari.model.Chat;
 import com.faaadev.postari.service.ChatList;
-import com.faaadev.postari.service.ImunisasiList;
 import com.faaadev.postari.util.MyFirebaseMessagingService;
-import com.faaadev.postari.widget.LoadingDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

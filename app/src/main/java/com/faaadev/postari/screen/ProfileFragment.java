@@ -1,4 +1,4 @@
-package com.faaadev.postari;
+package com.faaadev.postari.screen;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.faaadev.postari.R;
 import com.faaadev.postari.adapter.ItemClickListener;
 import com.faaadev.postari.adapter.PetugasAdapter;
 import com.faaadev.postari.http.ApiClient;
